@@ -17,10 +17,16 @@ class MainActivity : AppCompatActivity() {
             id.navigation_home -> {
                 return@OnNavigationItemSelectedListener true
             }
-            id.navigation_dashboard -> {
+            id.navigation_scoreboard -> {
                 return@OnNavigationItemSelectedListener true
             }
-            id.navigation_notifications -> {
+            id.navigation_settings -> {
+                return@OnNavigationItemSelectedListener true
+            }
+            id.navigation_standing -> {
+                return@OnNavigationItemSelectedListener true
+            }
+            id.navigation_team -> {
                 return@OnNavigationItemSelectedListener true
             }
         }

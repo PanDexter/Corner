@@ -3,4 +3,9 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="Team">Team</string>
+    <string name="Scoreboard">Scoreboard</string>
+    <string name="Settings">Settings</string>
+    <string name="Standing">Standing</string>
+    <string name="News">News</string>
 </resources>
