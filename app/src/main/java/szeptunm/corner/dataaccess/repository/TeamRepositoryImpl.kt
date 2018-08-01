@@ -1,13 +1,14 @@
-package szeptunm.corner.database.repository
+package szeptunm.corner.dataaccess.repository
 
 import io.reactivex.Single
-import szeptunm.corner.database.dao.TeamDao
-import szeptunm.corner.database.entity.Team
+import szeptunm.corner.dataaccess.database.dao.TeamDao
+import szeptunm.corner.dataaccess.database.entity.Team
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class TeamRepositoryImpl @Inject constructor(var teamDao: TeamDao):TeamRepository{
+class TeamRepositoryImpl @Inject constructor(var teamDao: TeamDao):
+        TeamRepository {
 
     override fun insertTeam(team: Team) = teamDao.insertTeam(team)
 

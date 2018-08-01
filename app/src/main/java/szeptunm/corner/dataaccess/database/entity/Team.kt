@@ -1,4 +1,4 @@
-package szeptunm.corner.database.entity
+package szeptunm.corner.dataaccess.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

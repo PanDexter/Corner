@@ -1,11 +1,11 @@
-package szeptunm.corner.database.dao
+package szeptunm.corner.dataaccess.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import io.reactivex.Single
-import szeptunm.corner.database.entity.Footballer
+import szeptunm.corner.dataaccess.database.entity.Footballer
 
 @Dao
 interface FootballerDao{

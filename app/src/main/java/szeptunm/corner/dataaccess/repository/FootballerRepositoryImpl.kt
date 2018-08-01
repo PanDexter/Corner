@@ -1,13 +1,14 @@
-package szeptunm.corner.database.repository
+package szeptunm.corner.dataaccess.repository
 
 import io.reactivex.Single
-import szeptunm.corner.database.dao.FootballerDao
-import szeptunm.corner.database.entity.Footballer
+import szeptunm.corner.dataaccess.database.dao.FootballerDao
+import szeptunm.corner.dataaccess.database.entity.Footballer
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class FootballerRepositoryImpl @Inject constructor(var footballerDao: FootballerDao) : FootballerRepository {
+class FootballerRepositoryImpl @Inject constructor(var footballerDao: FootballerDao) :
+        FootballerRepository {
 
     override fun insertAll(footballerList: List<Footballer>) = footballerDao.insertAll(footballerList)
 

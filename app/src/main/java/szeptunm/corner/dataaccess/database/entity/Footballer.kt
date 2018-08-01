@@ -1,4 +1,4 @@
-package szeptunm.corner.database.entity
+package szeptunm.corner.dataaccess.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "footbaler",
         foreignKeys = [
             (ForeignKey(entity = Team::class,
-                    parentColumns = ["name"],
+                    parentColumns = ["id"],
                     childColumns = ["club"]))
         ])
 class Footballer {
@@ -27,5 +27,5 @@ class Footballer {
     @ColumnInfo(name = "role")
     var role: String = ""
     @ColumnInfo(name = "club")
-    var club:String = ""
+    var club:Int = 0
 }

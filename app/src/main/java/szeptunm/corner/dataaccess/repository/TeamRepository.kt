@@ -1,7 +1,7 @@
-package szeptunm.corner.database.repository
+package szeptunm.corner.dataaccess.repository
 
 import io.reactivex.Single
-import szeptunm.corner.database.entity.Team
+import szeptunm.corner.dataaccess.database.entity.Team
 
 interface TeamRepository {
 
