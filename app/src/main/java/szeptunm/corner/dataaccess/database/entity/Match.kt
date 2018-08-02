@@ -3,6 +3,7 @@ package szeptunm.corner.dataaccess.database.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "match",
         foreignKeys = [
@@ -22,6 +23,7 @@ import androidx.room.ForeignKey
 class Match {
 
     @ColumnInfo(name = "id")
+    @PrimaryKey
     var id: Int = 0
     @ColumnInfo(name = "homeTeamGoalFull")
     var homeTeamGoalFull: Int? = null

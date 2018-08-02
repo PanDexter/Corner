@@ -1,21 +1,29 @@
 package szeptunm.corner.di
 
-import androidx.room.Database
 import androidx.room.Room
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import szeptunm.corner.App
 import szeptunm.corner.dataaccess.database.CornerDatabase
+import szeptunm.corner.dataaccess.database.dao.CompetitionDao
 import szeptunm.corner.dataaccess.database.dao.FootballerDao
+import szeptunm.corner.dataaccess.database.dao.MatchDao
 import szeptunm.corner.dataaccess.database.dao.StandingDao
+import szeptunm.corner.dataaccess.database.dao.StandingValueDao
 import szeptunm.corner.dataaccess.database.dao.TeamDao
-import szeptunm.corner.dataaccess.repository.FootballerRepository
-import szeptunm.corner.dataaccess.repository.FootballerRepositoryImpl
-import szeptunm.corner.dataaccess.repository.StandingRepository
-import szeptunm.corner.dataaccess.repository.StandingRepositoryImpl
-import szeptunm.corner.dataaccess.repository.TeamRepository
-import szeptunm.corner.dataaccess.repository.TeamRepositoryImpl
+import szeptunm.corner.dataaccess.repository.implementations.CompetitionRepositoryImpl
+import szeptunm.corner.dataaccess.repository.interfaces.FootballerRepository
+import szeptunm.corner.dataaccess.repository.implementations.FootballerRepositoryImpl
+import szeptunm.corner.dataaccess.repository.implementations.MatchRepositoryImpl
+import szeptunm.corner.dataaccess.repository.interfaces.StandingRepository
+import szeptunm.corner.dataaccess.repository.implementations.StandingRepositoryImpl
+import szeptunm.corner.dataaccess.repository.implementations.StandingValueRepositoryImpl
+import szeptunm.corner.dataaccess.repository.interfaces.TeamRepository
+import szeptunm.corner.dataaccess.repository.implementations.TeamRepositoryImpl
+import szeptunm.corner.dataaccess.repository.interfaces.CompetitionRepository
+import szeptunm.corner.dataaccess.repository.interfaces.MatchRepository
+import szeptunm.corner.dataaccess.repository.interfaces.StandingValueRepository
 import javax.inject.Singleton
 
 @Module
@@ -28,7 +36,16 @@ abstract class AppModule {
     abstract fun providesTeamRepository(teamRepositoryImpl: TeamRepositoryImpl): TeamRepository
 
     @Binds
-    abstract fun providesStandingsRepository(standingRepositoryImpl: StandingRepositoryImpl):StandingRepository
+    abstract fun providesStandingRepository(standingRepositoryImpl: StandingRepositoryImpl): StandingRepository
+
+    @Binds
+    abstract fun providesStandingValueRepository(standingValueRepositoryImpl: StandingValueRepositoryImpl):StandingValueRepository
+
+    @Binds
+    abstract fun providesMatchRepository(matchRepositoryImpl: MatchRepositoryImpl):MatchRepository
+
+    @Binds
+    abstract fun providesCompetitionRepository(competitionRepositoryImpl: CompetitionRepositoryImpl):CompetitionRepository
 
     @Module
     companion object {
@@ -47,6 +64,21 @@ abstract class AppModule {
         @JvmStatic
         @Singleton
         fun providesStandingDao(database: CornerDatabase): StandingDao = database.standingDao()
+
+        @Provides
+        @JvmStatic
+        @Singleton
+        fun providesCompetitionDao(database: CornerDatabase): CompetitionDao = database.competitionDao()
+
+        @Provides
+        @JvmStatic
+        @Singleton
+        fun providesMatchDao(database: CornerDatabase):MatchDao = database.matchDao()
+
+        @Provides
+        @JvmStatic
+        @Singleton
+        fun providesStandingValueDao(database: CornerDatabase):StandingValueDao = database.standingValueDao()
 
         @Provides
         @JvmStatic

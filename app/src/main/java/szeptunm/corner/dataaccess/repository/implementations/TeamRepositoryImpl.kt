@@ -1,8 +1,9 @@
-package szeptunm.corner.dataaccess.repository
+package szeptunm.corner.dataaccess.repository.implementations
 
 import io.reactivex.Single
 import szeptunm.corner.dataaccess.database.dao.TeamDao
 import szeptunm.corner.dataaccess.database.entity.Team
+import szeptunm.corner.dataaccess.repository.interfaces.TeamRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 

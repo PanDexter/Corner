@@ -21,6 +21,9 @@ interface StandingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertStanding(standing: Standing)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAllStandings(standingList:List<Standing>)
+
     @Query("SELECT * FROM standing")
     fun getAllStandings(): Single<List<Standing>>
 
@@ -29,4 +32,7 @@ interface StandingDao {
 
     @Query("SELECT * FROM standing WHERE currentMatchDay LIKE :matchDay")
     fun getStandingByMatchDay(matchDay: Int): Single<Standing>
+
+    @Query("SELECT * FROM standing WHERE currentMatchDay LIKE :matchDay AND id LIKE :id")
+    fun getStandingByMatchDayAndId(matchDay: Int, id: Int):Single<Standing>
 }

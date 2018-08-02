@@ -20,7 +20,7 @@ import androidx.room.PrimaryKey
                     childColumns = ["competitionId"],
                     onDelete = ForeignKey.CASCADE))
         ])
-class StandingValues {
+class StandingValue {
 
     @ColumnInfo(name = "id")
     @PrimaryKey

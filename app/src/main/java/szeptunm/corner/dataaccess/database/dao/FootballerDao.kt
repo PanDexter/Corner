@@ -19,14 +19,17 @@ interface FootballerDao {
     fun delete(vararg footballer: Footballer)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(footballerList: List<Footballer>)
+    fun insertFootballer(footballer: Footballer)
 
-    @Query("SELECT * FROM footbaler")
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAllFootballers(footballerList: List<Footballer>)
+
+    @Query("SELECT * FROM footballer")
     fun getAllFootballers(): Single<List<Footballer>>
 
-    @Query("SELECT * FROM footbaler WHERE position LIKE :position")
+    @Query("SELECT * FROM footballer WHERE position LIKE :position")
     fun getFootballerByPosition(position: String): Single<List<Footballer>>
 
-    @Query("SELECT * FROM footbaler WHERE club LIKE :club")
+    @Query("SELECT * FROM footballer WHERE teamId LIKE :club")
     fun getFootballerByClub(club: String): Single<List<Footballer>>
 }
