@@ -19,6 +19,9 @@ interface TeamDao {
     @Query("SELECT * FROM team")
     fun getAllTeams(): Single<List<Team>>
 
-    @Query("SELECT * FROM team WHERE name LIKE :name")
-    fun getTeamByName(name: String): Single<Team>
+    @Query("SELECT * FROM team WHERE id LIKE :id")
+    fun getTeamById(id: Int): Single<Team>
+
+    @Query("SELECT * FROM team WHERE name LIKE:club")
+    fun getTeamByName(club:String):Single<Team>
 }

@@ -12,6 +12,8 @@ import szeptunm.corner.dataaccess.database.dao.StandingDao
 import szeptunm.corner.dataaccess.database.dao.TeamDao
 import szeptunm.corner.dataaccess.repository.FootballerRepository
 import szeptunm.corner.dataaccess.repository.FootballerRepositoryImpl
+import szeptunm.corner.dataaccess.repository.StandingRepository
+import szeptunm.corner.dataaccess.repository.StandingRepositoryImpl
 import szeptunm.corner.dataaccess.repository.TeamRepository
 import szeptunm.corner.dataaccess.repository.TeamRepositoryImpl
 import javax.inject.Singleton
@@ -24,6 +26,9 @@ abstract class AppModule {
 
     @Binds
     abstract fun providesTeamRepository(teamRepositoryImpl: TeamRepositoryImpl): TeamRepository
+
+    @Binds
+    abstract fun providesStandingsRepository(standingRepositoryImpl: StandingRepositoryImpl):StandingRepository
 
     @Module
     companion object {

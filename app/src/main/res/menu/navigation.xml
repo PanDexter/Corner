@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ball"
+        android:icon="@drawable/newspaper"
         android:title="@string/News" />
 
     <item
@@ -18,7 +18,7 @@
 
     <item
         android:id="@+id/navigation_standing"
-        android:icon="@drawable/pitch"
+        android:icon="@drawable/score"
         android:title="@string/Standing"/>
 
     <item

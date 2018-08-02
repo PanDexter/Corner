@@ -3,13 +3,15 @@ package szeptunm.corner.dataaccess.database.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "footbaler",
         foreignKeys = [
             (ForeignKey(entity = Team::class,
                     parentColumns = ["id"],
-                    childColumns = ["club"]))
+                    childColumns = ["teamId"],
+                    onDelete = CASCADE))
         ])
 class Footballer {
 
@@ -27,5 +29,5 @@ class Footballer {
     @ColumnInfo(name = "role")
     var role: String = ""
     @ColumnInfo(name = "club")
-    var club:Int = 0
+    var teamId: Int = 0
 }
