@@ -7,29 +7,29 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import io.reactivex.Single
-import szeptunm.corner.dataaccess.database.entity.Match
+import szeptunm.corner.dataaccess.database.entity.MatchEntity
 
 @Dao
 interface MatchDao {
 
     @Delete
-    fun delete(vararg match: Match)
+    fun delete(vararg matchEntities: MatchEntity)
 
     @Update
-    fun update(vararg match: Match)
+    fun update(vararg matchEntities: MatchEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMatch(match: Match)
+    fun insertMatch(matchEntity: MatchEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllMatches(matchList: List<Match>)
+    fun insertAllMatches(matchEntityList: List<MatchEntity>)
 
     @Query("SELECT * FROM `match`")
-    fun getAllMatches(): Single<List<Match>>
+    fun getAllMatches(): Single<List<MatchEntity>>
 
     @Query("SELECT * FROM `match` WHERE id LIKE :id")
-    fun getMatchById(id: Int): Single<Match>
+    fun getMatchById(id: Int): Single<MatchEntity>
 
     @Query("SELECT * FROM `match` WHERE homeTeamId OR awayTeamId LIKE:teamId")
-    fun getMatchByTeamId(teamId: Int): Single<List<Match>>
+    fun getMatchByTeamId(teamId: Int): Single<List<MatchEntity>>
 }

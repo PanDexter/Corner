@@ -7,32 +7,32 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import io.reactivex.Single
-import szeptunm.corner.dataaccess.database.entity.Standing
+import szeptunm.corner.dataaccess.database.entity.StandingEntity
 
 @Dao
 interface StandingDao {
 
     @Delete
-    fun delete(vararg standing: Standing)
+    fun delete(vararg standingEntity: StandingEntity)
 
     @Update
-    fun update(vararg standing: Standing)
+    fun update(vararg standingEntity: StandingEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertStanding(standing: Standing)
+    fun insertStanding(standingEntity: StandingEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllStandings(standingList:List<Standing>)
+    fun insertAllStandings(standingEntityList:List<StandingEntity>)
 
     @Query("SELECT * FROM standing")
-    fun getAllStandings(): Single<List<Standing>>
+    fun getAllStandings(): Single<List<StandingEntity>>
 
     @Query("SELECT * FROM standing WHERE id LIKE :id")
-    fun getStandingById(id: Int): Single<Standing>
+    fun getStandingById(id: Int): Single<StandingEntity>
 
     @Query("SELECT * FROM standing WHERE currentMatchDay LIKE :matchDay")
-    fun getStandingByMatchDay(matchDay: Int): Single<Standing>
+    fun getStandingByMatchDay(matchDay: Int): Single<StandingEntity>
 
     @Query("SELECT * FROM standing WHERE currentMatchDay LIKE :matchDay AND id LIKE :id")
-    fun getStandingByMatchDayAndId(matchDay: Int, id: Int):Single<Standing>
+    fun getStandingByMatchDayAndId(matchDay: Int, id: Int):Single<StandingEntity>
 }

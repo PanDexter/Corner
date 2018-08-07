@@ -18,7 +18,24 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField 'String', 'NEWS_API_HTTP_URL', '"https://api.rss2json.com/v1"'
+            buildConfigField 'String', 'TEAM_API_HTTP_URL', '"https://www.thesportsdb.com/api/v1/json/1"'
+            buildConfigField 'String', 'STATISTIC_API_HTTP_URL', '"https://api-football-v1.p.mashape.com"'
+            buildConfigField 'String', 'NEWS_KEY','"ce3kivoilvuyhvgkbguh6f2kvmp54f0tctumwwrz"'
+            buildConfigField 'String', "TEAM_KEY", '""'
+            buildConfigField 'String', 'STATISTIC_KEY', '""'
         }
+        debug {
+
+            buildConfigField 'String', 'NEWS_API_HTTP_URL', '"https://api.rss2json.com/v1"'
+            buildConfigField 'String', 'TEAM_API_HTTP_URL', '"https://www.thesportsdb.com/api/v1/json/1"'
+            buildConfigField 'String', 'STATISTIC_API_HTTP_URL', '"https://api-football-v1.p.mashape.com"'
+            buildConfigField 'String', 'NEWS_KEY','"ce3kivoilvuyhvgkbguh6f2kvmp54f0tctumwwrz"'
+            buildConfigField 'String', "TEAM_KEY", '""'
+            buildConfigField 'String', 'STATISTIC_KEY', '""'
+        }
+
     }
 
     dataBinding {
@@ -58,6 +75,8 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.16'
     kapt 'com.google.dagger:dagger-android-processor:2.16'
     implementation 'com.google.dagger:dagger-android-support:2.16'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+
 
     //Joda lib to convert localDateTime
     implementation "joda-time:joda-time:2.9.9"
@@ -76,8 +95,21 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
 
     // RETROFIT
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
+    //PARCELER
+
+    implementation 'org.parceler:parceler-api:1.1.11'
+    kapt 'org.parceler:parceler:1.1.11'
+
+    //CIRCLE IMAGE
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+    //BOTTOM NAVIGATION BAR
+    implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
+
+
 
 }
 repositories {

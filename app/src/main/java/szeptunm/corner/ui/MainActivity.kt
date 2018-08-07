@@ -14,7 +14,8 @@ class MainActivity : AppCompatActivity() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            id.navigation_home -> {
+            id.navigation_news -> {
+
                 return@OnNavigationItemSelectedListener true
             }
             id.navigation_scoreboard -> {

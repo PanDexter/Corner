@@ -7,29 +7,24 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import io.reactivex.Single
-import szeptunm.corner.dataaccess.database.entity.Team
+import szeptunm.corner.dataaccess.database.entity.TeamEntity
 
 @Dao
 interface TeamDao {
 
-    @Delete
-    fun delete(vararg team: Team)
-
-    @Update
-    fun update(vararg team: Team)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTeam(team: Team)
+    fun insertTeam(team: TeamEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllTeams(teamList: List<Team>)
+    fun insertAllTeams(teamList: List<TeamEntity>)
 
     @Query("SELECT * FROM team")
-    fun getAllTeams(): Single<List<Team>>
+    fun getAllTeams(): Single<List<TeamEntity>>
 
     @Query("SELECT * FROM team WHERE id LIKE :id")
-    fun getTeamById(id: Int): Single<Team>
+    fun getTeamById(id: Int): Single<List<TeamEntity>>
 
     @Query("SELECT * FROM team WHERE name LIKE:club")
-    fun getTeamByName(club: String): Single<Team>
+    fun getTeamByName(club: String): Single<TeamEntity>
 }

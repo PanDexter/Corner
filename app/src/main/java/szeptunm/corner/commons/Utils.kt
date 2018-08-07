@@ -1,7 +1,18 @@
 package szeptunm.corner.commons
 
-object Utils {
+import android.content.Context
+import android.net.ConnectivityManager
+import javax.inject.Inject
 
-        const val API_KEY = "daa382bf695f4470b196fa4dff10fdfa"
-        const val API_URL = "http://api.football-data.org/v2"
+class Utils @Inject constructor(private val context: Context) {
+
+    fun isConnectedToInternet(): Boolean {
+        val connectivity = context.getSystemService(
+                Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val info = connectivity.activeNetworkInfo
+        if (info.isConnected) {
+            return true
+        }
+        return false
+    }
 }

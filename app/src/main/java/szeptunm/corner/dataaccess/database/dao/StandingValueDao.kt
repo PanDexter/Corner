@@ -7,29 +7,29 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import io.reactivex.Single
-import szeptunm.corner.dataaccess.database.entity.StandingValue
+import szeptunm.corner.dataaccess.database.entity.StandingValueEntity
 
 @Dao
 interface StandingValueDao {
 
     @Delete
-    fun delete(vararg standingValues: StandingValue)
+    fun delete(vararg standingValueEntities: StandingValueEntity)
 
     @Update
-    fun update(vararg standingValues: StandingValue)
+    fun update(vararg standingValueEntities: StandingValueEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertStandingValue(standingValue: StandingValue)
+    fun insertStandingValue(standingValueEntity: StandingValueEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllStandingValues(standingValueList:List<StandingValue>)
+    fun insertAllStandingValues(standingValueEntityList:List<StandingValueEntity>)
 
     @Query("SELECT * FROM standingValues")
-    fun getAllStandingValues(): Single<List<StandingValue>>
+    fun getAllStandingValues(): Single<List<StandingValueEntity>>
 
     @Query("SELECT * FROM standingValues WHERE id LIKE :id")
-    fun getStandingValueById(id: Int): Single<StandingValue>
+    fun getStandingValueById(id: Int): Single<StandingValueEntity>
 
     @Query("SELECT * FROM standingValues WHERE competitionId LIKE :competitionId")
-    fun getStandingValueByCompetitionId(competitionId:Int):Single<List<StandingValue>>
+    fun getStandingValueByCompetitionId(competitionId:Int):Single<List<StandingValueEntity>>
 }

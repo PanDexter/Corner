@@ -7,7 +7,7 @@ import szeptunm.corner.App
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AndroidSupportInjectionModule::class, AppModule::class, ActivityModule::class])
+@Component(modules = [AndroidSupportInjectionModule::class, AppModule::class, ActivityModule::class, ServiceModule::class])
 interface AppComponent : AndroidInjector<App> {
 
     override fun inject(app: App)

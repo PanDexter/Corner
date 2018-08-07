@@ -2,25 +2,21 @@ package szeptunm.corner.dataaccess.repository.implementations
 
 import io.reactivex.Single
 import szeptunm.corner.dataaccess.database.dao.StandingValueDao
-import szeptunm.corner.dataaccess.database.entity.StandingValue
-import szeptunm.corner.dataaccess.repository.interfaces.StandingValueRepository
+import szeptunm.corner.dataaccess.database.entity.StandingValueEntity
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class StandingValueRepositoryImpl @Inject constructor(var standingValueDao: StandingValueDao) :
-        StandingValueRepository {
+class StandingValueRepositoryImpl @Inject constructor(var standingValueDao: StandingValueDao){
 
-    override fun insertStandingValue(standingValue: StandingValue) =
-            standingValueDao.insertStandingValue(standingValue)
+     fun insertStandingValue(standingValueEntity: StandingValueEntity) =
+            standingValueDao.insertStandingValue(standingValueEntity)
 
-    override fun insertAllStandingValues(
-            standingValueList: List<StandingValue>) = standingValueDao.insertAllStandingValues(standingValueList)
+     fun insertAllStandingValues(
+            standingValueEntityList: List<StandingValueEntity>) = standingValueDao.insertAllStandingValues(standingValueEntityList)
 
-    override fun getAllStandingValue(): Single<List<StandingValue>> = standingValueDao.getAllStandingValues()
+     fun getAllStandingValue(): Single<List<StandingValueEntity>> = standingValueDao.getAllStandingValues()
 
-    override fun getStandingValueById(id: Int): Single<StandingValue> = standingValueDao.getStandingValueById(id)
+     fun getStandingValueById(id: Int): Single<StandingValueEntity> = standingValueDao.getStandingValueById(id)
 
-    override fun getStandingValueByCompetitionId(competitionId: Int): Single<List<StandingValue>> =
+     fun getStandingValueByCompetitionId(competitionId: Int): Single<List<StandingValueEntity>> =
             standingValueDao.getStandingValueByCompetitionId(competitionId)
 }

@@ -2,21 +2,18 @@ package szeptunm.corner.dataaccess.repository.implementations
 
 import io.reactivex.Single
 import szeptunm.corner.dataaccess.database.dao.MatchDao
-import szeptunm.corner.dataaccess.database.entity.Match
-import szeptunm.corner.dataaccess.repository.interfaces.MatchRepository
+import szeptunm.corner.dataaccess.database.entity.MatchEntity
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class MatchRepositoryImpl @Inject constructor(var matchDao: MatchDao) : MatchRepository {
+class MatchRepositoryImpl @Inject constructor(var matchDao: MatchDao) {
 
-    override fun insertMatch(match: Match) = matchDao.insertMatch(match)
+     fun insertMatch(matchEntity: MatchEntity) = matchDao.insertMatch(matchEntity)
 
-    override fun insertAllMatches(matchList: List<Match>) = matchDao.insertAllMatches(matchList)
+     fun insertAllMatches(matchEntityList: List<MatchEntity>) = matchDao.insertAllMatches(matchEntityList)
 
-    override fun getAllMatches(): Single<List<Match>> = matchDao.getAllMatches()
+     fun getAllMatches(): Single<List<MatchEntity>> = matchDao.getAllMatches()
 
-    override fun getMatchById(id: Int): Single<Match> = matchDao.getMatchById(id)
+     fun getMatchById(id: Int): Single<MatchEntity> = matchDao.getMatchById(id)
 
-    override fun getMatchByTeamId(teamId: Int): Single<List<Match>> = matchDao.getMatchByTeamId(teamId)
+     fun getMatchByTeamId(teamId: Int): Single<List<MatchEntity>> = matchDao.getMatchByTeamId(teamId)
 }

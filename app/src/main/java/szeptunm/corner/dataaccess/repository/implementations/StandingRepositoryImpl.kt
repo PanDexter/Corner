@@ -2,25 +2,21 @@ package szeptunm.corner.dataaccess.repository.implementations
 
 import io.reactivex.Single
 import szeptunm.corner.dataaccess.database.dao.StandingDao
-import szeptunm.corner.dataaccess.database.entity.Standing
-import szeptunm.corner.dataaccess.repository.interfaces.StandingRepository
+import szeptunm.corner.dataaccess.database.entity.StandingEntity
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class StandingRepositoryImpl @Inject constructor(var standingDao: StandingDao) :
-        StandingRepository {
+class StandingRepositoryImpl @Inject constructor(var standingDao: StandingDao){
 
-    override fun insertStanding(standing: Standing) = standingDao.insertStanding(standing)
+     fun insertStanding(standingEntity: StandingEntity) = standingDao.insertStanding(standingEntity)
 
-    override fun insertAllStandings(standingList: List<Standing>) = standingDao.insertAllStandings(standingList)
+     fun insertAllStandings(standingEntityList: List<StandingEntity>) = standingDao.insertAllStandings(standingEntityList)
 
-    override fun getAllStandings(): Single<List<Standing>> = standingDao.getAllStandings()
+     fun getAllStandings(): Single<List<StandingEntity>> = standingDao.getAllStandings()
 
-    override fun getStandingById(id: Int): Single<Standing> = standingDao.getStandingById(id)
+     fun getStandingById(id: Int): Single<StandingEntity> = standingDao.getStandingById(id)
 
-    override fun getStandingByMatchDay(matchDay: Int): Single<Standing> = standingDao.getStandingByMatchDay(matchDay)
+     fun getStandingByMatchDay(matchDay: Int): Single<StandingEntity> = standingDao.getStandingByMatchDay(matchDay)
 
-    override fun getStandingByMatchDayAndId(matchDay: Int,
-            id: Int): Single<Standing> = standingDao.getStandingByMatchDayAndId(matchDay, id)
+     fun getStandingByMatchDayAndId(matchDay: Int,
+            id: Int): Single<StandingEntity> = standingDao.getStandingByMatchDayAndId(matchDay, id)
 }

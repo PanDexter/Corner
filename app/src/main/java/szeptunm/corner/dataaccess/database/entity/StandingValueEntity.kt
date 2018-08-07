@@ -7,20 +7,20 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "standingValues",
         foreignKeys = [
-            (ForeignKey(entity = Team::class,
+            (ForeignKey(entity = TeamEntity::class,
                     parentColumns = ["id"],
                     childColumns = ["teamId"],
                     onDelete = ForeignKey.CASCADE)),
-            (ForeignKey(entity = Standing::class,
+            (ForeignKey(entity = StandingEntity::class,
                     parentColumns = ["id"],
                     childColumns = ["standingId"],
                     onDelete = ForeignKey.CASCADE)),
-            (ForeignKey(entity = Competition::class,
+            (ForeignKey(entity = CompetitionEntity::class,
                     parentColumns = ["id"],
                     childColumns = ["competitionId"],
                     onDelete = ForeignKey.CASCADE))
         ])
-class StandingValue {
+class StandingValueEntity {
 
     @ColumnInfo(name = "id")
     @PrimaryKey

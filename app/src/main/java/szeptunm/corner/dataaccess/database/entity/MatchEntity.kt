@@ -7,20 +7,20 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "match",
         foreignKeys = [
-            (ForeignKey(entity = Team::class,
+            (ForeignKey(entity = TeamEntity::class,
                     parentColumns = ["id"],
                     childColumns = ["homeTeamId"],
                     onDelete = ForeignKey.CASCADE)),
-            (ForeignKey(entity = Team::class,
+            (ForeignKey(entity = TeamEntity::class,
                     parentColumns = ["id"],
                     childColumns = ["awayTeamId"],
                     onDelete = ForeignKey.CASCADE)),
-            (ForeignKey(entity = Competition::class,
+            (ForeignKey(entity = CompetitionEntity::class,
                     parentColumns = ["id"],
                     childColumns = ["competitionId"],
                     onDelete = ForeignKey.CASCADE))
         ])
-class Match {
+class MatchEntity {
 
     @ColumnInfo(name = "id")
     @PrimaryKey

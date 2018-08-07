@@ -8,12 +8,12 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "footballer",
         foreignKeys = [
-            (ForeignKey(entity = Team::class,
+            (ForeignKey(entity = TeamEntity::class,
                     parentColumns = ["id"],
                     childColumns = ["teamId"],
                     onDelete = CASCADE))
         ])
-class Footballer {
+class FootballerEntity {
 
     @ColumnInfo(name = "id")
     @PrimaryKey

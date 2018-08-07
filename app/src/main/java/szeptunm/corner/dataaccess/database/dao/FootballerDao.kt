@@ -7,29 +7,29 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import io.reactivex.Single
-import szeptunm.corner.dataaccess.database.entity.Footballer
+import szeptunm.corner.dataaccess.database.entity.FootballerEntity
 
 @Dao
 interface FootballerDao {
 
     @Update
-    fun update(vararg footballer: Footballer)
+    fun update(vararg footballerEntity: FootballerEntity)
 
     @Delete
-    fun delete(vararg footballer: Footballer)
+    fun delete(vararg footballerEntity: FootballerEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFootballer(footballer: Footballer)
+    fun insertFootballer(footballerEntity: FootballerEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllFootballers(footballerList: List<Footballer>)
+    fun insertAllFootballers(footballerEntityList: List<FootballerEntity>)
 
     @Query("SELECT * FROM footballer")
-    fun getAllFootballers(): Single<List<Footballer>>
+    fun getAllFootballers(): Single<List<FootballerEntity>>
 
     @Query("SELECT * FROM footballer WHERE position LIKE :position")
-    fun getFootballerByPosition(position: String): Single<List<Footballer>>
+    fun getFootballerByPosition(position: String): Single<List<FootballerEntity>>
 
     @Query("SELECT * FROM footballer WHERE teamId LIKE :club")
-    fun getFootballerByClub(club: String): Single<List<Footballer>>
+    fun getFootballerByClub(club: String): Single<List<FootballerEntity>>
 }
