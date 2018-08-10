@@ -12,7 +12,7 @@ import javax.inject.Inject
 class NewsAdapter @Inject constructor() : RecyclerView.Adapter<BindingViewHolder<NewsItem, NewsItemBinding>>() {
 
     var items: List<NewsItem> = ArrayList()
-    var onItemSelected: PublishSubject<Int> = PublishSubject.create()
+    private var onItemSelected: PublishSubject<Int> = PublishSubject.create()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder<NewsItem, NewsItemBinding> {
         val inflater = LayoutInflater.from(parent.context)

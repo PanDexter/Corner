@@ -29,7 +29,7 @@ class ServiceModule {
     @Provides
     @Singleton
     @Named("news")
-    fun createHttpClientNews(): OkHttpClient? {
+    fun createHttpClientNews(): OkHttpClient {
         return OkHttpClient.Builder()
                 .connectTimeout(20, SECONDS)
                 .readTimeout(20, SECONDS)
@@ -39,7 +39,7 @@ class ServiceModule {
     @Provides
     @Singleton
     @Named("team")
-    fun createHttpClientTeam(): OkHttpClient? {
+    fun createHttpClientTeam(): OkHttpClient {
         return OkHttpClient.Builder()
                 .connectTimeout(20, SECONDS)
                 .readTimeout(20, SECONDS)
@@ -49,7 +49,7 @@ class ServiceModule {
     @Provides
     @Singleton
     @Named("standing")
-    fun createHttpClientStanding(): OkHttpClient? {
+    fun createHttpClientStanding(): OkHttpClient {
         return OkHttpClient.Builder()
                 .connectTimeout(20, SECONDS)
                 .readTimeout(20, SECONDS)

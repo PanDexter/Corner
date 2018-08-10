@@ -13,10 +13,10 @@ import szeptunm.corner.dataaccess.database.entity.NewsEntity
 import szeptunm.corner.entity.News
 import javax.inject.Inject
 import szeptunm.corner.commons.Constants
+import java.util.concurrent.Executor
 
 class NewsRepository @Inject constructor(var newsDao: NewsDao, var newsService: NewsService,
-        var cornerDatabase: CornerDatabase, val utils: Utils, var databaseTransaction: DatabaseTransaction,
-        var constants: Constants) {
+         var databaseTransaction: DatabaseTransaction, var constants: Constants) {
 
     private fun newsTransformer(): SingleTransformer<List<NewsEntity>, List<News>> {
         return SingleTransformer { upstream ->
@@ -29,6 +29,11 @@ class NewsRepository @Inject constructor(var newsDao: NewsDao, var newsService: 
     fun getAllNews(): Single<List<News>> {
         return newsDao.getAllNews().compose(newsTransformer())
     }
+
+    private fun getAllNewsFromApi(): Single<NewsResponse> {
+        return newsService.getAllNews(constants.NEWS_URL,constants.NEWS_KEY)
+    }
+
 
     private fun mapResponseToEntity(newsResponse: NewsResponse): List<NewsEntity> {
         val newsList: MutableList<NewsEntity> = ArrayList()
@@ -45,10 +50,11 @@ class NewsRepository @Inject constructor(var newsDao: NewsDao, var newsService: 
                 Runnable { newsDao.insertAllNews(newsList) })
     }
 
-    fun updateNewsDatabase(): Completable? {
-        return newsService.getAllNews(constants.NEWS_URL, constants.NEWS_KEY)
+    fun updateNewsDatabase(): Completable {
+        return getAllNewsFromApi()
                 .map(::mapResponseToEntity)
                 .flatMapCompletable(::saveToDatabase)
     }
+
 }
 

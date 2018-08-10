@@ -9,6 +9,7 @@ import szeptunm.corner.dataaccess.database.CornerDatabase
 import szeptunm.corner.dataaccess.database.dao.CompetitionDao
 import szeptunm.corner.dataaccess.database.dao.FootballerDao
 import szeptunm.corner.dataaccess.database.dao.MatchDao
+import szeptunm.corner.dataaccess.database.dao.NewsDao
 import szeptunm.corner.dataaccess.database.dao.StandingDao
 import szeptunm.corner.dataaccess.database.dao.StandingValueDao
 import szeptunm.corner.dataaccess.database.dao.TeamDao
@@ -50,6 +51,12 @@ abstract class AppModule {
         @JvmStatic
         @Singleton
         fun providesStandingValueDao(database: CornerDatabase):StandingValueDao = database.standingValueDao()
+
+
+        @Provides
+        @JvmStatic
+        @Singleton
+        fun providesNewsDao(database: CornerDatabase):NewsDao = database.newsDao()
 
         @Provides
         @JvmStatic

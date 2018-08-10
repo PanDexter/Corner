@@ -1,33 +1,19 @@
 package szeptunm.corner.entity
 
-import org.parceler.Parcel
-import org.parceler.ParcelConstructor
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import szeptunm.corner.dataaccess.database.entity.TeamEntity
 
-@Parcel(Parcel.Serialization.BEAN)
-class Team : Comparable<Team> {
+@Parcelize
+data class Team(var id: Int = 0,
+        var name: String = "",
+        var shortName: String = "",
+        var tla: String = "") : Parcelable {
 
-    var id: Int = 0
-
-    var name: String = ""
-    var shortName: String = ""
-    var tla: String = ""
-
-    @ParcelConstructor
-    constructor(id: Int, name: String, shortName: String, tla: String) {
-        this.id = id
-        this.name = name
-        this.shortName = shortName
-        this.tla = tla
-    }
-
-    constructor(teamEntity: TeamEntity) {
+    constructor(teamEntity: TeamEntity) : this() {
         this.id = teamEntity.id
         this.name = teamEntity.name
         this.shortName = teamEntity.shortname
         this.tla = teamEntity.shortname
     }
-
-    override fun compareTo(other: Team): Int = this.name.compareTo(other.name)
-
 }
