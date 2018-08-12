@@ -22,7 +22,6 @@ class NewsFragment : Fragment() {
     lateinit var viewModel: NewsViewModel
 
     private lateinit var binding: FragmentNewsBinding
-
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     companion object {
