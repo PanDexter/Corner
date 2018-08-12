@@ -1,7 +1,6 @@
 package szeptunm.corner.di
 
 import androidx.room.Room
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import szeptunm.corner.App

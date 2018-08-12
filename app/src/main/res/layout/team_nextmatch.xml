@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/team_nextmatch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,9 +16,9 @@
             android:layout_width="@dimen/team_banner_photo"
             android:layout_height="@dimen/team_banner_photo"
             android:src="@drawable/barcelonabadge"
-            app:layout_constraintBottom_toTopOf="@+id/home_team"
+            app:layout_constraintBottom_toTopOf="@id/home_team"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/match_date"
+            app:layout_constraintRight_toLeftOf="@id/match_date"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -34,16 +31,16 @@
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/match_date"
-            app:layout_constraintTop_toBottomOf="@+id/home_team_photo" />
+            app:layout_constraintRight_toLeftOf="@id/match_date"
+            app:layout_constraintTop_toBottomOf="@id/home_team_photo" />
 
         <ImageView
             android:id="@+id/away_team_photo"
             android:layout_width="@dimen/team_banner_photo"
             android:layout_height="@dimen/team_banner_photo"
             android:src="@drawable/juventusbadge"
-            app:layout_constraintBottom_toTopOf="@+id/away_team"
-            app:layout_constraintLeft_toRightOf="@+id/match_date"
+            app:layout_constraintBottom_toTopOf="@id/away_team"
+            app:layout_constraintLeft_toRightOf="@id/match_date"
             app:layout_constraintRight_toRightOf="parent"
 
             app:layout_constraintTop_toTopOf="parent" />
@@ -57,9 +54,9 @@
             android:textColor="@color/blackAlpha90"
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/match_date"
+            app:layout_constraintLeft_toRightOf="@id/match_date"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/away_team_photo" />
+            app:layout_constraintTop_toBottomOf="@id/away_team_photo" />
 
 
         <TextView
@@ -84,15 +81,9 @@
             android:textAlignment="center"
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/home_team_photo"
-            app:layout_constraintRight_toLeftOf="@+id/away_team_photo"
+            app:layout_constraintLeft_toRightOf="@id/home_team_photo"
+            app:layout_constraintRight_toLeftOf="@id/away_team_photo"
             app:layout_constraintTop_toBottomOf="@id/match_date"
             app:layout_constraintVertical_bias="0.0" />
 
-
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</layout>

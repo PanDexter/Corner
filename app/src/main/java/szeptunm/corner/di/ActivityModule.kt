@@ -8,9 +8,10 @@ import szeptunm.corner.ui.news.NewsFragment
 @Module
 abstract class ActivityModule {
 
-    @ContributesAndroidInjector
-    abstract fun bindMainActivity():MainActivity
 
     @ContributesAndroidInjector
-    abstract fun bindNewsFragment():NewsFragment
+    abstract fun bindMainActivity(): MainActivity
+
+    @ContributesAndroidInjector
+    abstract fun bindNewsFragment(): NewsFragment
 }

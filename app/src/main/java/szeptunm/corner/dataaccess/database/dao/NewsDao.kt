@@ -7,14 +7,11 @@ import androidx.room.Query
 import androidx.room.Update
 import io.reactivex.Single
 import szeptunm.corner.dataaccess.database.entity.NewsEntity
-import szeptunm.corner.dataaccess.database.entity.TeamEntity
 
 @Dao
 interface NewsDao {
 
 
-    @Query("DELETE FROM news")
-    fun delete(vararg team: NewsEntity)
 
     @Update
     fun update(vararg team: NewsEntity)

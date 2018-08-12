@@ -9,7 +9,8 @@ import szeptunm.corner.databinding.NewsItemBinding
 import szeptunm.corner.ui.recycler.BindingViewHolder
 import javax.inject.Inject
 
-class NewsAdapter @Inject constructor() : RecyclerView.Adapter<BindingViewHolder<NewsItem, NewsItemBinding>>() {
+class NewsAdapter @Inject constructor() :
+        RecyclerView.Adapter<BindingViewHolder<NewsItem, NewsItemBinding>>() {
 
     var items: List<NewsItem> = ArrayList()
     private var onItemSelected: PublishSubject<Int> = PublishSubject.create()

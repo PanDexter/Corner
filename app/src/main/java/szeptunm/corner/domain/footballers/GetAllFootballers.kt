@@ -5,7 +5,7 @@ import szeptunm.corner.dataaccess.database.entity.FootballerEntity
 import szeptunm.corner.dataaccess.repository.implementations.FootballerRepositoryImpl
 import javax.inject.Inject
 
-class GetAllFootballers {
+class GetAllFootballers @Inject constructor() {
 
     @Inject
     lateinit var repository: FootballerRepositoryImpl

@@ -1,28 +1,31 @@
 package szeptunm.corner.ui
 
 import android.os.Bundle
-import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.android.support.DaggerAppCompatActivity
 import szeptunm.corner.R
 import szeptunm.corner.R.id
 import szeptunm.corner.R.layout
-import szeptunm.corner.databinding.ActivityMainBinding
 import szeptunm.corner.ui.news.NewsFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity() {
 
 
-    lateinit var binding:ActivityMainBinding
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setContentView(layout.activity_main)
+        val navigation: BottomNavigationView = findViewById(R.id.navigation)
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        super.onCreate(savedInstanceState)
+    }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             id.navigation_news -> {
-                var newsFragment:NewsFragment = NewsFragment().newInstance()
-                supportFragmentManager.beginTransaction().add(R.id.fragment_placeholder, newsFragment,"news").commitAllowingStateLoss()
+                val newsFragmentManager: NewsFragment = NewsFragment.newInstance()
+                supportFragmentManager.beginTransaction().add(R.id.fragment_placeholder, newsFragmentManager, "news")
                 return@OnNavigationItemSelectedListener true
             }
             id.navigation_scoreboard -> {
@@ -41,14 +44,11 @@ class MainActivity : AppCompatActivity() {
         false
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(layout.activity_main)
-        var newsFragment:NewsFragment = NewsFragment().newInstance()
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
-        val navigation = findViewById<View>(id.navigation) as BottomNavigationView
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+    private fun openFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_placeholder, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
 
@@ -64,4 +64,10 @@ class MainActivity : AppCompatActivity() {
         transaction.commitNowAllowingStateLoss()
     }
 
+    inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {
+        val fragmentTransaction = beginTransaction()
+        fragmentTransaction.func()
+        fragmentTransaction.commit()
+    }
 }
+
