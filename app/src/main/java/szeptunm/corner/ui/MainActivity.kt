@@ -15,13 +15,13 @@ class MainActivity : DaggerAppCompatActivity() {
     lateinit var fragmentChanger: FragmentChanger
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(layout.activity_main)
         supportFragmentManager.beginTransaction()
                 .add(R.id.fragment_placeholder, NewsFragment.newInstance(), "news")
                 .commit()
         val navigation: BottomNavigationView = findViewById(R.id.navigation)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        super.onCreate(savedInstanceState)
     }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->

@@ -5,15 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import szeptunm.corner.R
 import szeptunm.corner.databinding.FragmentNewsBinding
 import javax.inject.Inject
 
-class NewsFragment : Fragment() {
+class NewsFragment : DaggerFragment() {
 
     @Inject
     lateinit var newsAdapter: NewsAdapter
