@@ -3,11 +3,11 @@ package szeptunm.corner.dataaccess.api.pojo
 import com.google.gson.annotations.SerializedName
 
 data class Item(
-        @SerializedName("title") val title: String,
-        @SerializedName("pubDate") val pubDate: String,
-        @SerializedName("link") val link: String,
-        @SerializedName("description") val description: String,
-        @SerializedName("enclosure") val enclosure: Enclosure
+        @SerializedName("title") var title: String,
+        @SerializedName("pubDate") var pubDate: String,
+        @SerializedName("link") var link: String,
+        @SerializedName("description") var description: String,
+        @SerializedName("enclosure") var enclosure: Enclosure
 )
 
-data class Enclosure(@SerializedName("link") val imageURL: String)
+data class Enclosure(@SerializedName("link") var imageURL: String)

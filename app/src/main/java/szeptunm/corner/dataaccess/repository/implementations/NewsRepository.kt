@@ -28,7 +28,8 @@ class NewsRepository @Inject constructor(var newsDao: NewsDao, var newsService: 
     }
 
     private fun getAllNewsFromApi(): Single<NewsResponse> {
-        return newsService.getAllNews(BuildConfig.NEWS_API_HTTP_URL, BuildConfig.NEWS_KEY)
+        return newsService.getAllNews("http%3A%2F%2Fwww.espnfc.com%2Fclub%2Fbarcelona%2F83%2Frss",
+                BuildConfig.NEWS_KEY)
     }
 
 
@@ -36,7 +37,7 @@ class NewsRepository @Inject constructor(var newsDao: NewsDao, var newsService: 
         val newsList: MutableList<NewsEntity> = ArrayList()
         for (i in 0..newsResponse.items.size) {
             newsResponse.items[i].let {
-                newsList.add(NewsEntity(it.title, it.description, it.pubDate, it.enclosure.imageURL, it.link, 0))
+                newsList.add(NewsEntity(0, it.title, it.description, it.pubDate, it.enclosure.imageURL, it.link, 0))
             }
         }
         return newsList
