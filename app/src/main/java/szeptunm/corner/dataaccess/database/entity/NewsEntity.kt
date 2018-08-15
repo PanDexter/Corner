@@ -23,8 +23,8 @@ data class NewsEntity constructor(
         @ColumnInfo(name = "date")
         var date: String = "",
         @ColumnInfo(name = "photoUrl")
-        var photoUrl: String = "",
+        var photoUrl: String? = "",
         @ColumnInfo(name = "link")
         var link: String? = "",
         @ColumnInfo(name = "teamId")
-        var teamId: Int = 0)
+        var teamId: Int? = 0)

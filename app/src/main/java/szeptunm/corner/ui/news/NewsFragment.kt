@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
@@ -39,6 +40,7 @@ class NewsFragment : DaggerFragment() {
         binding.rvNews.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = newsAdapter
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
     }
 

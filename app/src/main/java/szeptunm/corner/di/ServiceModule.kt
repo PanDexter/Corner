@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -29,10 +30,11 @@ class ServiceModule {
     @Provides
     @Singleton
     @Named("news")
-    fun createHttpClientNews(): OkHttpClient {
+    fun createHttpClientNews(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
                 .connectTimeout(20, SECONDS)
                 .readTimeout(20, SECONDS)
+                .addInterceptor(loggingInterceptor)
                 .build()
     }
 
@@ -54,6 +56,14 @@ class ServiceModule {
                 .connectTimeout(20, SECONDS)
                 .readTimeout(20, SECONDS)
                 .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
+        val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        return interceptor
     }
 
     @Provides

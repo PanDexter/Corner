@@ -5,12 +5,13 @@ import kotlinx.android.parcel.Parcelize
 import szeptunm.corner.dataaccess.database.entity.NewsEntity
 
 @Parcelize
-data class News(var id: Int = 0,
+data class News(
+        var id: Int = 0,
         var title: String = "",
         var description: String = "",
         var date: String = "",
-        var photoUrl: String = "",
-        var teamId: Int = 0) : Parcelable {
+        var photoUrl: String? = "",
+        var teamId: Int? = null) : Parcelable {
 
     constructor(newsEntity: NewsEntity) : this() {
         this.id = newsEntity.id

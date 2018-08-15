@@ -28,7 +28,7 @@ android {
         }
         debug {
 
-            buildConfigField 'String', 'NEWS_API_HTTP_URL', '"https://api.rss2json.com/v1/"'
+            buildConfigField 'String', 'NEWS_API_HTTP_URL', '"https://api.rss2json.com/"'
             buildConfigField 'String', 'TEAM_API_HTTP_URL', '"https://www.thesportsdb.com/api/v1/json/1"'
             buildConfigField 'String', 'STATISTIC_API_HTTP_URL', '"https://api-football-v1.p.mashape.com"'
             buildConfigField 'String', 'NEWS_KEY','"ce3kivoilvuyhvgkbguh6f2kvmp54f0tctumwwrz"'
@@ -101,17 +101,22 @@ dependencies {
     // RETROFIT
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+
 
     //PARCELER
-
     implementation 'org.parceler:parceler-api:1.1.11'
     kapt 'org.parceler:parceler:1.1.11'
 
     //CIRCLE IMAGE
     implementation 'de.hdodenhof:circleimageview:2.2.0'
 
-    //BOTTOM NAVIGATION BAR
-    implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
+    //GLIDE
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    kapt 'com.github.bumptech.glide:compiler:4.4.0'
+
+    //TIMBER
+    implementation 'com.github.ajalt:timberkt:1.5.1'
 
 
 
