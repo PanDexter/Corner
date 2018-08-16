@@ -7,15 +7,13 @@ import io.reactivex.schedulers.Schedulers
 import szeptunm.corner.BuildConfig
 import szeptunm.corner.dataaccess.api.model.NewsResponse
 import szeptunm.corner.dataaccess.api.service.NewsService
-import szeptunm.corner.dataaccess.database.DatabaseTransaction
 import szeptunm.corner.dataaccess.database.dao.NewsDao
 import szeptunm.corner.dataaccess.database.entity.NewsEntity
 import szeptunm.corner.entity.News
 import timber.log.Timber
 import javax.inject.Inject
 
-class NewsRepository @Inject constructor(private var newsDao: NewsDao, private var newsService: NewsService,
-        private var databaseTransaction: DatabaseTransaction) {
+class NewsRepository @Inject constructor(private var newsDao: NewsDao, private var newsService: NewsService) {
 
     private val newsTransformer: SingleTransformer<List<NewsEntity>, List<News>> =
             SingleTransformer { upstream ->
@@ -31,7 +29,7 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
     }
 
     private fun getNewsFromDb(): Observable<List<News>> {
-        return newsDao.getNewsByTeamId(1)
+        return newsDao.getAllNews()
                 .compose(newsTransformer)
                 .filter { it.isNotEmpty() }
                 .toObservable()
@@ -61,7 +59,7 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
         for (i in 0 until newsResponse.items.size) {
             newsResponse.items[i].let {
                 newsList.add(
-                        NewsEntity(0, it.title, it.description, it.pubDate, it.enclosure.imageURL, it.link, null))
+                        NewsEntity(it.title, it.description, it.pubDate, it.enclosure.imageURL, it.link, null))
             }
         }
         return newsList
