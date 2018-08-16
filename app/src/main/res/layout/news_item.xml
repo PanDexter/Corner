@@ -32,16 +32,13 @@
 
         <TextView
             android:id="@+id/news_description"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/match_constraints"
             android:layout_height="wrap_content"
             tools:text="Barcelona coach Ernesto Valverde wants Jasper Cillessen stay"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:layout_marginTop="80dp"
             android:padding="8dp"
-            android:text="@{news.title}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
 

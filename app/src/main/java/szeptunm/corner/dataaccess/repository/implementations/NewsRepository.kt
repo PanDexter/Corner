@@ -42,7 +42,6 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
         return newsService.getAllNews("http://www.espnfc.com/club/barcelona/83/rss",
                 BuildConfig.NEWS_KEY)
                 .map {
-                    Timber.d("ZMIENIAM %s", it.items)
                     mapResponseToEntity(it)
                 }
                 .doOnSuccess {
@@ -71,7 +70,7 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .subscribe {
-                    Timber.d("Inserte ${newsList.size} news to DB...")
+                    Timber.d("Insert ${newsList.size} news to DB...")
                 }
     }
 }

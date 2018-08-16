@@ -2,6 +2,7 @@ package szeptunm.corner.ui.news
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.subjects.PublishSubject
 import szeptunm.corner.databinding.NewsItemBinding
@@ -25,15 +26,15 @@ class NewsAdapter @Inject constructor() :
     }
 
     override fun onBindViewHolder(holder: BindingViewHolder<NewsItem, NewsItemBinding>, position: Int) {
-        holder.bind(items[position])
+        holder.bind(items[holder.adapterPosition])
     }
 
     fun setDataWithDiff(newList: List<NewsItem>) {
-//        val diffResult = DiffUtil.calculateDiff(NewsItemDiff(items, newList))
-//        diffResult.dispatchUpdatesTo(this)
-//        this.items = newList
-
+        val diffResult = DiffUtil.calculateDiff(NewsItemDiff(items, newList))
+        diffResult.dispatchUpdatesTo(this)
         this.items = newList
-        notifyDataSetChanged()
+
+//        this.items = newList
+//        notifyDataSetChanged()
     }
 }

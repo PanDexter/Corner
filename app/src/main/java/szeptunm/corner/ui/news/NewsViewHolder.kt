@@ -1,5 +1,6 @@
 package szeptunm.corner.ui.news
 
+
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority.LOW
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -22,7 +23,7 @@ class NewsViewHolder(binding: NewsItemBinding, val itemObserver: PublishSubject<
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .dontTransform()
                 .priority(LOW)
-                .placeholder(R.drawable.barcelonabanner)
+                .placeholder(R.drawable.barcelonabadge)
 
         Glide.with(itemView).load(item.news.photoUrl).apply(requestOptions).into(binding.newsPhoto)
         binding.newsDescription.text = item.news.title
