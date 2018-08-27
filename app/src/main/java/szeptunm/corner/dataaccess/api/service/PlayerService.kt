@@ -7,6 +7,6 @@ import szeptunm.corner.dataaccess.api.model.PlayerResponse
 
 interface PlayerService {
 
-    @GET("/lookup_all_players.php?")
+    @GET("/api/v1/json/1/lookup_all_players.php?")
     fun getAllPlayers(@Query("id") id: Int): Single<PlayerResponse>
 }

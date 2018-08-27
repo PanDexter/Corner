@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "footballer",
+@Entity(tableName = "player",
         foreignKeys = [
             (ForeignKey(entity = TeamEntity::class,
                     parentColumns = ["id"],
@@ -14,19 +14,19 @@ import androidx.room.PrimaryKey
                     onDelete = CASCADE))
         ])
 data class PlayerEntity constructor(
-    @ColumnInfo(name = "id")
-    @PrimaryKey
-    var id: Int = 0,
-    @ColumnInfo(name = "name")
-    var name: String = "",
-    @ColumnInfo(name = "position")
-    var position: String = "",
-    @ColumnInfo(name = "dateOfBirth")
-    var dateOfBirth: String = "",
-    @ColumnInfo(name = "nationality")
-    var nationality: String = "",
-    @ColumnInfo(name = "teamId")
-    var teamId: Int = 0,
+        @ColumnInfo(name = "id")
+        @PrimaryKey
+        var id: Int = 0,
+        @ColumnInfo(name = "name")
+        var name: String = "",
+        @ColumnInfo(name = "position")
+        var position: String = "",
+        @ColumnInfo(name = "dateOfBirth")
+        var dateOfBirth: String = "",
+        @ColumnInfo(name = "nationality")
+        var nationality: String = "",
+        @ColumnInfo(name = "teamId")
+        var teamId: Int? = 0,
         @ColumnInfo(name = "description")
         var description: String = "",
         @ColumnInfo(name = "thumbUrl")

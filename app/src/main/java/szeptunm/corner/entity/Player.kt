@@ -10,7 +10,7 @@ data class Player(
         var position: String = "",
         var dateOfBirth: String = "",
         var nationality: String = "",
-        var teamId: Int = 0,
+        var teamId: Int? = 0,
         var description: String = "",
         var thumbUrl: String = "",
         var cutOutUrl: String? = "") : Parcelable {

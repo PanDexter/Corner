@@ -55,7 +55,7 @@ class PlayerRepository @Inject constructor(private var playerDao: PlayerDao,
         for (i in 0 until playerResponse.squad.size) {
             playerResponse.squad[i].let {
                 playerList.add(
-                        PlayerEntity(0, it.name, it.position, it.dateOfBirth, it.nationality, it.idTeam,
+                        PlayerEntity(0, it.name, it.position, it.dateOfBirth, it.nationality, null,
                                 it.description, it.thumbUrl, it.cutOutUrl))
             }
         }
