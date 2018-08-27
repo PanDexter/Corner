@@ -4,7 +4,8 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Match(var id: Int = 0,
+data class Match(
+        var id: Int = 0,
         var homeTeamGoalFull: Int? = null,
         var awayTeamGoalFull: Int? = null,
         var homeTeamGoalExtra: Int? = null,

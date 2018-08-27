@@ -13,21 +13,24 @@ import androidx.room.PrimaryKey
                     childColumns = ["teamId"],
                     onDelete = CASCADE))
         ])
-class FootballerEntity {
-
+data class PlayerEntity constructor(
     @ColumnInfo(name = "id")
     @PrimaryKey
-    var id: Int = 0
+    var id: Int = 0,
     @ColumnInfo(name = "name")
-    var name: String = ""
+    var name: String = "",
     @ColumnInfo(name = "position")
-    var position: String = ""
+    var position: String = "",
     @ColumnInfo(name = "dateOfBirth")
-    var dateOfBirth: String = ""
+    var dateOfBirth: String = "",
     @ColumnInfo(name = "nationality")
-    var nationality: String = ""
-    @ColumnInfo(name = "role")
-    var role: String = ""
+    var nationality: String = "",
     @ColumnInfo(name = "teamId")
-    var teamId: Int = 0
-}
+    var teamId: Int = 0,
+        @ColumnInfo(name = "description")
+        var description: String = "",
+        @ColumnInfo(name = "thumbUrl")
+        var thumbUrl: String = "",
+        @ColumnInfo(name = "cutOutUrl")
+        var cutOutUrl: String? = ""
+)

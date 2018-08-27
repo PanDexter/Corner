@@ -6,7 +6,6 @@ import szeptunm.corner.dataaccess.database.entity.NewsEntity
 
 @Parcelize
 data class News(
-        var id: Int = 0,
         var title: String = "",
         var description: String = "",
         var date: String = "",
@@ -14,7 +13,6 @@ data class News(
         var teamId: Int? = null) : Parcelable {
 
     constructor(newsEntity: NewsEntity) : this() {
-        this.id = newsEntity.id
         this.title = newsEntity.title
         this.description = newsEntity.description
         this.date = newsEntity.date

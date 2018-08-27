@@ -1,4 +1,4 @@
-package szeptunm.corner.dataaccess.repository.implementations
+package szeptunm.corner.dataaccess.repository
 
 import android.annotation.SuppressLint
 import io.reactivex.Observable
@@ -58,7 +58,7 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
         for (i in 0 until newsResponse.items.size) {
             newsResponse.items[i].let {
                 newsList.add(
-                        NewsEntity(it.title, it.description, it.pubDate, it.enclosure.imageURL, it.link, null))
+                        NewsEntity(0, it.title, it.description, it.pubDate, it.enclosure.imageURL, it.link, null))
             }
         }
         return newsList

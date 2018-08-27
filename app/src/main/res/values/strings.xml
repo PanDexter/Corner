@@ -8,9 +8,10 @@
     <string name="Settings">Settings</string>
     <string name="Standing">Standing</string>
     <string name="News">News</string>
-    <string name="match_date_example">22.08.2018 20:45</string>
+    <string name="match_date_example">22/08</string>
     <string name="match_date_short">22.08</string>
     <string name="match_hour">18:00</string>
     <string name="default_score">2–1</string>
     <string name="dash">-</string>
+    <string name="description_example">"Lionel Messi scored two goals, including the 6,000th for Barcelona in La Liga, to lead the reigning champions past Alaves in their season opener. Lionel Messi scored his 6000th goal in La Liga history, as Barcelona put away Alaves 3–0. Craig Burley and Paul Mariner make their predictions for the La Liga season, and one of them is backing Diego Costa for a big season. BARCELONA –- Lionel Messi put World Cup disappointment with Argentina behind him to kick off the new season with a bang, scoring twice in Barcelona's 3-0 win against Alaves at Camp Nou on Saturday. Messi scored twice, with Philippe Coutinho also on target, as well as hitting the woodwork two times and creating gilt-edged chances for teammates Ousmane Dembele and Luis Suarez. The forward's first goal, Barca's 6,000th in La Liga (he also scored their 5,000th in 2009) was delivered under the Alaves..."</string>
 </resources>

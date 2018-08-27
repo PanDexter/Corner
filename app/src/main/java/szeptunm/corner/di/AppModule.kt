@@ -6,9 +6,9 @@ import dagger.Provides
 import szeptunm.corner.App
 import szeptunm.corner.dataaccess.database.CornerDatabase
 import szeptunm.corner.dataaccess.database.dao.CompetitionDao
-import szeptunm.corner.dataaccess.database.dao.FootballerDao
 import szeptunm.corner.dataaccess.database.dao.MatchDao
 import szeptunm.corner.dataaccess.database.dao.NewsDao
+import szeptunm.corner.dataaccess.database.dao.PlayerDao
 import szeptunm.corner.dataaccess.database.dao.StandingDao
 import szeptunm.corner.dataaccess.database.dao.StandingValueDao
 import szeptunm.corner.dataaccess.database.dao.TeamDao
@@ -24,7 +24,7 @@ abstract class AppModule {
         @Provides
         @JvmStatic
         @Singleton
-        fun providesFootballerDao(database: CornerDatabase): FootballerDao = database.footballerDao()
+        fun providesFootballerDao(database: CornerDatabase): PlayerDao = database.footballerDao()
 
         @Provides
         @JvmStatic

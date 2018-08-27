@@ -7,6 +7,7 @@ import szeptunm.corner.R
 import szeptunm.corner.R.id
 import szeptunm.corner.R.layout
 import szeptunm.corner.ui.news.NewsFragment
+import szeptunm.corner.ui.team.TeamFragment
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
@@ -42,6 +43,8 @@ class MainActivity : DaggerAppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             id.navigation_team -> {
+                fragmentChanger.changeFragments(this, R.id.fragment_placeholder,
+                        "team") { TeamFragment.newInstance() }
                 return@OnNavigationItemSelectedListener true
             }
         }

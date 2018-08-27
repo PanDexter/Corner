@@ -11,8 +11,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import szeptunm.corner.BuildConfig
 import szeptunm.corner.dataaccess.api.service.NewsService
+import szeptunm.corner.dataaccess.api.service.PlayerService
 import szeptunm.corner.dataaccess.api.service.StandingService
-import szeptunm.corner.dataaccess.api.service.TeamService
 import java.util.concurrent.TimeUnit.SECONDS
 import javax.inject.Named
 import javax.inject.Singleton
@@ -41,10 +41,11 @@ class ServiceModule {
     @Provides
     @Singleton
     @Named("team")
-    fun createHttpClientTeam(): OkHttpClient {
+    fun createHttpClientTeam(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
                 .connectTimeout(20, SECONDS)
                 .readTimeout(20, SECONDS)
+                .addInterceptor(loggingInterceptor)
                 .build()
     }
 
@@ -110,8 +111,8 @@ class ServiceModule {
 
     @Provides
     @Singleton
-    fun provideTeamService(@Named("team") retrofit: Retrofit): TeamService {
-        return retrofit.create(TeamService::class.java)
+    fun provideTeamService(@Named("team") retrofit: Retrofit): PlayerService {
+        return retrofit.create(PlayerService::class.java)
     }
 
     @Provides

@@ -1,7 +1,7 @@
 package szeptunm.corner.domain.news
 
 import io.reactivex.Observable
-import szeptunm.corner.dataaccess.repository.implementations.NewsRepository
+import szeptunm.corner.dataaccess.repository.NewsRepository
 import szeptunm.corner.entity.News
 import javax.inject.Inject
 
