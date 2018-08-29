@@ -10,6 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import szeptunm.corner.BuildConfig
+import szeptunm.corner.dataaccess.api.service.MatchService
 import szeptunm.corner.dataaccess.api.service.NewsService
 import szeptunm.corner.dataaccess.api.service.PlayerService
 import szeptunm.corner.dataaccess.api.service.StandingService
@@ -52,10 +53,22 @@ class ServiceModule {
     @Provides
     @Singleton
     @Named("standing")
-    fun createHttpClientStanding(): OkHttpClient {
+    fun createHttpClientStanding(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
                 .connectTimeout(20, SECONDS)
                 .readTimeout(20, SECONDS)
+                .addInterceptor(loggingInterceptor)
+                .build()
+    }
+
+    @Provides
+    @Singleton
+    @Named("match")
+    fun createHttpClientMatch(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+        return OkHttpClient.Builder()
+                .connectTimeout(20, SECONDS)
+                .readTimeout(20, SECONDS)
+                .addInterceptor(loggingInterceptor)
                 .build()
     }
 
@@ -105,6 +118,18 @@ class ServiceModule {
 
     @Provides
     @Singleton
+    @Named("match")
+    fun provideMatchRetrofit(gson: Gson, @Named("match") client: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+                .baseUrl(BuildConfig.MATCH_API_HTTP_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(client)
+                .build()
+    }
+
+    @Provides
+    @Singleton
     fun provideNewsService(@Named("news") retrofit: Retrofit): NewsService {
         return retrofit.create(NewsService::class.java)
     }
@@ -119,5 +144,11 @@ class ServiceModule {
     @Singleton
     fun provideStandingService(@Named("standing") retrofit: Retrofit): StandingService {
         return retrofit.create(StandingService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMatchService(@Named("match") retrofit: Retrofit): MatchService {
+        return retrofit.create(MatchService::class.java)
     }
 }

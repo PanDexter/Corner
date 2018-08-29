@@ -3,44 +3,44 @@ package szeptunm.corner.dataaccess.database.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.Index
 
 @Entity(tableName = "match",
         foreignKeys = [
             (ForeignKey(entity = TeamEntity::class,
-                    parentColumns = ["id"],
-                    childColumns = ["homeTeamId"],
+                    parentColumns = ["name"],
+                    childColumns = ["homeTeam"],
                     onDelete = ForeignKey.CASCADE)),
             (ForeignKey(entity = TeamEntity::class,
-                    parentColumns = ["id"],
-                    childColumns = ["awayTeamId"],
+                    parentColumns = ["name"],
+                    childColumns = ["awayTeam"],
                     onDelete = ForeignKey.CASCADE)),
             (ForeignKey(entity = CompetitionEntity::class,
-                    parentColumns = ["id"],
-                    childColumns = ["competitionId"],
+                    parentColumns = ["name"],
+                    childColumns = ["competition"],
                     onDelete = ForeignKey.CASCADE))
-        ])
-class MatchEntity {
-
-    @ColumnInfo(name = "id")
-    @PrimaryKey
-    var id: Int = 0
+        ],
+        primaryKeys = ["homeTeam", "awayTeam", "date"],
+        indices = [(Index(value = ["homeTeam", "awayTeam"], unique = true))])
+class MatchEntity constructor(
     @ColumnInfo(name = "homeTeamGoalFull")
-    var homeTeamGoalFull: Int? = null
+    var homeTeamGoalFull: Int? = null,
     @ColumnInfo(name = "awayTeamGoalFull")
-    var awayTeamGoalFull: Int? = null
+    var awayTeamGoalFull: Int? = null,
     @ColumnInfo(name = "homeTeamExtra")
-    var homeTeamGoalExtra: Int? = null
+    var homeTeamGoalExtra: Int? = null,
     @ColumnInfo(name = "awayTeamExtra")
-    var awayTeamGoalExtra: Int? = null
+    var awayTeamGoalExtra: Int? = null,
     @ColumnInfo(name = "homePenalties")
-    var homePenalties: Int? = null
+    var homePenalties: Int? = null,
     @ColumnInfo(name = "awayPenalties")
-    var awayPenalties: Int? = null
-    @ColumnInfo(name = "homeTeamId")
-    var homeTeamId: Int = 0
-    @ColumnInfo(name = "awayTeamId")
-    var awayTeamId: Int = 0
+    var awayPenalties: Int? = null,
+        @ColumnInfo(name = "homeTeam")
+        var homeTeam: String = "",
+        @ColumnInfo(name = "awayTeam")
+        var awayTeam: String = "",
+        @ColumnInfo(name = "matchDate")
+        var date: String? = "",
     @ColumnInfo(name = "competitionId")
-    var competitionId: Int = 0
-}
+    var competition: String? = ""
+)

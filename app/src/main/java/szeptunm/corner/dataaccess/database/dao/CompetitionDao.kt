@@ -10,10 +10,10 @@ import szeptunm.corner.dataaccess.database.entity.CompetitionEntity
 @Dao
 interface CompetitionDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertCompetition(competitionEntity: CompetitionEntity)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAllCompetitions(competitionEntityList:List<CompetitionEntity>)
 
     @Query("SELECT * FROM competition")

@@ -7,6 +7,7 @@ import szeptunm.corner.R
 import szeptunm.corner.R.id
 import szeptunm.corner.R.layout
 import szeptunm.corner.ui.news.NewsFragment
+import szeptunm.corner.ui.schedule.MatchFragment
 import szeptunm.corner.ui.team.TeamFragment
 import javax.inject.Inject
 
@@ -33,7 +34,9 @@ class MainActivity : DaggerAppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             id.navigation_scoreboard -> {
-                //fragmentChanger.changeFragments(this,R.id.fragment_placeholder, "scoreboard"){}
+                fragmentChanger.changeFragments(this, R.id.fragment_placeholder,
+                        "schedule") { MatchFragment.newInstance() }
+                return@OnNavigationItemSelectedListener true
                 return@OnNavigationItemSelectedListener true
             }
             id.navigation_settings -> {

@@ -18,8 +18,8 @@ data class Result(
 )
 
 data class Score(
-        @SerializedName("homeTeam") val homeTeam: Any?,
-        @SerializedName("awayTeam") val awayTeam: Any?
+        @SerializedName("homeTeam") val homeTeam: Int?,
+        @SerializedName("awayTeam") val awayTeam: Int?
 )
 
 data class Match(

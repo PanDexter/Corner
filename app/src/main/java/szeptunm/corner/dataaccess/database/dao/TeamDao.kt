@@ -1,11 +1,9 @@
 package szeptunm.corner.dataaccess.database.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
 import io.reactivex.Single
 import szeptunm.corner.dataaccess.database.entity.TeamEntity
 
@@ -13,10 +11,10 @@ import szeptunm.corner.dataaccess.database.entity.TeamEntity
 interface TeamDao {
 
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertTeam(team: TeamEntity)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAllTeams(teamList: List<TeamEntity>)
 
     @Query("SELECT * FROM team")

@@ -2,18 +2,12 @@ package szeptunm.corner.dataaccess.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.Index
 
-@Entity(tableName = "team")
-class TeamEntity {
-
+@Entity(tableName = "team", primaryKeys = ["id", "name"], indices = [Index(value = ["id", "name"], unique = true)])
+class TeamEntity constructor(
     @ColumnInfo(name = "id")
-    @PrimaryKey
-    var id: Int = 0
+    var id: Int = 0,
     @ColumnInfo(name = "name")
     var name: String = ""
-    @ColumnInfo(name = "shortname")
-    var shortname: String = ""
-    @ColumnInfo(name = "tla")
-    var tla: String = ""
-}
+)

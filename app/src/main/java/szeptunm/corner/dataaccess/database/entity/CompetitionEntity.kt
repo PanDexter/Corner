@@ -5,11 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "competition")
-class CompetitionEntity {
-
+class CompetitionEntity constructor(
     @ColumnInfo(name = "id")
     @PrimaryKey
-    var id: Int = 0
+    var id: Int = 0,
     @ColumnInfo(name = "name")
-    var name: String = ""
-}
+    var name: String = "")
