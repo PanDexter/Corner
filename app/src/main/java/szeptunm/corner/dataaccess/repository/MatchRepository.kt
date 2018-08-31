@@ -1,7 +1,9 @@
 package szeptunm.corner.dataaccess.repository
 
 import android.annotation.SuppressLint
+import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Observable.*
 import io.reactivex.SingleTransformer
 import io.reactivex.schedulers.Schedulers
 import szeptunm.corner.dataaccess.api.model.MatchResponse
@@ -29,7 +31,7 @@ class MatchRepository @Inject constructor(
             }
 
     fun getAllMatches(): Observable<List<Match>> {
-        return Observable.concatArray(
+        return concatArray(
                 getMatchesFromDb(), getMatchesFromApi()
         )
     }
@@ -46,9 +48,9 @@ class MatchRepository @Inject constructor(
 
     private fun getMatchesFromApi(): Observable<List<Match>> {
         return matchService.getAllMatches(10)
-                .map { matchResponse ->
+                .flatMapCompletable { matchResponse ->
                     mapTeamAndCompetitionAndSave(matchResponse)
-                    mapMatchToEntity(matchResponse)
+                    //mapMatchToEntity(matchResponse)
                 }
                 .doOnSuccess {
                     saveMatchesToDatabase(it)
@@ -63,21 +65,21 @@ class MatchRepository @Inject constructor(
             matchResponse.matches[i].let {
                 matchList.add(
                         MatchEntity(
-                                it.score.fullTime.homeTeam,
-                                it.score.fullTime.awayTeam,
-                                it.score.extraTime.homeTeam,
-                                it.score.extraTime.awayTeam,
-                                it.score.penalties.homeTeam,
-                                it.score.penalties.awayTeam,
-                                it.homeTeam.name,
-                                it.awayTeam.name,
-                                it.utcDate, it.competition.name))
+                                homeTeamGoalFull = it.score.fullTime.homeTeam,
+                                awayTeamGoalFull = it.score.fullTime.awayTeam,
+                                homeTeamGoalExtra = it.score.extraTime.homeTeam,
+                                awayTeamGoalExtra = it.score.extraTime.awayTeam,
+                                homePenalties = it.score.penalties.homeTeam,
+                                awayPenalties = it.score.penalties.awayTeam,
+                                homeTeam = it.homeTeam.name,
+                                awayTeam = it.awayTeam.name,
+                                date = it.utcDate, competition = it.competition.name))
             }
         }
         return matchList
     }
 
-    private fun mapTeamAndCompetitionAndSave(matchResponse: MatchResponse) {
+    private fun mapTeamAndCompetitionAndSave(matchResponse: MatchResponse): Completable {
         val teamList: MutableList<TeamEntity> = ArrayList()
         val competitionList: MutableList<CompetitionEntity> = ArrayList()
         for (i in 0 until matchResponse.matches.size) {
@@ -90,12 +92,12 @@ class MatchRepository @Inject constructor(
             }
         }
 
-        saveTeamsAndCompetitionsToDatabase(teamList, competitionList)
+        return saveTeamsAndCompetitionsToDatabase(teamList, competitionList)
     }
 
     @SuppressLint("CheckResult")
     private fun saveMatchesToDatabase(matchList: List<MatchEntity>) {
-        Observable.fromCallable { matchDao.insertAllMatches(matchList) }
+        fromCallable { matchDao.insertAllMatches(matchList) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .subscribe {
@@ -105,16 +107,10 @@ class MatchRepository @Inject constructor(
 
     @SuppressLint("CheckResult")
     private fun saveTeamsAndCompetitionsToDatabase(teamList: List<TeamEntity>,
-            competitionList: List<CompetitionEntity>) {
-        Observable.fromCallable {
+            competitionList: List<CompetitionEntity>): Completable {
+        return Completable.fromCallable {
             teamDao.insertAllTeams(teamList)
             competitionDao.insertAllCompetitions(competitionList)
         }
-                .subscribeOn(Schedulers.computation())
-                .observeOn(Schedulers.computation())
-                .subscribe {
-                    Timber.d("Insert ${teamList.size} teams to DB...")
-                    Timber.d("Insert ${competitionList.size} competitions to DB...")
-                }
     }
 }

@@ -20,7 +20,7 @@ import androidx.room.Index
                     childColumns = ["competition"],
                     onDelete = ForeignKey.CASCADE))
         ],
-        primaryKeys = ["homeTeam", "awayTeam", "date"],
+        primaryKeys = ["homeTeam", "awayTeam", "matchDate"],
         indices = [(Index(value = ["homeTeam", "awayTeam"], unique = true))])
 class MatchEntity constructor(
     @ColumnInfo(name = "homeTeamGoalFull")
@@ -40,7 +40,7 @@ class MatchEntity constructor(
         @ColumnInfo(name = "awayTeam")
         var awayTeam: String = "",
         @ColumnInfo(name = "matchDate")
-        var date: String? = "",
+        var date: String = "",
     @ColumnInfo(name = "competitionId")
     var competition: String? = ""
 )
