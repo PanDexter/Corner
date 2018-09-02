@@ -13,7 +13,5 @@ class MatchRepositoryImpl @Inject constructor(var matchDao: MatchDao) {
 
      fun getAllMatches(): Single<List<MatchEntity>> = matchDao.getAllMatches()
 
-     fun getMatchById(id: Int): Single<MatchEntity> = matchDao.getMatchById(id)
-
      fun getMatchByTeamId(teamId: Int): Single<List<MatchEntity>> = matchDao.getMatchByTeamId(teamId)
 }

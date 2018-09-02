@@ -37,7 +37,6 @@ class MainActivity : DaggerAppCompatActivity() {
                 fragmentChanger.changeFragments(this, R.id.fragment_placeholder,
                         "schedule") { MatchFragment.newInstance() }
                 return@OnNavigationItemSelectedListener true
-                return@OnNavigationItemSelectedListener true
             }
             id.navigation_settings -> {
                 return@OnNavigationItemSelectedListener true

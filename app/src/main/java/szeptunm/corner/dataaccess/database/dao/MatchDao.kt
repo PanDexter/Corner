@@ -19,6 +19,6 @@ interface MatchDao {
     @Query("SELECT * FROM `match`")
     fun getAllMatches(): Single<List<MatchEntity>>
 
-    @Query("SELECT * FROM `match` WHERE homeTeam OR awayTeam =:teamName")
-    fun getMatchByTeamName(teamName: String): Single<List<MatchEntity>>
+    @Query("SELECT * FROM `match` WHERE homeTeam OR awayTeam LIKE:teamId")
+    fun getMatchByTeamId(teamId: Int): Single<List<MatchEntity>>
 }

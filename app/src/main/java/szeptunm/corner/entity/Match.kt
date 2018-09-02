@@ -12,10 +12,10 @@ data class Match(
         var awayTeamGoalExtra: Int? = null,
         var homePenalties: Int? = null,
         var awayPenalties: Int? = null,
-        var homeTeam: String = "",
-        var awayTeam: String = "",
+        var homeTeam: Int = 0,
+        var awayTeam: Int = 0,
         var date: String? = "",
-        var competition: String? = "") : Parcelable {
+        var competition: Int = 0) : Parcelable {
 
 
     constructor(matchEntity: MatchEntity) : this() {
@@ -27,7 +27,7 @@ data class Match(
         this.awayPenalties = matchEntity.awayPenalties
         this.homeTeam = matchEntity.homeTeam
         this.awayTeam = matchEntity.awayTeam
-        this.date = matchEntity.date
+        this.date = matchEntity.matchDate
         this.competition = matchEntity.competition
     }
 }

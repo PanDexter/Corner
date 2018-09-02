@@ -11,11 +11,11 @@ class MatchViewHolder(binding: MatchItemBinding, val itemObserver: PublishSubjec
 
     override fun bind(item: MatchItem) {
         this.item = item
-        binding.homeTeam.text = item.match.homeTeam
-        binding.awayTeam.text = item.match.awayTeam
+        binding.homeTeam.text = item.match.homeTeam.toString()
+        binding.awayTeam.text = item.match.awayTeam.toString()
         binding.score.text = score()
         binding.matchDate.text = item.match.date
-        binding.matchCompetition.text = item.match.competition
+        binding.matchCompetition.text = item.match.competition.toString()
     }
 
     fun score(): String {

@@ -26,7 +26,7 @@ data class PlayerEntity constructor(
         @ColumnInfo(name = "nationality")
         var nationality: String = "",
         @ColumnInfo(name = "teamId")
-        var teamId: Int? = 0,
+        var teamId: Int? = null,
         @ColumnInfo(name = "description")
         var description: String = "",
         @ColumnInfo(name = "thumbUrl")

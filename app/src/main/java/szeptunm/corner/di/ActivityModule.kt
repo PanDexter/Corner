@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import szeptunm.corner.ui.MainActivity
 import szeptunm.corner.ui.news.NewsFragment
+import szeptunm.corner.ui.schedule.MatchFragment
 import szeptunm.corner.ui.team.TeamFragment
 
 @Module
@@ -18,4 +19,7 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     abstract fun bindTeamFragment(): TeamFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindScheduleFragment(): MatchFragment
 }

@@ -3,9 +3,11 @@ package szeptunm.corner.dataaccess.repository
 import android.annotation.SuppressLint
 import io.reactivex.Completable
 import io.reactivex.Observable
-import io.reactivex.Observable.*
+import io.reactivex.Observable.concatArray
+import io.reactivex.Observable.fromCallable
 import io.reactivex.SingleTransformer
 import io.reactivex.schedulers.Schedulers
+import szeptunm.corner.BuildConfig
 import szeptunm.corner.dataaccess.api.model.MatchResponse
 import szeptunm.corner.dataaccess.api.service.MatchService
 import szeptunm.corner.dataaccess.database.dao.CompetitionDao
@@ -47,19 +49,15 @@ class MatchRepository @Inject constructor(
     }
 
     private fun getMatchesFromApi(): Observable<List<Match>> {
-        return matchService.getAllMatches(10)
+        return matchService.getAllMatches(BuildConfig.MATCH_KEY, 10)
                 .flatMapCompletable { matchResponse ->
                     mapTeamAndCompetitionAndSave(matchResponse)
-                    //mapMatchToEntity(matchResponse)
+                    mapMatchToEntity(matchResponse)
                 }
-                .doOnSuccess {
-                    saveMatchesToDatabase(it)
-                }
-                .compose(matchTransformer)
                 .toObservable()
     }
 
-    private fun mapMatchToEntity(matchResponse: MatchResponse): List<MatchEntity> {
+    private fun mapMatchToEntity(matchResponse: MatchResponse): Completable {
         val matchList: MutableList<MatchEntity> = ArrayList()
         for (i in 0 until matchResponse.matches.size) {
             matchResponse.matches[i].let {
@@ -71,12 +69,13 @@ class MatchRepository @Inject constructor(
                                 awayTeamGoalExtra = it.score.extraTime.awayTeam,
                                 homePenalties = it.score.penalties.homeTeam,
                                 awayPenalties = it.score.penalties.awayTeam,
-                                homeTeam = it.homeTeam.name,
-                                awayTeam = it.awayTeam.name,
-                                date = it.utcDate, competition = it.competition.name))
+                                homeTeam = it.homeTeam.id,
+                                awayTeam = it.awayTeam.id,
+                                matchDate = it.utcDate,
+                                competition = it.competition.id))
             }
         }
-        return matchList
+        return Completable.fromCallable { saveMatchesToDatabase(matchList) }
     }
 
     private fun mapTeamAndCompetitionAndSave(matchResponse: MatchResponse): Completable {
