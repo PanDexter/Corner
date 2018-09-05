@@ -1,0 +1,96 @@
+<resources>
+
+    <style name="Text">
+        <item name="android:textColor">@color/textNormalColor</item>
+        <item name="android:textSize">@dimen/text_size_general</item>
+    </style>
+
+    <style name="Text.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.Bold.Primary">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Text.Light">
+        <item name="android:textColor">@color/textLightColor</item>
+    </style>
+
+    <style name="Text.Grey">
+        <item name="android:textColor">@color/textGreyColor</item>
+    </style>
+
+    <style name="Text.Accent">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Text.Light.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.Small">
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+    <style name="Text.Small.Light">
+        <item name="android:textColor">@color/textLightColor</item>
+    </style>
+
+    <style name="Text.Small.Grey">
+        <item name="android:textColor">@color/textGreyColor</item>
+    </style>
+
+
+    <style name="Text.General">
+        <item name="android:textSize">@dimen/text_size_general</item>
+    </style>
+
+    <style name="Text.General.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.General.LightFont">
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="Text.Medium">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+    </style>
+
+    <style name="Text.Medium.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.Medium.Grey">
+        <item name="android:textColor">@color/textGreyColor</item>
+    </style>
+
+    <style name="Text.Medium.Grey.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.Large">
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="Text.Large.Light">
+        <item name="android:textColor">@color/textLightColor</item>
+    </style>
+
+    <style name="Text.Large.Light.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.ExtraLarge">
+        <item name="android:textSize">@dimen/text_size_extra_large</item>
+    </style>
+
+    <style name="Text.ExtraLarge.Light">
+        <item name="android:textColor">@color/textLightColor</item>
+    </style>
+
+    <style name="Text.ExtraLarge.Light.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

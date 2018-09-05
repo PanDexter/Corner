@@ -14,4 +14,10 @@
     <string name="default_score">2–1</string>
     <string name="dash">-</string>
     <string name="description_example">"Lionel Messi scored two goals, including the 6,000th for Barcelona in La Liga, to lead the reigning champions past Alaves in their season opener. Lionel Messi scored his 6000th goal in La Liga history, as Barcelona put away Alaves 3–0. Craig Burley and Paul Mariner make their predictions for the La Liga season, and one of them is backing Diego Costa for a big season. BARCELONA –- Lionel Messi put World Cup disappointment with Argentina behind him to kick off the new season with a bang, scoring twice in Barcelona's 3-0 win against Alaves at Camp Nou on Saturday. Messi scored twice, with Philippe Coutinho also on target, as well as hitting the woodwork two times and creating gilt-edged chances for teammates Ousmane Dembele and Luis Suarez. The forward's first goal, Barca's 6,000th in La Liga (he also scored their 5,000th in 2009) was delivered under the Alaves..."</string>
+    <string name="full_name">Full name:</string>
+    <string name="nationality">Nationality:</string>
+    <string name="date_of_birth">Date of birth:</string>
+    <string name="birth_location">Birth location:</string>
+    <string name="value">Value:</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.</string>
 </resources>

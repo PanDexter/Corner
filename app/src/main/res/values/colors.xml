@@ -39,5 +39,7 @@
     <color name="textGreyColor">@color/blackAlpha45</color>
     <color name="textLightColor">@color/whiteAlpha90</color>
 
+    <color name="photo_detail_tint">#9F000000</color>
+
 
 </resources>

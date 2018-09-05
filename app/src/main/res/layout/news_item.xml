@@ -11,9 +11,9 @@
         >
         <ImageView
             android:id="@+id/news_photo"
-            android:tint="#9F000000"
+            android:tint="@color/photo_detail_tint"
             android:layout_width="wrap_content"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/photo_news_height"
             tools:src="@drawable/news"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

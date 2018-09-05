@@ -8,6 +8,7 @@ import szeptunm.corner.dataaccess.database.entity.NewsEntity
 data class News(
         var title: String = "",
         var description: String = "",
+        var link: String? = "",
         var date: String = "",
         var photoUrl: String? = "",
         var teamId: Int? = null) : Parcelable {
@@ -15,6 +16,7 @@ data class News(
     constructor(newsEntity: NewsEntity) : this() {
         this.title = newsEntity.title
         this.description = newsEntity.description
+        this.link = newsEntity.link
         this.date = newsEntity.date
         this.photoUrl = newsEntity.photoUrl
         this.teamId = newsEntity.teamId

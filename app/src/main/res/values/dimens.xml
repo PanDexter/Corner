@@ -3,8 +3,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="placeholder_value">0dp</dimen>
-    <dimen name="margin_tiny">4dp</dimen>
-    <dimen name="margin_general">16dp</dimen>
     <dimen name="margin_normal">8dp</dimen>
     <dimen name="match_constraints">0dp</dimen>
     <dimen name="rv_item_height">100dp</dimen>
@@ -16,4 +14,44 @@
     <dimen name="team_banner_photo">50dp</dimen>
     <dimen name="team_banner_text">25sp</dimen>
     <dimen name="team_banner_size">60dp</dimen>
+    <dimen name="photo_news_height">200dp</dimen>
+
+    <!-- Text sizes -->
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_medium">14sp</dimen>
+    <dimen name="text_size_general">16sp</dimen>
+    <dimen name="text_size_semi_large">18sp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
+    <dimen name="text_size_extra_large">24sp</dimen>
+    <dimen name="text_size_huge">34sp</dimen>
+
+    <dimen name="text_size_small_dp">12dp</dimen>
+    <dimen name="text_size_medium_dp">14dp</dimen>
+    <dimen name="text_size_general_dp">16dp</dimen>
+    <dimen name="text_size_semi_large_dp">18dp</dimen>
+    <dimen name="text_size_large_dp">20dp</dimen>
+    <dimen name="text_size_extra_large_dp">24dp</dimen>
+    <dimen name="text_size_huge_dp">34dp</dimen>
+
+    <!-- Margins -->
+    <dimen name="margin_very_tiny">2dp</dimen>
+    <dimen name="margin_tiny">4dp</dimen>
+    <dimen name="margin_smallish">6dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">10dp</dimen>
+    <dimen name="margin_medium_plus">12dp</dimen>
+    <dimen name="margin_general">16dp</dimen>
+    <dimen name="margin_semi_large">20dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_huge">30dp</dimen>
+
+    <!-- Common heights -->
+    <dimen name="zero">0dp</dimen>
+    <dimen name="one">1dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
+
+
+    <!--  Font size dimensions  -->
+
+
 </resources>

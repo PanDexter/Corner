@@ -7,6 +7,8 @@ import com.bumptech.glide.request.RequestOptions
 import io.reactivex.subjects.PublishSubject
 import szeptunm.corner.R
 import szeptunm.corner.databinding.PlayerItemBinding
+import szeptunm.corner.ui.FragmentChanger
+import szeptunm.corner.ui.MainActivity
 import szeptunm.corner.ui.recycler.BindingViewHolder
 
 class PlayerViewHolder(binding: PlayerItemBinding, val itemObserver: PublishSubject<Int>) :
@@ -17,6 +19,13 @@ class PlayerViewHolder(binding: PlayerItemBinding, val itemObserver: PublishSubj
     override fun bind(item: PlayerItem) {
         this.item = item
 
+        val fragmentChanger = FragmentChanger()
+
+        val activity = context as MainActivity
+        binding.containerPlayer.setOnClickListener {
+            fragmentChanger.changeFragments(activity, R.id.fragment_placeholder,
+                    "playerDetail") { PlayerDetailFragment.newInstance(item.player) }
+        }
         val requestOptions = RequestOptions()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

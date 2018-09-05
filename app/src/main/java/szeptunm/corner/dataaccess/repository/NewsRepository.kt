@@ -6,6 +6,7 @@ import io.reactivex.SingleTransformer
 import io.reactivex.schedulers.Schedulers
 import szeptunm.corner.BuildConfig
 import szeptunm.corner.dataaccess.api.model.NewsResponse
+import szeptunm.corner.dataaccess.api.pojo.Item
 import szeptunm.corner.dataaccess.api.service.NewsService
 import szeptunm.corner.dataaccess.database.dao.NewsDao
 import szeptunm.corner.dataaccess.database.entity.NewsEntity
@@ -49,7 +50,6 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
                 }
                 .compose(newsTransformer)
                 .toObservable()
-
     }
 
 
@@ -58,7 +58,8 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
         for (i in 0 until newsResponse.items.size) {
             newsResponse.items[i].let {
                 newsList.add(
-                        NewsEntity(0, it.title, it.description, it.pubDate, it.enclosure.imageURL, it.link, null))
+                        NewsEntity(0, it.title, changeDescription(it), it.pubDate, it.enclosure.imageURL, it.link,
+                                null))
             }
         }
         return newsList
@@ -72,6 +73,14 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
                 .subscribe {
                     Timber.d("Insert ${newsList.size} news to DB...")
                 }
+    }
+
+    private fun changeDescription(item: Item): String {
+        if (item.enclosure.imageURL != null) {
+            val first = item.description.split('>')
+            return first[1]
+        }
+        return ""
     }
 }
 
