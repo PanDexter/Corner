@@ -53,8 +53,8 @@ class PlayerDetailFragment : DaggerFragment() {
             nationality.text = player.nationality
             dateOfBirth.text = player.dateOfBirth
             description.text = player.description
-            birthLocation.text = ""
-            value.text = ""
+            position.text = player.position
+            sizesInfo.text = player.height + "/" + player.weight
         }
     }
 }

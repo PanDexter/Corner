@@ -32,5 +32,9 @@ data class PlayerEntity constructor(
         @ColumnInfo(name = "thumbUrl")
         var thumbUrl: String = "",
         @ColumnInfo(name = "cutOutUrl")
-        var cutOutUrl: String? = ""
+        var cutOutUrl: String? = "",
+        @ColumnInfo(name = "weight")
+        var weight: String? = "",
+        @ColumnInfo(name = "height")
+        var height: String? = ""
 )

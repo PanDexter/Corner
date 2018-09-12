@@ -86,6 +86,10 @@
         <item name="android:textSize">@dimen/text_size_extra_large</item>
     </style>
 
+    <style name="Text.ExtraLarge.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Text.ExtraLarge.Light">
         <item name="android:textColor">@color/textLightColor</item>
     </style>

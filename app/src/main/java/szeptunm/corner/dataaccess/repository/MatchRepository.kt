@@ -52,12 +52,11 @@ class MatchRepository @Inject constructor(
         return matchService.getAllMatches(BuildConfig.MATCH_KEY, 10)
                 .flatMapCompletable { matchResponse ->
                     mapTeamAndCompetitionAndSave(matchResponse)
-                    mapMatchToEntity(matchResponse)
                 }
                 .toObservable()
     }
 
-    private fun mapMatchToEntity(matchResponse: MatchResponse): Completable {
+    private fun mapMatchToEntity(matchResponse: MatchResponse): List<MatchEntity> {
         val matchList: MutableList<MatchEntity> = ArrayList()
         for (i in 0 until matchResponse.matches.size) {
             matchResponse.matches[i].let {
@@ -75,23 +74,21 @@ class MatchRepository @Inject constructor(
                                 competition = it.competition.id))
             }
         }
-        return Completable.fromCallable { saveMatchesToDatabase(matchList) }
+        return matchList
     }
 
     private fun mapTeamAndCompetitionAndSave(matchResponse: MatchResponse): Completable {
         val teamList: MutableList<TeamEntity> = ArrayList()
         val competitionList: MutableList<CompetitionEntity> = ArrayList()
-        for (i in 0 until matchResponse.matches.size) {
-            matchResponse.matches[i].let {
-                teamList.addAll(
-                        arrayOf(
-                                TeamEntity(it.homeTeam.id, it.homeTeam.name),
-                                TeamEntity(it.awayTeam.id, it.awayTeam.name)))
-                competitionList.add(CompetitionEntity(it.competition.id, it.competition.name))
-            }
+        matchResponse.matches.map {
+            teamList.addAll(
+                    arrayOf(
+                            TeamEntity(it.homeTeam.id, it.homeTeam.name),
+                            TeamEntity(it.awayTeam.id, it.awayTeam.name)))
+            competitionList.add(CompetitionEntity(it.competition.id, it.competition.name))
         }
-
-        return saveTeamsAndCompetitionsToDatabase(teamList, competitionList)
+        val matchList = mapMatchToEntity(matchResponse)
+        return saveToDatabase(teamList, competitionList, matchList)
     }
 
     @SuppressLint("CheckResult")
@@ -105,11 +102,13 @@ class MatchRepository @Inject constructor(
     }
 
     @SuppressLint("CheckResult")
-    private fun saveTeamsAndCompetitionsToDatabase(teamList: List<TeamEntity>,
-            competitionList: List<CompetitionEntity>): Completable {
+    private fun saveToDatabase(teamList: List<TeamEntity>,
+            competitionList: List<CompetitionEntity>, matchList: List<MatchEntity>): Completable {
         return Completable.fromCallable {
             teamDao.insertAllTeams(teamList)
             competitionDao.insertAllCompetitions(competitionList)
+        }.andThen {
+            saveMatchesToDatabase(matchList)
         }
     }
 }

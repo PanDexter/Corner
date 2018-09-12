@@ -11,5 +11,7 @@ data class Player(
         @SerializedName("strNationality") val nationality: String,
         @SerializedName("strPosition") val position: String,
         @SerializedName("strThumb") val thumbUrl: String,
-        @SerializedName("strCutout") val cutOutUrl: String
+        @SerializedName("strCutout") val cutOutUrl: String,
+        @SerializedName("strHeight") val height: String,
+        @SerializedName("strWeight") val weight: String
 )

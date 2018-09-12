@@ -15,124 +15,163 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/name_header"
-            style="@style/Text.General.Bold"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/match_constraints"
-            android:padding="@dimen/margin_normal"
-            android:text="@string/full_name"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
-        <TextView
-            android:id="@+id/name"
-            style="@style/Text.General.LightFont"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/match_constraints"
-            android:padding="@dimen/margin_normal"
-            tools:text="Marcin Szeptun"
-            app:layout_constraintLeft_toRightOf="@id/name_header"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
-        <TextView
-            android:id="@+id/nationality_header"
-            style="@style/Text.General.Bold"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/match_constraints"
-            android:padding="@dimen/margin_normal"
-            android:text="@string/nationality"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name_header" />
-
-        <TextView
-            android:id="@+id/nationality"
-            style="@style/Text.General.LightFont"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/match_constraints"
-            android:padding="@dimen/margin_normal"
-            tools:text="Poland"
-            app:layout_constraintLeft_toRightOf="@id/nationality_header"
-            app:layout_constraintTop_toBottomOf="@id/name" />
-
-        <TextView
-            android:id="@+id/dateOfBirth_header"
-            style="@style/Text.General.Bold"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/match_constraints"
-            android:padding="@dimen/margin_normal"
-            android:text="@string/date_of_birth"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nationality_header" />
-
-        <TextView
-            android:id="@+id/dateOfBirth"
-            style="@style/Text.General.LightFont"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/match_constraints"
-            android:padding="@dimen/margin_normal"
-            tools:text="24.01.1996"
-            app:layout_constraintLeft_toRightOf="@id/dateOfBirth_header"
-            app:layout_constraintTop_toBottomOf="@id/nationality" />
-
-        <TextView
-            android:id="@+id/birthLocation_header"
-            style="@style/Text.General.Bold"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/match_constraints"
-            android:padding="@dimen/margin_normal"
-            android:text="@string/birth_location"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dateOfBirth_header" />
-
-        <TextView
-            android:id="@+id/birthLocation"
-            style="@style/Text.General.LightFont"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/match_constraints"
-            android:padding="@dimen/margin_normal"
-            tools:text="Lubin,Poland"
-            app:layout_constraintLeft_toRightOf="@id/birthLocation_header"
-            app:layout_constraintTop_toBottomOf="@id/dateOfBirth" />
-
-        <TextView
-            android:id="@+id/value_header"
-            style="@style/Text.General.Bold"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/match_constraints"
-            android:padding="@dimen/margin_normal"
-            android:text="@string/value"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/birthLocation_header" />
-
-        <TextView
-            android:id="@+id/value"
-            style="@style/Text.General.LightFont"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/match_constraints"
-            android:padding="@dimen/margin_normal"
-            tools:text="32 mil $"
-            app:layout_constraintLeft_toRightOf="@id/value_header"
-            app:layout_constraintTop_toBottomOf="@id/birthLocation" />
-
-        <ImageView
-            android:id="@+id/player_photo"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            tools:src="@drawable/barcelonabadge"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/name_header" />
-
-        <TextView
-            android:id="@+id/description"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="@dimen/match_constraints"
-            android:layout_margin="@dimen/margin_general"
-            android:padding="@dimen/margin_general"
-            tools:text="@string/lorem_ipsum"
+            android:fillViewport="true"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/value_header" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/player_photo"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="1dp"
+                    tools:src="@drawable/barcelonabadge" />
+
+                <TextView
+                    android:id="@+id/name"
+                    style="@style/Text.ExtraLarge.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/margin_normal"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/player_photo"
+                    tools:text="Marcin Szeptun" />
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/player_card_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp">
+
+                    <TextView
+                        android:id="@+id/dateOfBirth_header"
+                        style="@style/Text.General.Bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:padding="@dimen/margin_normal"
+                        android:text="@string/date_of_birth" />
+
+                    <TextView
+                        android:id="@+id/dateOfBirth"
+                        style="@style/Text.General.LightFont"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:layout_gravity="left"
+                        android:padding="@dimen/margin_normal"
+                        tools:text="24.01.1996" />
+
+
+                    <TextView
+                        android:id="@+id/sizes_header"
+                        style="@style/Text.General.Bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/margin_normal"
+                        android:text="@string/info_sizes"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_gravity="end" />
+
+                    <TextView
+                        android:id="@+id/sizes_info"
+                        style="@style/Text.General.LightFont"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:padding="@dimen/margin_normal"
+                        tools:text="168/70"
+                        android:layout_gravity="end" />
+
+                    <TextView
+                        android:id="@+id/nationality_header"
+                        style="@style/Text.General.Bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/margin_normal"
+                        android:text="@string/nationality"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="40dp" />
+
+                    <TextView
+                        android:id="@+id/nationality"
+                        style="@style/Text.General.LightFont"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/margin_normal"
+                        tools:text="Poland"
+                        android:layout_gravity="bottom" />
+
+
+                    <TextView
+                        android:id="@+id/position_header"
+                        style="@style/Text.General.Bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/margin_normal"
+                        android:text="@string/position"
+                        android:layout_gravity="bottom | end"
+                        android:layout_marginBottom="40dp" />
+
+                    <TextView
+                        android:id="@+id/position"
+                        style="@style/Text.General.LightFont"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/margin_normal"
+                        tools:text="Striker"
+                        android:layout_gravity="bottom | end" />
+
+
+                    <View
+                        style="@style/Divider"
+                        android:layout_gravity="center |start" />
+
+                    <View
+                        style="@style/Divider"
+                        android:layout_gravity="center |end" />
+
+                    <View
+                        style="@style/Divider_vertical"
+                        android:layout_gravity="center | top " />
+
+                    <View
+                        style="@style/Divider_vertical"
+                        android:layout_gravity="center |bottom " />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
+
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_general"
+                        tools:text="@string/lorem_ipsum" />
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -13,7 +13,9 @@ data class Player(
         var teamId: Int? = 0,
         var description: String = "",
         var thumbUrl: String = "",
-        var cutOutUrl: String? = "") : Parcelable {
+        var cutOutUrl: String? = "",
+        var weight: String? = "",
+        var height: String? = "") : Parcelable {
 
     constructor(playerEntity: PlayerEntity) : this() {
         this.name = playerEntity.name
@@ -24,5 +26,7 @@ data class Player(
         this.description = playerEntity.description
         this.thumbUrl = playerEntity.thumbUrl
         this.cutOutUrl = playerEntity.cutOutUrl
+        this.weight = playerEntity.weight
+        this.height = playerEntity.height
     }
 }
