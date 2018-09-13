@@ -2,7 +2,6 @@ package szeptunm.corner.ui
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import dagger.android.support.DaggerAppCompatActivity
 import szeptunm.corner.R
 import szeptunm.corner.R.id
 import szeptunm.corner.R.layout
@@ -11,7 +10,11 @@ import szeptunm.corner.ui.schedule.MatchFragment
 import szeptunm.corner.ui.team.TeamFragment
 import javax.inject.Inject
 
-class MainActivity : DaggerAppCompatActivity() {
+class MainActivity : BaseActivity() {
+
+
+    override val layoutResource: Int
+        get() = R.layout.activity_main
 
     @Inject
     lateinit var fragmentChanger: FragmentChanger

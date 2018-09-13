@@ -1,16 +1,17 @@
 package szeptunm.corner.ui.news
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import dagger.android.support.DaggerFragment
 import szeptunm.corner.R
 import szeptunm.corner.databinding.NewsWebBinding
 import szeptunm.corner.entity.News
+import szeptunm.corner.ui.ToolbarFragment
 
-class NewsWebFragment : DaggerFragment() {
+class NewsWebFragment : ToolbarFragment() {
+
+
+    override val layoutResource: Int
+        get() = R.layout.news_web
 
     private lateinit var binding: NewsWebBinding
 
@@ -24,14 +25,10 @@ class NewsWebFragment : DaggerFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.news_web, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = viewDataBinding as NewsWebBinding
         val news = arguments?.getParcelable("KEY_NEWS_WEB") as News
         binding.webView.loadUrl(news.link)
-        binding.toolbar.navigationIcon = resources.getDrawable(R.drawable.abc_ic_ab_back_material)
-        binding.toolbar.setNavigationOnClickListener {
-            fragmentManager?.popBackStackImmediate()
-        }
-        return binding.root
     }
 }

@@ -1,19 +1,18 @@
 package szeptunm.corner.ui.team
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import dagger.android.support.DaggerFragment
 import szeptunm.corner.R
 import szeptunm.corner.databinding.PlayerDetailBinding
 import szeptunm.corner.entity.Player
+import szeptunm.corner.ui.ToolbarFragment
 
-class PlayerDetailFragment : DaggerFragment() {
+class PlayerDetailFragment : ToolbarFragment() {
+    override val layoutResource: Int
+        get() = R.layout.player_detail
 
     private lateinit var binding: PlayerDetailBinding
 
@@ -27,18 +26,14 @@ class PlayerDetailFragment : DaggerFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.player_detail, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = viewDataBinding as PlayerDetailBinding
         val player = arguments?.getParcelable("KEY_PLAYER") as Player
         setImage(player)
         setupPlayerDetails(player)
         binding.toolbar.title = player.name
         binding.toolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        binding.toolbar.navigationIcon = resources.getDrawable(R.drawable.abc_ic_ab_back_material)
-        binding.toolbar.setNavigationOnClickListener {
-            fragmentManager?.popBackStackImmediate()
-        }
-        return binding.root
     }
 
     private fun setImage(player: Player) {

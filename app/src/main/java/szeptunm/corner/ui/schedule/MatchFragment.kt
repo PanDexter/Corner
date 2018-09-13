@@ -1,20 +1,19 @@
 package szeptunm.corner.ui.schedule
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import szeptunm.corner.R
 import szeptunm.corner.databinding.FragmentScheduleBinding
+import szeptunm.corner.ui.BaseFragment
 import javax.inject.Inject
 
-class MatchFragment : DaggerFragment() {
+class MatchFragment : BaseFragment() {
+    override val layoutResource: Int
+        get() = R.layout.fragment_schedule
 
     @Inject
     lateinit var matchAdapter: MatchAdapter
@@ -29,11 +28,11 @@ class MatchFragment : DaggerFragment() {
         fun newInstance(): MatchFragment = MatchFragment()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_schedule, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = viewDataBinding as FragmentScheduleBinding
         setupRecycle()
         subscribeToViewModel()
-        return binding.root
     }
 
     private fun setupRecycle() {

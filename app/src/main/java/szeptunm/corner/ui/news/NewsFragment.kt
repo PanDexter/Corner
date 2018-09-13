@@ -1,20 +1,17 @@
 package szeptunm.corner.ui.news
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import szeptunm.corner.R
 import szeptunm.corner.databinding.FragmentNewsBinding
+import szeptunm.corner.ui.BaseFragment
 import javax.inject.Inject
 
-class NewsFragment : DaggerFragment() {
+class NewsFragment : BaseFragment() {
 
     @Inject
     lateinit var newsAdapter: NewsAdapter
@@ -23,17 +20,21 @@ class NewsFragment : DaggerFragment() {
     lateinit var viewModel: NewsViewModel
 
     private lateinit var binding: FragmentNewsBinding
+
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     companion object {
+
         fun newInstance(): NewsFragment = NewsFragment()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_news, container, false)
+    override val layoutResource: Int
+        get() = R.layout.fragment_news
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding = viewDataBinding as FragmentNewsBinding
         setupRecycle()
         subscribeToViewModel()
-        return binding.root
     }
 
     private fun setupRecycle() {
