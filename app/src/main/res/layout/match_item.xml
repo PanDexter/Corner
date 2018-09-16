@@ -7,10 +7,7 @@
         android:id="@+id/scoreboard_item"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:paddingBottom="@dimen/margin_tiny"
-        android:paddingLeft="@dimen/margin_tiny"
-        android:paddingRight="@dimen/margin_tiny"
-        android:paddingTop="@dimen/margin_tiny">
+        android:layout_margin="@dimen/margin_tiny">
 
 
         <TextView
@@ -66,13 +63,13 @@
             android:id="@+id/score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/match_competition"
             tools:text="2 - 1" />
 
         <ImageView

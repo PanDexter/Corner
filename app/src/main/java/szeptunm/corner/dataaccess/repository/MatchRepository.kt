@@ -5,6 +5,7 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Observable.concatArray
 import io.reactivex.Observable.fromCallable
+import io.reactivex.Single
 import io.reactivex.SingleTransformer
 import io.reactivex.schedulers.Schedulers
 import szeptunm.corner.BuildConfig
@@ -16,7 +17,9 @@ import szeptunm.corner.dataaccess.database.dao.TeamDao
 import szeptunm.corner.dataaccess.database.entity.CompetitionEntity
 import szeptunm.corner.dataaccess.database.entity.MatchEntity
 import szeptunm.corner.dataaccess.database.entity.TeamEntity
+import szeptunm.corner.entity.Competition
 import szeptunm.corner.entity.Match
+import szeptunm.corner.entity.Team
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -49,7 +52,7 @@ class MatchRepository @Inject constructor(
     }
 
     private fun getMatchesFromApi(): Observable<List<Match>> {
-        return matchService.getAllMatches(BuildConfig.MATCH_KEY, 10)
+        return matchService.getAllMatches(BuildConfig.MATCH_KEY, 81)
                 .flatMapCompletable { matchResponse ->
                     mapTeamAndCompetitionAndSave(matchResponse)
                 }
@@ -111,4 +114,16 @@ class MatchRepository @Inject constructor(
             saveMatchesToDatabase(matchList)
         }
     }
+
+    fun getTeamById(id: Int): Single<Team> =
+            teamDao.getTeamById(id)
+                    .map { it ->
+                        Team(it)
+                    }
+
+    fun getCompetitionById(id: Int): Single<Competition> =
+            competitionDao.getCompetitionById(id)
+                    .map { it ->
+                        Competition(it)
+                    }
 }

@@ -22,4 +22,7 @@ interface TeamDao {
 
     @Query("SELECT * FROM team WHERE name LIKE:club")
     fun getTeamByName(club: String): Single<TeamEntity>
+
+    @Query("SELECT * FROM team WHERE id = :id")
+    fun getTeamById(id: Int): Single<TeamEntity>
 }

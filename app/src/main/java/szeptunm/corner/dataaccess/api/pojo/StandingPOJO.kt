@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Table(
         @SerializedName("position") val position: Int,
-        @SerializedName("team") val team: Team,
+        @SerializedName("team") val team: TeamStanding,
         @SerializedName("playedGames") val playedGames: Int,
         @SerializedName("won") val won: Int,
         @SerializedName("draw") val draw: Int,
@@ -20,6 +20,12 @@ data class Standing(
         @SerializedName("stage") val stage: String,
         @SerializedName("type") val type: String,
         @SerializedName("table") val table: List<Table>
+)
+
+data class TeamStanding(
+        @SerializedName("id") val id: Int,
+        @SerializedName("name") val name: String,
+        @SerializedName("crestUrl") val crestUrl: String
 )
 
 

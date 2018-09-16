@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/position"
+            style="@style/Text.General"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/match_constraints"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1" />
+
+        <ImageView
+            android:id="@+id/club_crest"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="@dimen/margin_normal"
+            app:layout_constraintLeft_toRightOf="@id/position"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/barcelonabadge" />
+
+        <TextView
+            android:id="@+id/club_name"
+            style="@style/Text.General.LightFont"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/match_constraints"
+            android:layout_marginStart="@dimen/margin_normal"
+            app:layout_constraintLeft_toRightOf="@id/club_crest"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="FC Barcelona" />
+
+        <TextView
+            android:id="@+id/played"
+            style="@style/Standing_item"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/match_constraints"
+            app:layout_constraintRight_toLeftOf="@id/won"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="5" />
+
+        <TextView
+            android:id="@+id/won"
+            style="@style/Standing_item"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/match_constraints"
+            app:layout_constraintRight_toLeftOf="@id/drown"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="3" />
+
+        <TextView
+            android:id="@+id/drown"
+            style="@style/Standing_item"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/match_constraints"
+            app:layout_constraintRight_toLeftOf="@id/lost"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1" />
+
+        <TextView
+            android:id="@+id/lost"
+            style="@style/Standing_item"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/match_constraints"
+            app:layout_constraintRight_toLeftOf="@id/goals_for"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1" />
+
+        <TextView
+            android:id="@+id/goals_for"
+            style="@style/Standing_item"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/match_constraints"
+            app:layout_constraintRight_toLeftOf="@id/goals_against"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="20" />
+
+        <TextView
+            android:id="@+id/goals_against"
+            style="@style/Standing_item"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/match_constraints"
+            app:layout_constraintRight_toLeftOf="@id/goals_difference"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="5" />
+
+        <TextView
+            android:id="@+id/goals_difference"
+            style="@style/Standing_item"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/match_constraints"
+            app:layout_constraintRight_toLeftOf="@id/points"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="15" />
+
+        <TextView
+            android:id="@+id/points"
+            style="@style/Text.Medium.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/match_constraints"
+            android:layout_marginEnd="@dimen/margin_normal"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="10" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
