@@ -107,7 +107,7 @@ class ServiceModule {
     @Provides
     @Singleton
     @Named("standing")
-    fun provideStandingRetrofi(gson: Gson, @Named("standing") client: OkHttpClient): Retrofit {
+    fun provideStandingRetrofit(gson: Gson, @Named("standing") client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(BuildConfig.STATISTIC_API_HTTP_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))

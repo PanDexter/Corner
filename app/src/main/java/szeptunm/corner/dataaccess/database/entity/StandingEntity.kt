@@ -17,8 +17,8 @@ import androidx.room.ForeignKey
         ],
         primaryKeys = ["teamId", "currentMatchDay", "competitionId"])
 data class StandingEntity(
-    @ColumnInfo(name = "currentMatchDay")
-    var currentMatchDay: Int = 0,
+        @ColumnInfo(name = "currentMatchDay")
+        var currentMatchDay: Int = 0,
         @ColumnInfo(name = "position")
         var position: Int = 0,
         @ColumnInfo(name = "playedGames")

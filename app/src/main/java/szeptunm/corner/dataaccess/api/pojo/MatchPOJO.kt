@@ -34,10 +34,3 @@ data class Match(
         @SerializedName("awayTeam") val awayTeam: Team,
         @SerializedName("score") val score: Result
 )
-
-data class Season(
-        @SerializedName("id") val id: Int,
-        @SerializedName("startDate") val startDate: String,
-        @SerializedName("endDate") val endDate: String,
-        @SerializedName("currentMatchday") val currentMatchday: Int
-)

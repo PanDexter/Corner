@@ -26,7 +26,7 @@ data class PlayerEntity constructor(
         @ColumnInfo(name = "nationality")
         var nationality: String = "",
         @ColumnInfo(name = "teamId")
-        var teamId: Int? = null,
+        var teamId: Int? = 0,
         @ColumnInfo(name = "description")
         var description: String = "",
         @ColumnInfo(name = "thumbUrl")
@@ -34,7 +34,7 @@ data class PlayerEntity constructor(
         @ColumnInfo(name = "cutOutUrl")
         var cutOutUrl: String? = "",
         @ColumnInfo(name = "weight")
-        var weight: String? = "",
+        var weight: String = "",
         @ColumnInfo(name = "height")
-        var height: String? = ""
+        var height: String = ""
 )

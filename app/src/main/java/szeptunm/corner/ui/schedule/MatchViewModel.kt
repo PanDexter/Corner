@@ -23,6 +23,9 @@ class MatchViewModel @Inject constructor(getAllMatches: GetAllMatches, private v
     private var homeTeamSubject: BehaviorSubject<Team> = BehaviorSubject.create()
     private var awayTeamSubject: BehaviorSubject<Team> = BehaviorSubject.create()
     private var competitionSubject: BehaviorSubject<Competition> = BehaviorSubject.create()
+    private lateinit var homeTeam: Team
+    private lateinit var awayTeam: Team
+    private lateinit var competition: Competition
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
     private var items: List<MatchItem> = emptyList()
 
@@ -42,8 +45,12 @@ class MatchViewModel @Inject constructor(getAllMatches: GetAllMatches, private v
                         getCompetitionById.execute(it.competition).doOnSuccess {
                             competitionSubject.onNext(it)
                         }
-                        convertIntoItems(it, homeTeamSubject.value!!.name, awayTeamSubject.value!!.name,
-                                competitionSubject.value!!.name)
+                        observeHomeTeam()
+                        observeAwayTeam()
+                        observeCompetition()
+
+                        convertIntoItems(it, homeTeam.name, awayTeam.name,
+                                competition.name)
                     }
                 }
                 .doOnNext {
@@ -70,5 +77,23 @@ class MatchViewModel @Inject constructor(getAllMatches: GetAllMatches, private v
                 date = match.date,
                 competition = competitionName
         ))
+    }
+
+    private fun observeHomeTeam() {
+        homeTeamSubject.subscribe {
+            homeTeam = it
+        }.addTo(compositeDisposable)
+    }
+
+    private fun observeAwayTeam() {
+        awayTeamSubject.subscribe {
+            awayTeam = it
+        }.addTo(compositeDisposable)
+    }
+
+    private fun observeCompetition() {
+        competitionSubject.subscribe {
+            competition = it
+        }.addTo(compositeDisposable)
     }
 }
