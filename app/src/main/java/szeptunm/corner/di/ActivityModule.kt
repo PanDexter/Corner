@@ -7,6 +7,7 @@ import szeptunm.corner.ui.news.NewsDetailFragment
 import szeptunm.corner.ui.news.NewsFragment
 import szeptunm.corner.ui.news.NewsWebFragment
 import szeptunm.corner.ui.schedule.MatchFragment
+import szeptunm.corner.ui.standing.StandingFragment
 import szeptunm.corner.ui.team.PlayerDetailFragment
 import szeptunm.corner.ui.team.TeamFragment
 
@@ -34,4 +35,7 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     abstract fun bindPlayerDetailsFragment(): PlayerDetailFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindStandingFragment(): StandingFragment
 }

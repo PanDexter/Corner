@@ -24,7 +24,6 @@ class NewsFragment : BaseFragment() {
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     companion object {
-
         fun newInstance(): NewsFragment = NewsFragment()
     }
 

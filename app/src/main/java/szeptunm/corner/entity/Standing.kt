@@ -7,14 +7,14 @@ import szeptunm.corner.dataaccess.database.entity.StandingEntity
 @Parcelize
 data class Standing(
         var currentMatchDay: Int = 0,
-        var position: Int = 0,
-        var playedGames: Int = 0,
-        var won: Int = 0,
-        var draw: Int = 0,
-        var lost: Int = 0,
-        var points: Int = 0,
-        var goalsFor: Int = 0,
-        var goalAgainst: Int = 0,
+        var position: Int? = 0,
+        var playedGames: Int? = 0,
+        var won: Int? = 0,
+        var draw: Int? = 0,
+        var lost: Int? = 0,
+        var points: Int? = 0,
+        var goalsFor: Int? = 0,
+        var goalAgainst: Int? = 0,
         var teamId: Int = 0,
         var competitionId: Int = 0) : Parcelable {
 

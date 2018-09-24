@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import io.reactivex.Observable
 import io.reactivex.SingleTransformer
 import io.reactivex.schedulers.Schedulers
+import szeptunm.corner.BuildConfig
 import szeptunm.corner.dataaccess.api.model.StandingResponse
 import szeptunm.corner.dataaccess.api.service.StandingService
 import szeptunm.corner.dataaccess.database.dao.StandingDao
@@ -40,7 +41,7 @@ class StandingRepository @Inject constructor(
     }
 
     private fun getStandingFromApi(): Observable<List<Standing>> {
-        return standingService.getStandingById(2014)
+        return standingService.getStandingById(BuildConfig.MATCH_KEY, 2014)
                 .map {
                     mapStandingToEntity(it)
                 }

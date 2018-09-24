@@ -3,9 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
 
         <TextView
@@ -25,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
             android:text="@string/p"
-            app:layout_constraintStart_toStartOf="@id/guideline_p"
+            app:layout_constraintLeft_toLeftOf="@id/guideline_p"
             app:layout_constraintEnd_toStartOf="@id/guideline_w"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
             android:text="@string/w"
-            app:layout_constraintStart_toStartOf="@id/guideline_w"
+            app:layout_constraintLeft_toLeftOf="@id/guideline_w"
             app:layout_constraintEnd_toStartOf="@id/guideline_d"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
             android:text="@string/d"
-            app:layout_constraintStart_toStartOf="@id/guideline_d"
+            app:layout_constraintLeft_toLeftOf="@id/guideline_d"
             app:layout_constraintEnd_toStartOf="@id/guideline_l"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
             android:text="@string/l"
-            app:layout_constraintStart_toStartOf="@id/guideline_l"
+            app:layout_constraintLeft_toLeftOf="@id/guideline_l"
             app:layout_constraintRight_toLeftOf="@id/guideline_gf"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
             android:text="@string/gf"
-            app:layout_constaintLeft_toLeftOf="@id/guideline_gf"
+            app:layout_constraintLeft_toLeftOf="@id/guideline_gf"
             app:layout_constraintEnd_toStartOf="@id/guideline_ga"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
             android:text="@string/ga"
-            app:layout_constaintLeft_toLeftOf="@id/guideline_ga"
+            app:layout_constraintLeft_toLeftOf="@id/guideline_ga"
             app:layout_constraintEnd_toStartOf="@id/guideline_gd"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
             android:text="@string/gd"
-            app:layout_constraintStart_toStartOf="@id/guideline_gd"
+            app:layout_constraintLeft_toLeftOf="@id/guideline_gd"
             app:layout_constraintEnd_toStartOf="@id/guideline_pts"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -95,17 +94,10 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
             android:text="@string/pts"
-            app:layout_constraintStart_toEndOf="@id/guideline_pts"
+            app:layout_constraintLeft_toLeftOf="@id/guideline_pts"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <include
-            layout="@layout/standing_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/position" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_p"

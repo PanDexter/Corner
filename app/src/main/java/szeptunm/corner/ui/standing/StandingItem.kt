@@ -5,5 +5,5 @@ import szeptunm.corner.ui.recycler.AdapterItem
 
 class StandingItem(val table: Standing) : AdapterItem {
 
-    override fun getItepType(): Int = 0
+    override fun getItemType(): Int = 0
 }

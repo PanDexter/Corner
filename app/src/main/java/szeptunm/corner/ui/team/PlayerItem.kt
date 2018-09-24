@@ -4,5 +4,5 @@ import szeptunm.corner.entity.Player
 import szeptunm.corner.ui.recycler.AdapterItem
 
 data class PlayerItem(val player: Player) : AdapterItem {
-    override fun getItepType(): Int = 0
+    override fun getItemType(): Int = 0
 }

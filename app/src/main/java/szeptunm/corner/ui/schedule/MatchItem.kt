@@ -4,5 +4,5 @@ import szeptunm.corner.entity.MatchSchedule
 import szeptunm.corner.ui.recycler.AdapterItem
 
 data class MatchItem(val match: MatchSchedule) : AdapterItem {
-    override fun getItepType(): Int = 0
+    override fun getItemType(): Int = 0
 }
