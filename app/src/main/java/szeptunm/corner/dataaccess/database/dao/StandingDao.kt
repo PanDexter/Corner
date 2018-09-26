@@ -27,12 +27,9 @@ interface StandingDao {
     @Query("SELECT * FROM standing")
     fun getAllStandings(): Single<List<StandingEntity>>
 
-    @Query("SELECT * FROM standing WHERE id LIKE :id")
-    fun getStandingById(id: Int): Single<StandingEntity>
-
     @Query("SELECT * FROM standing WHERE currentMatchDay LIKE :matchDay")
     fun getStandingByMatchDay(matchDay: Int): Single<StandingEntity>
 
-    @Query("SELECT * FROM standing WHERE currentMatchDay LIKE :matchDay AND id LIKE :id")
+    @Query("SELECT * FROM standing WHERE currentMatchDay LIKE :matchDay AND competitionId LIKE :id")
     fun getStandingByMatchDayAndId(matchDay: Int, id: Int):Single<StandingEntity>
 }

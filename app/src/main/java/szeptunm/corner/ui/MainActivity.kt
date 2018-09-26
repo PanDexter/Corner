@@ -7,6 +7,7 @@ import szeptunm.corner.R.id
 import szeptunm.corner.R.layout
 import szeptunm.corner.ui.news.NewsFragment
 import szeptunm.corner.ui.schedule.MatchFragment
+import szeptunm.corner.ui.standing.StandingFragment
 import szeptunm.corner.ui.team.TeamFragment
 import javax.inject.Inject
 
@@ -45,6 +46,8 @@ class MainActivity : BaseActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             id.navigation_standing -> {
+                fragmentChanger.changeFragments(this, R.id.fragment_placeholder,
+                        "standing") { StandingFragment.newInstance() }
                 return@OnNavigationItemSelectedListener true
             }
             id.navigation_team -> {

@@ -10,7 +10,6 @@ import szeptunm.corner.dataaccess.database.dao.MatchDao
 import szeptunm.corner.dataaccess.database.dao.NewsDao
 import szeptunm.corner.dataaccess.database.dao.PlayerDao
 import szeptunm.corner.dataaccess.database.dao.StandingDao
-import szeptunm.corner.dataaccess.database.dao.StandingValueDao
 import szeptunm.corner.dataaccess.database.dao.TeamDao
 import javax.inject.Singleton
 
@@ -45,12 +44,6 @@ abstract class AppModule {
         @JvmStatic
         @Singleton
         fun providesMatchDao(database: CornerDatabase):MatchDao = database.matchDao()
-
-        @Provides
-        @JvmStatic
-        @Singleton
-        fun providesStandingValueDao(database: CornerDatabase):StandingValueDao = database.standingValueDao()
-
 
         @Provides
         @JvmStatic
