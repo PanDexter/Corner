@@ -3,6 +3,7 @@ package szeptunm.corner.ui.schedule
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.Singles
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
@@ -20,44 +21,33 @@ class MatchViewModel @Inject constructor(getAllMatches: GetAllMatches, private v
         private val getCompetitionById: GetCompetitionById) {
 
     private var subject: BehaviorSubject<List<MatchItem>> = BehaviorSubject.create()
-    private var homeTeamSubject: BehaviorSubject<Team> = BehaviorSubject.create()
-    private var awayTeamSubject: BehaviorSubject<Team> = BehaviorSubject.create()
-    private var competitionSubject: BehaviorSubject<Competition> = BehaviorSubject.create()
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
-    private var items: List<MatchItem> = emptyList()
-
     fun observeMatches(): Observable<List<MatchItem>> = subject
 
     init {
         getAllMatches.execute()
                 .subscribeOn(Schedulers.computation())
-                .map { match ->
-                    match.map {
-                        getTeamById.execute(it.homeTeam).doOnSuccess {
-                            homeTeamSubject.onNext(it)
-                        }
-                        getTeamById.execute(it.awayTeam).doOnSuccess {
-                            awayTeamSubject.onNext(it)
-                        }
-                        getCompetitionById.execute(it.competition).doOnSuccess {
-                            competitionSubject.onNext(it)
-                        }
-                        convertIntoItems(it, homeTeamSubject.value!!.name, awayTeamSubject.value!!.name,
-                                competitionSubject.value!!.name)
-                    }
-                }
-                .doOnNext {
-                    this.items = it
+                .flatMapSingle {
+                    Observable.fromIterable(it)
+                            .flatMapSingle { match ->
+                                Singles.zip(getTeamById.execute(match.homeTeam)
+                                        .subscribeOn(Schedulers.computation()),
+                                        getTeamById.execute(match.awayTeam)
+                                                .subscribeOn(Schedulers.computation()),
+                                        getCompetitionById.execute(match.competition)
+                                                .subscribeOn(Schedulers.computation())) { home, away, competition ->
+                                    convertIntoItem(match, home, away, competition)
+                                }
+                            }
+                            .toList()
                 }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ items ->
-                    subject.onNext(items)
-                }, { t -> Timber.e(t) })
+                .subscribe(subject::onNext) { Timber.e(it, "MESSAGES!!!") }
                 .addTo(compositeDisposable)
     }
 
-    private fun convertIntoItems(match: Match, homeTeam: String, awayTeam: String,
-            competitionName: String): MatchItem {
+    private fun convertIntoItem(match: Match, homeTeam: Team, awayTeam: Team,
+            competitionName: Competition): MatchItem {
         return MatchItem(MatchSchedule(
                 homeTeamGoalFull = match.homeTeamGoalFull,
                 awayTeamGoalFull = match.awayTeamGoalFull,
@@ -65,10 +55,10 @@ class MatchViewModel @Inject constructor(getAllMatches: GetAllMatches, private v
                 awayTeamGoalExtra = match.awayTeamGoalExtra,
                 homePenalties = match.homePenalties,
                 awayPenalties = match.awayPenalties,
-                homeTeam = homeTeam,
-                awayTeam = awayTeam,
+                homeTeam = homeTeam.name,
+                awayTeam = awayTeam.name,
                 date = match.date,
-                competition = competitionName
+                competition = competitionName.name
         ))
     }
 }
