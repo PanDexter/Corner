@@ -23,6 +23,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:theme="@style/Theme.AppCompat.Light.NoTitleBar.FullScreen"
+            android:name=".ui.news.NewsDetailActivity" />
+        <activity
+            android:theme="@style/Theme.AppCompat.Light.NoTitleBar.FullScreen"
+            android:name=".ui.news.NewsWebActivity" />
+        <activity
+            android:theme="@style/Theme.AppCompat.Light.NoTitleBar.FullScreen"
+            android:name=".ui.team.PlayerDetailActivity" />
     </application>
 
 </manifest>

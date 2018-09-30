@@ -4,18 +4,20 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="30dp"
+        android:background="@color/standing_description">
 
 
         <TextView
-            android:id="@+id/position"
-            style="@style/Text.Small"
+            android:id="@+id/team"
+            style="@style/Standing_description"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
-            android:layout_marginStart="@dimen/margin_general"
-            android:text="@string/club"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="@string/Team"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="@id/guideline_crest"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
 
         <TextView
@@ -24,8 +26,10 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
             android:text="@string/p"
-            app:layout_constraintLeft_toLeftOf="@id/guideline_p"
-            app:layout_constraintEnd_toStartOf="@id/guideline_w"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="@id/guideline_played"
+            app:layout_constraintRight_toLeftOf="@id/guideline_won"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -34,8 +38,10 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
             android:text="@string/w"
-            app:layout_constraintLeft_toLeftOf="@id/guideline_w"
-            app:layout_constraintEnd_toStartOf="@id/guideline_d"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="@id/guideline_won"
+            app:layout_constraintRight_toLeftOf="@id/guideline_drown"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -44,38 +50,23 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
             android:text="@string/d"
-            app:layout_constraintLeft_toLeftOf="@id/guideline_d"
-            app:layout_constraintEnd_toStartOf="@id/guideline_l"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="@id/guideline_drown"
+            app:layout_constraintRight_toLeftOf="@id/guideline_lost"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/lost"
             style="@style/Standing_description"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
             android:text="@string/l"
-            app:layout_constraintLeft_toLeftOf="@id/guideline_l"
-            app:layout_constraintRight_toLeftOf="@id/guideline_gf"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/goals_for"
-            style="@style/Standing_description"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/match_constraints"
-            android:text="@string/gf"
-            app:layout_constraintLeft_toLeftOf="@id/guideline_gf"
-            app:layout_constraintEnd_toStartOf="@id/guideline_ga"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/goals_against"
-            style="@style/Standing_description"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/match_constraints"
-            android:text="@string/ga"
-            app:layout_constraintLeft_toLeftOf="@id/guideline_ga"
-            app:layout_constraintEnd_toStartOf="@id/guideline_gd"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="@id/guideline_lost"
+            app:layout_constraintRight_toLeftOf="@id/guideline_lost_end"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -84,8 +75,10 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
             android:text="@string/gd"
-            app:layout_constraintLeft_toLeftOf="@id/guideline_gd"
-            app:layout_constraintEnd_toStartOf="@id/guideline_pts"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="@id/guideline_lost_end"
+            app:layout_constraintRight_toLeftOf="@id/guideline_difference"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -94,66 +87,75 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
             android:text="@string/pts"
-            app:layout_constraintLeft_toLeftOf="@id/guideline_pts"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="@id/guideline_difference"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_p"
+            android:id="@+id/guideline_crest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="200dp" />
+            app:layout_constraintGuide_percent="0.1" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_w"
+            android:id="@+id/guideline_team"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="225dp" />
+            app:layout_constraintGuide_percent="0.2" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_d"
+            android:id="@+id/guideline_played"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="250dp" />
+            app:layout_constraintGuide_percent="0.65" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_l"
+            android:id="@+id/guideline_won"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="275dp" />
+            app:layout_constraintGuide_percent="0.7" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_gf"
+            android:id="@+id/guideline_drown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="300dp" />
+            app:layout_constraintGuide_percent="0.75" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_ga"
+            android:id="@+id/guideline_lost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="325dp" />
+            app:layout_constraintGuide_percent="0.8" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_gd"
+            android:id="@+id/guideline_lost_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="350dp" />
+            app:layout_constraintGuide_percent="0.85" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_difference"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_pts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="375dp" />
+            app:layout_constraintGuide_percent="0.95" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

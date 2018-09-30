@@ -25,7 +25,7 @@
     <string name="d">D</string>
     <string name="gf">GF</string>
     <string name="ga">GA</string>
-    <string name="gd">GD</string>
+    <string name="gd">+/-</string>
     <string name="pts">Pts</string>
     <string name="w">W</string>
 </resources>

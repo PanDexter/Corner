@@ -33,7 +33,8 @@
 
     <style name="Standing_description">
         <item name="android:textSize">@dimen/text_size_small</item>
-        <item name="android:textColor">@color/textNormalColor</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="Standing_item">

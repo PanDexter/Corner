@@ -8,7 +8,8 @@ import szeptunm.corner.databinding.PlayerItemBinding
 import szeptunm.corner.ui.recycler.BindingViewHolder
 import javax.inject.Inject
 
-class PlayerAdapter @Inject constructor() : RecyclerView.Adapter<BindingViewHolder<PlayerItem, PlayerItemBinding>>() {
+class PlayerAdapter @Inject constructor(val fragment: TeamFragment) :
+        RecyclerView.Adapter<BindingViewHolder<PlayerItem, PlayerItemBinding>>() {
 
     var items: List<PlayerItem> = ArrayList()
     private var onItemSelected: PublishSubject<Int> = PublishSubject.create()
@@ -17,7 +18,7 @@ class PlayerAdapter @Inject constructor() : RecyclerView.Adapter<BindingViewHold
             viewType: Int): BindingViewHolder<PlayerItem, PlayerItemBinding> {
         val inflater = LayoutInflater.from(parent.context)
         val binding = PlayerItemBinding.inflate(inflater, parent, false)
-        return PlayerViewHolder(binding, onItemSelected)
+        return PlayerViewHolder(binding, onItemSelected, fragment)
     }
 
     override fun getItemCount(): Int = items.size

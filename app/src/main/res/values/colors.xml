@@ -40,6 +40,8 @@
     <color name="textLightColor">@color/whiteAlpha90</color>
 
     <color name="photo_detail_tint">#9F000000</color>
+    <color name="standing_description">#19334d</color>
+    <color name="standing_item">#DDDDDD</color>
 
 
 </resources>

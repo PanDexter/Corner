@@ -3,32 +3,49 @@ package szeptunm.corner.ui.standing
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.Singles
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
+import szeptunm.corner.domain.competitions.GetCompetitionById
 import szeptunm.corner.domain.standings.GetAllStandings
+import szeptunm.corner.domain.teams.GetTeamById
+import szeptunm.corner.entity.Competition
 import szeptunm.corner.entity.Standing
+import szeptunm.corner.entity.Team
+import timber.log.Timber
 import javax.inject.Inject
 
-class StandingViewModel @Inject constructor(private var getAllStandings: GetAllStandings) {
+class StandingViewModel @Inject constructor(getAllStandings: GetAllStandings, private val getTeamById: GetTeamById,
+        private val getCompetitionById: GetCompetitionById) {
 
     private var subject: BehaviorSubject<List<StandingItem>> = BehaviorSubject.create()
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
-    private var items: List<StandingItem> = emptyList()
 
     fun observeStandings(): Observable<List<StandingItem>> = subject
 
     init {
         getAllStandings.execute()
                 .subscribeOn(Schedulers.computation())
-                .map { standings -> standings.map { convertIntoItems(it) } }
-                .doOnNext {
-                    this.items = it
+                .flatMapSingle {
+                    Observable.fromIterable(it)
+                            .flatMapSingle { standing ->
+                                Singles.zip(getTeamById.execute(standing.teamId)
+                                        .subscribeOn(Schedulers.computation()),
+                                        getCompetitionById.execute(standing.competitionId)
+                                                .subscribeOn(Schedulers.computation())) { team, competition ->
+                                    convertIntoItem(standing, team, competition)
+                                }
+                            }
+                            .toSortedList { first, second -> first.table.position.compareTo(second.table.position) }
                 }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { items -> subject.onNext(items) }
+                .subscribe(subject::onNext) { Timber.e(it, "Something went wrong during standing initialization") }
                 .addTo(compositeDisposable)
     }
 
-    private fun convertIntoItems(standing: Standing): StandingItem = StandingItem(standing)
+    private fun convertIntoItem(standing: Standing, team: Team,
+            competition: Competition): StandingItem = StandingItem(
+            standing, team, competition)
+
 }

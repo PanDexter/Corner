@@ -23,9 +23,9 @@ abstract class BaseFragment : DaggerFragment() {
 
     protected lateinit var viewDataBinding: ViewDataBinding
 
-    protected val onStopDisposable = CompositeDisposable()
-    protected val onDestroyViewDisposable = CompositeDisposable()
-    protected val onDestroyDisposable = CompositeDisposable()
+    private val onStopDisposable = CompositeDisposable()
+    private val onDestroyViewDisposable = CompositeDisposable()
+    private val onDestroyDisposable = CompositeDisposable()
 
     protected val baseActivity: BaseActivity?
         get() = activity as BaseActivity

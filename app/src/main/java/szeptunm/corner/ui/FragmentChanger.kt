@@ -43,7 +43,7 @@ class FragmentChanger @Inject constructor() {
         var findFragmentByTag = manager.findFragmentByTag(fragmentTag)
         if (findFragmentByTag == null) {
             findFragmentByTag = fragmentCreator()
-            transaction.add(containerId, findFragmentByTag, fragmentTag)
+            transaction.addToBackStack(null).add(containerId, findFragmentByTag, fragmentTag)
             Log.i("TAG", "Add new fragment: $fragmentTag")
         } else {
             transaction.attach(findFragmentByTag)

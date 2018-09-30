@@ -23,7 +23,7 @@ android {
             buildConfigField 'String', 'TEAM_API_HTTP_URL', '"https://www.thesportsdb.com/"'
             buildConfigField 'String', 'STATISTIC_API_HTTP_URL', '"https://api-football-v1.p.mashape.com"'
             buildConfigField 'String', 'MATCH_API_HTTP_URL', '"http://api.football-data.org/"'
-            buildConfigField 'String', 'NEWS_KEY','"ce3kivoilvuyhvgkbguh6f2kvmp54f0tctumwwrz"'
+            buildConfigField 'String', 'NEWS_KEY', '"ce3kivoilvuyhvgkbguh6f2kvmp54f0tctumwwrz"'
             buildConfigField 'String', "TEAM_KEY", '""'
             buildConfigField 'String', 'STATISTIC_KEY', '""'
             buildConfigField 'String', 'MATCH_KEY', '"daa382bf695f4470b196fa4dff10fdfa"'
@@ -34,7 +34,7 @@ android {
             buildConfigField 'String', 'TEAM_API_HTTP_URL', '"https://www.thesportsdb.com/api/v1/json/1/"'
             buildConfigField 'String', 'STATISTIC_API_HTTP_URL', '"https://api-football-v1.p.mashape.com"'
             buildConfigField 'String', 'MATCH_API_HTTP_URL', '"http://api.football-data.org/"'
-            buildConfigField 'String', 'NEWS_KEY','"ce3kivoilvuyhvgkbguh6f2kvmp54f0tctumwwrz"'
+            buildConfigField 'String', 'NEWS_KEY', '"ce3kivoilvuyhvgkbguh6f2kvmp54f0tctumwwrz"'
             buildConfigField 'String', 'TEAM_KEY', '""'
             buildConfigField 'String', 'STATISTIC_KEY', '""'
             buildConfigField 'String', 'MATCH_KEY', '"daa382bf695f4470b196fa4dff10fdfa"'
@@ -85,7 +85,6 @@ dependencies {
     implementation 'com.google.dagger:dagger-android-support:2.16'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
 
-
     //Joda lib to convert localDateTime
     implementation "joda-time:joda-time:2.9.9"
 
@@ -107,7 +106,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
 
-
     //PARCELER
     implementation 'org.parceler:parceler-api:1.1.11'
     kapt 'org.parceler:parceler:1.1.11'
@@ -122,8 +120,7 @@ dependencies {
     //TIMBER
     implementation 'com.github.ajalt:timberkt:1.5.1'
 
-
-
+    implementation "androidx.core:core-ktx:1.0.0"
 }
 repositories {
     mavenCentral()

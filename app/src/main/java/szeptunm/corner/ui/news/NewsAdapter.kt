@@ -30,8 +30,9 @@ class NewsAdapter @Inject constructor() :
     }
 
     fun setDataWithDiff(newList: List<NewsItem>) {
-        val diffResult = DiffUtil.calculateDiff(NewsItemDiff(items, newList))
+        val fullList = newList + items
+        val diffResult = DiffUtil.calculateDiff(NewsItemDiff(items, fullList))
         diffResult.dispatchUpdatesTo(this)
-        this.items = newList
+        this.items = fullList
     }
 }

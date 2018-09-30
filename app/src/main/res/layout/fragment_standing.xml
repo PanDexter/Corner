@@ -6,24 +6,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/description"
-            layout="@layout/standing_description"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_standing"
-            android:layout_width="@dimen/match_constraints"
             android:layout_height="@dimen/match_constraints"
+            android:fillViewport="true"
+            android:scrollbars="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/description"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/league_crest"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/laliga" />
+
+                <include
+                    android:id="@+id/description"
+                    layout="@layout/standing_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/league_crest" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_standing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

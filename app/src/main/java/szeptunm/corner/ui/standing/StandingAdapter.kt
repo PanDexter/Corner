@@ -22,7 +22,7 @@ class StandingAdapter @Inject constructor() :
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: BindingViewHolder<StandingItem, StandingItemBinding>, position: Int) {
-        holder.bind(items[holder.getAdapterPosition()])
+        holder.bind(items[holder.adapterPosition])
     }
 
     fun setData(standingList: List<StandingItem>) {

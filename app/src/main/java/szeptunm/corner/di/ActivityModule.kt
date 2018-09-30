@@ -3,12 +3,12 @@ package szeptunm.corner.di
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import szeptunm.corner.ui.MainActivity
-import szeptunm.corner.ui.news.NewsDetailFragment
+import szeptunm.corner.ui.news.NewsDetailActivity
 import szeptunm.corner.ui.news.NewsFragment
-import szeptunm.corner.ui.news.NewsWebFragment
+import szeptunm.corner.ui.news.NewsWebActivity
 import szeptunm.corner.ui.schedule.MatchFragment
 import szeptunm.corner.ui.standing.StandingFragment
-import szeptunm.corner.ui.team.PlayerDetailFragment
+import szeptunm.corner.ui.team.PlayerDetailActivity
 import szeptunm.corner.ui.team.TeamFragment
 
 @Module
@@ -22,10 +22,10 @@ abstract class ActivityModule {
     abstract fun bindNewsFragment(): NewsFragment
 
     @ContributesAndroidInjector
-    abstract fun bindNewsDetailsFragment(): NewsDetailFragment
+    abstract fun bindNewsDetailsFragment(): NewsDetailActivity
 
     @ContributesAndroidInjector
-    abstract fun bindNewsWebFragment(): NewsWebFragment
+    abstract fun bindNewsWebFragment(): NewsWebActivity
 
     @ContributesAndroidInjector
     abstract fun bindTeamFragment(): TeamFragment
@@ -34,7 +34,7 @@ abstract class ActivityModule {
     abstract fun bindScheduleFragment(): MatchFragment
 
     @ContributesAndroidInjector
-    abstract fun bindPlayerDetailsFragment(): PlayerDetailFragment
+    abstract fun bindPlayerDetailsFragment(): PlayerDetailActivity
 
     @ContributesAndroidInjector
     abstract fun bindStandingFragment(): StandingFragment

@@ -1,39 +1,30 @@
 package szeptunm.corner.ui.team
 
 import android.os.Bundle
-import android.view.View
-import androidx.core.content.ContextCompat
+import android.view.MenuItem
+import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import szeptunm.corner.R
 import szeptunm.corner.databinding.PlayerDetailBinding
 import szeptunm.corner.entity.Player
-import szeptunm.corner.ui.ToolbarFragment
+import szeptunm.corner.ui.BaseActivity
+import szeptunm.corner.ui.team.PlayerViewHolder.Companion.KEY_PLAYER
 
-class PlayerDetailFragment : ToolbarFragment() {
+class PlayerDetailActivity : BaseActivity() {
     override val layoutResource: Int
         get() = R.layout.player_detail
 
     private lateinit var binding: PlayerDetailBinding
 
-    companion object {
-        fun newInstance(player: Player): PlayerDetailFragment {
-            val fragment = PlayerDetailFragment()
-            val args = Bundle()
-            args.putParcelable("KEY_PLAYER", player)
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding = viewDataBinding as PlayerDetailBinding
-        val player = arguments?.getParcelable("KEY_PLAYER") as Player
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.player_detail)
+        val player = intent.getParcelableExtra(KEY_PLAYER) as Player
         setImage(player)
         setupPlayerDetails(player)
-        binding.toolbar.title = player.name
-        binding.toolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        setToolbar()
     }
 
     private fun setImage(player: Player) {
@@ -51,5 +42,20 @@ class PlayerDetailFragment : ToolbarFragment() {
             position.text = player.position
             sizesInfo.text = player.height + "/" + player.weight
         }
+    }
+
+    private fun setToolbar() {
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = null;
+        toolbar.setNavigationIcon(R.drawable.ic_close_white)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

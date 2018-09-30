@@ -54,25 +54,23 @@ class StandingRepository @Inject constructor(
 
     private fun mapStandingToEntity(standingResponse: StandingResponse): List<StandingEntity> {
         val standingList: MutableList<StandingEntity> = ArrayList()
-        standingResponse.standings.map { standing ->
-            standing.standings.map { standingInfo ->
-                standingInfo.table.map { table ->
-                    with(standing) {
-                        if (standingInfo.type == "TOTAL") {
-                            standingList.add(
-                                    StandingEntity(
-                                            currentMatchDay = season.currentMatchday,
-                                            position = table.position,
-                                            playedGames = table.playedGames,
-                                            won = table.won,
-                                            draw = table.draw,
-                                            lost = table.lost,
-                                            points = table.points,
-                                            goalsFor = table.goalsFor,
-                                            goalAgainst = table.goalsAgainst,
-                                            teamId = table.team.id,
-                                            competitionId = standing.competition.id))
-                        }
+        standingResponse.standings.map { standingInfo ->
+            standingInfo.table.map {
+                with(it) {
+                    if (standingInfo.type == "TOTAL") {
+                        standingList.add(
+                                StandingEntity(
+                                        currentMatchDay = standingResponse.season.currentMatchday,
+                                        position = position,
+                                        playedGames = playedGames,
+                                        won = won,
+                                        draw = draw,
+                                        lost = lost,
+                                        points = points,
+                                        goalsDifference = goalDifference,
+                                        crestUrl = team.crestUrl,
+                                        teamId = team.id,
+                                        competitionId = standingResponse.competition.id))
                     }
                 }
             }

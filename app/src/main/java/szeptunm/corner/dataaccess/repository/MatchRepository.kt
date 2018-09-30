@@ -83,7 +83,6 @@ class MatchRepository @Inject constructor(
         return saveToDatabase(teamList, competitionList, matchList)
     }
 
-
     @SuppressLint("CheckResult")
     private fun saveToDatabase(teamList: List<TeamEntity>,
             competitionList: List<CompetitionEntity>, matchList: List<MatchEntity>): Completable {

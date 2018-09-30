@@ -1,5 +1,7 @@
 package szeptunm.corner.ui.team
 
+import android.content.Intent
+import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority.LOW
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -7,24 +9,26 @@ import com.bumptech.glide.request.RequestOptions
 import io.reactivex.subjects.PublishSubject
 import szeptunm.corner.R
 import szeptunm.corner.databinding.PlayerItemBinding
-import szeptunm.corner.ui.FragmentChanger
-import szeptunm.corner.ui.MainActivity
 import szeptunm.corner.ui.recycler.BindingViewHolder
 
-class PlayerViewHolder(binding: PlayerItemBinding, val itemObserver: PublishSubject<Int>) :
+class PlayerViewHolder(binding: PlayerItemBinding, val itemObserver: PublishSubject<Int>,
+        val fragment: TeamFragment) :
         BindingViewHolder<PlayerItem, PlayerItemBinding>(binding) {
 
+    companion object {
+        const val KEY_PLAYER = "KEY_PLAYER"
+    }
     lateinit var item: PlayerItem
 
     override fun bind(item: PlayerItem) {
         this.item = item
 
-        val fragmentChanger = FragmentChanger()
-
-        val activity = context as MainActivity
         binding.containerPlayer.setOnClickListener {
-            fragmentChanger.changeFragments(activity, R.id.fragment_placeholder,
-                    "playerDetail") { PlayerDetailFragment.newInstance(item.player) }
+            val intent = Intent(context, PlayerDetailActivity::class.java)
+            val bundle = Bundle()
+            bundle.putParcelable(KEY_PLAYER, item.player)
+            intent.putExtras(bundle)
+            context.startActivity(intent)
         }
         val requestOptions = RequestOptions()
                 .centerCrop()

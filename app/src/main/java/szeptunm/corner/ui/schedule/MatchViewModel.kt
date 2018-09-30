@@ -7,6 +7,8 @@ import io.reactivex.rxkotlin.Singles
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
+import org.joda.time.Instant
+import org.joda.time.format.DateTimeFormat
 import szeptunm.corner.domain.competitions.GetCompetitionById
 import szeptunm.corner.domain.schedule.GetAllMatches
 import szeptunm.corner.domain.teams.GetTeamById
@@ -39,10 +41,12 @@ class MatchViewModel @Inject constructor(getAllMatches: GetAllMatches, private v
                                     convertIntoItem(match, home, away, competition)
                                 }
                             }
+                            .sorted { first, second -> compareDates(first.match.date, second.match.date) }
                             .toList()
                 }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subject::onNext) { Timber.e(it, "MESSAGES!!!") }
+                .subscribeOn(Schedulers.io())
+                .subscribe(subject::onNext) { Timber.e(it, "Something went wrong during fetching matches") }
                 .addTo(compositeDisposable)
     }
 
@@ -60,5 +64,10 @@ class MatchViewModel @Inject constructor(getAllMatches: GetAllMatches, private v
                 date = match.date,
                 competition = competitionName.name
         ))
+    }
+
+    private fun compareDates(first: String?, second: String?): Int {
+        return Instant.parse(first, DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss")).compareTo(
+                Instant.parse(second, DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss")))
     }
 }
