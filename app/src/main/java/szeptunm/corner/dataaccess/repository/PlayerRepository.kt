@@ -22,14 +22,14 @@ class PlayerRepository @Inject constructor(private var playerDao: PlayerDao,
                         .toList()
             }
 
-    fun getAllPlayers(): Observable<List<Player>> {
+    fun getAllPlayers(club: Int): Observable<List<Player>> {
         return Observable.concatArray(
-                getPlayersFromDb(), getPlayersFromApi()
+                getPlayersFromDb(club), getPlayersFromApi(club)
         )
     }
 
-    private fun getPlayersFromDb(): Observable<List<Player>> {
-        return playerDao.getAllPlayers()
+    private fun getPlayersFromDb(club: Int): Observable<List<Player>> {
+        return playerDao.getPlayerByClub(club)
                 .compose(teamTransformer)
                 .filter { it.isNotEmpty() }
                 .toObservable()
@@ -38,8 +38,8 @@ class PlayerRepository @Inject constructor(private var playerDao: PlayerDao,
                 }
     }
 
-    private fun getPlayersFromApi(): Observable<List<Player>> {
-        return playerService.getAllPlayers(133739)
+    private fun getPlayersFromApi(club: Int): Observable<List<Player>> {
+        return playerService.getAllPlayers(club)
                 .map {
                     mapResponseToEntity(it)
                 }

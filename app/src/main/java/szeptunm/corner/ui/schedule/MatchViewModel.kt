@@ -7,8 +7,7 @@ import io.reactivex.rxkotlin.Singles
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
-import org.joda.time.Instant
-import org.joda.time.format.DateTimeFormat
+import org.joda.time.DateTime
 import szeptunm.corner.domain.competitions.GetCompetitionById
 import szeptunm.corner.domain.schedule.GetAllMatches
 import szeptunm.corner.domain.teams.GetTeamById
@@ -16,6 +15,8 @@ import szeptunm.corner.entity.Competition
 import szeptunm.corner.entity.Match
 import szeptunm.corner.entity.MatchSchedule
 import szeptunm.corner.entity.Team
+import szeptunm.corner.ui.schedule.MatchItem.Companion.MATCH_FUTURE
+import szeptunm.corner.ui.schedule.MatchItem.Companion.MATCH_PAST
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -41,33 +42,46 @@ class MatchViewModel @Inject constructor(getAllMatches: GetAllMatches, private v
                                     convertIntoItem(match, home, away, competition)
                                 }
                             }
-                            .sorted { first, second -> compareDates(first.match.date, second.match.date) }
                             .toList()
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(subject::onNext) { Timber.e(it, "Something went wrong during fetching matches") }
+                .subscribe({
+                    it.sortBy {
+                        DateTime(it.match.date)
+                    }
+                    subject.onNext(it)
+                }) { Timber.e(it, "Something went wrong during fetching matches") }
                 .addTo(compositeDisposable)
     }
 
     private fun convertIntoItem(match: Match, homeTeam: Team, awayTeam: Team,
             competitionName: Competition): MatchItem {
-        return MatchItem(MatchSchedule(
-                homeTeamGoalFull = match.homeTeamGoalFull,
-                awayTeamGoalFull = match.awayTeamGoalFull,
-                homeTeamGoalExtra = match.homeTeamGoalExtra,
-                awayTeamGoalExtra = match.awayTeamGoalExtra,
-                homePenalties = match.homePenalties,
-                awayPenalties = match.awayPenalties,
-                homeTeam = homeTeam.name,
-                awayTeam = awayTeam.name,
-                date = match.date,
-                competition = competitionName.name
-        ))
-    }
-
-    private fun compareDates(first: String?, second: String?): Int {
-        return Instant.parse(first, DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss")).compareTo(
-                Instant.parse(second, DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss")))
+        if (match.homeTeamGoalFull == null) {
+            return MatchItem(MATCH_FUTURE, MatchSchedule(
+                    homeTeamGoalFull = match.homeTeamGoalFull,
+                    awayTeamGoalFull = match.awayTeamGoalFull,
+                    homeTeamGoalExtra = match.homeTeamGoalExtra,
+                    awayTeamGoalExtra = match.awayTeamGoalExtra,
+                    homePenalties = match.homePenalties,
+                    awayPenalties = match.awayPenalties,
+                    homeTeam = homeTeam.name,
+                    awayTeam = awayTeam.name,
+                    date = match.date,
+                    competition = competitionName.name))
+        } else {
+            return MatchItem(MATCH_PAST, MatchSchedule(
+                    homeTeamGoalFull = match.homeTeamGoalFull,
+                    awayTeamGoalFull = match.awayTeamGoalFull,
+                    homeTeamGoalExtra = match.homeTeamGoalExtra,
+                    awayTeamGoalExtra = match.awayTeamGoalExtra,
+                    homePenalties = match.homePenalties,
+                    awayPenalties = match.awayPenalties,
+                    homeTeam = homeTeam.name,
+                    awayTeam = awayTeam.name,
+                    date = match.date,
+                    competition = competitionName.name
+            ))
+        }
     }
 }

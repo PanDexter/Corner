@@ -23,6 +23,6 @@ interface PlayerDao {
     @Query("SELECT * FROM Player WHERE position LIKE :position")
     fun getPlayerByPosition(position: String): Single<List<PlayerEntity>>
 
-    @Query("SELECT * FROM Player WHERE teamId LIKE :club")
-    fun getPlayerByClub(club: String): Single<List<PlayerEntity>>
+    @Query("SELECT * FROM Player WHERE teamId =:club")
+    fun getPlayerByClub(club: Int): Single<List<PlayerEntity>>
 }

@@ -97,4 +97,12 @@
     <style name="Text.ExtraLarge.Light.Bold">
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="Text.Huge">
+        <item name="android:textSize">@dimen/text_size_huge</item>
+    </style>
+
+    <style name="Text.Huge.LightFont">
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
 </resources>

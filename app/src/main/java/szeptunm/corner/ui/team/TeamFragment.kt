@@ -2,7 +2,6 @@ package szeptunm.corner.ui.team
 
 import android.os.Bundle
 import android.view.View
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -39,7 +38,7 @@ class TeamFragment : BaseFragment() {
         binding.rvTeam.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = playerAdapter
-            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            //addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
     }
 

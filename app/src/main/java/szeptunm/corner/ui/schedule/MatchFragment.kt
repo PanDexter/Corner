@@ -2,7 +2,6 @@ package szeptunm.corner.ui.schedule
 
 import android.os.Bundle
 import android.view.View
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -39,7 +38,6 @@ class MatchFragment : BaseFragment() {
         binding.rvMatches.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = matchAdapter
-            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
     }
 

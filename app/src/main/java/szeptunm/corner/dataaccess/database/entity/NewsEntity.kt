@@ -27,6 +27,4 @@ data class NewsEntity constructor(
         @ColumnInfo(name = "link")
         var link: String? = "",
         @ColumnInfo(name = "teamId")
-        var teamId: Int? = null) {
-
-}
+        var teamId: Int? = null)

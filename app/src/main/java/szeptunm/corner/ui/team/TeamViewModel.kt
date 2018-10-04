@@ -19,7 +19,7 @@ class TeamViewModel @Inject constructor(private var getAllPlayers: GetAllPlayers
     fun observePlayers(): Observable<List<PlayerItem>> = subject
 
     init {
-        getAllPlayers.execute()
+        getAllPlayers.execute(133739)
                 .subscribeOn(Schedulers.computation())
                 .map { player -> player.map { convertIntoItems(it) } }
                 .doOnNext {
