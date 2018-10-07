@@ -9,6 +9,7 @@ import szeptunm.corner.dataaccess.api.model.StandingResponse
 import szeptunm.corner.dataaccess.api.service.StandingService
 import szeptunm.corner.dataaccess.database.dao.StandingDao
 import szeptunm.corner.dataaccess.database.entity.StandingEntity
+import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.entity.Standing
 import timber.log.Timber
 import javax.inject.Inject
@@ -23,14 +24,14 @@ class StandingRepository @Inject constructor(
                         .toList()
             }
 
-    fun getAllStandings(): Observable<List<Standing>> {
+    fun getAllStandings(clubInfo: ClubInfo): Observable<List<Standing>> {
         return Observable.concatArray(
-                getStandingsFromDb(), getStandingFromApi()
+                getStandingsFromDb(clubInfo), getStandingFromApi(clubInfo)
         )
     }
 
-    private fun getStandingsFromDb(): Observable<List<Standing>> {
-        return standingDao.getAllStandings()
+    private fun getStandingsFromDb(clubInfo: ClubInfo): Observable<List<Standing>> {
+        return standingDao.getStandingByCompetition(clubInfo.competitionId)
                 .compose(standingTransformer)
                 .filter { it.isNotEmpty() }
                 .toObservable()
@@ -40,8 +41,8 @@ class StandingRepository @Inject constructor(
                 }
     }
 
-    private fun getStandingFromApi(): Observable<List<Standing>> {
-        return standingService.getStandingById(BuildConfig.MATCH_KEY, 2014)
+    private fun getStandingFromApi(clubInfo: ClubInfo): Observable<List<Standing>> {
+        return standingService.getStandingById(BuildConfig.MATCH_KEY, clubInfo.competitionId)
                 .map {
                     mapStandingToEntity(it)
                 }

@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.Provides
 import szeptunm.corner.App
 import szeptunm.corner.dataaccess.database.CornerDatabase
+import szeptunm.corner.dataaccess.database.dao.ClubInfoDao
 import szeptunm.corner.dataaccess.database.dao.CompetitionDao
 import szeptunm.corner.dataaccess.database.dao.MatchDao
 import szeptunm.corner.dataaccess.database.dao.NewsDao
@@ -49,6 +50,11 @@ abstract class AppModule {
         @JvmStatic
         @Singleton
         fun providesNewsDao(database: CornerDatabase):NewsDao = database.newsDao()
+
+        @Provides
+        @JvmStatic
+        @Singleton
+        fun providesClubInfoDao(database: CornerDatabase): ClubInfoDao = database.clubInfoDao()
 
         @Provides
         @JvmStatic

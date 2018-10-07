@@ -2,12 +2,14 @@ package szeptunm.corner.dataaccess.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import szeptunm.corner.dataaccess.database.dao.ClubInfoDao
 import szeptunm.corner.dataaccess.database.dao.CompetitionDao
 import szeptunm.corner.dataaccess.database.dao.MatchDao
 import szeptunm.corner.dataaccess.database.dao.NewsDao
 import szeptunm.corner.dataaccess.database.dao.PlayerDao
 import szeptunm.corner.dataaccess.database.dao.StandingDao
 import szeptunm.corner.dataaccess.database.dao.TeamDao
+import szeptunm.corner.dataaccess.database.entity.ClubInfoEntity
 import szeptunm.corner.dataaccess.database.entity.CompetitionEntity
 import szeptunm.corner.dataaccess.database.entity.MatchEntity
 import szeptunm.corner.dataaccess.database.entity.NewsEntity
@@ -18,7 +20,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Database(entities =
-[PlayerEntity::class, TeamEntity::class, CompetitionEntity::class, MatchEntity::class, StandingEntity::class, NewsEntity::class],
+[PlayerEntity::class, TeamEntity::class, CompetitionEntity::class, MatchEntity::class, StandingEntity::class, NewsEntity::class, ClubInfoEntity::class],
         version = 1)
 abstract class CornerDatabase : RoomDatabase() {
 
@@ -28,4 +30,5 @@ abstract class CornerDatabase : RoomDatabase() {
     abstract fun competitionDao(): CompetitionDao
     abstract fun matchDao(): MatchDao
     abstract fun newsDao():NewsDao
+    abstract fun clubInfoDao(): ClubInfoDao
 }

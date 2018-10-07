@@ -22,7 +22,8 @@ class ClubInfoRepository @Inject constructor(private var clubInfoDao: ClubInfoDa
             clubInfoDao.getAllClubInfo()
                     .compose(clubInfoTransformer)
 
-    fun getClubInfoByName(clubName: String) = clubInfoDao.getClubInfoByName(clubName)
+    fun getClubInfoByName(clubName: String): Single<ClubInfo> = clubInfoDao.getClubInfoByName(
+            clubName).map { ClubInfo(it) }
 
     fun saveClubInfoToDatabase(): Completable =
             Completable.fromCallable {

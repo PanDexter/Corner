@@ -10,13 +10,15 @@ import io.reactivex.subjects.BehaviorSubject
 import szeptunm.corner.domain.competitions.GetCompetitionById
 import szeptunm.corner.domain.standings.GetAllStandings
 import szeptunm.corner.domain.teams.GetTeamById
+import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.entity.Competition
 import szeptunm.corner.entity.Standing
 import szeptunm.corner.entity.Team
 import timber.log.Timber
 import javax.inject.Inject
 
-class StandingViewModel @Inject constructor(getAllStandings: GetAllStandings, private val getTeamById: GetTeamById,
+class StandingViewModel @Inject constructor(private val getAllStandings: GetAllStandings,
+        private val getTeamById: GetTeamById,
         private val getCompetitionById: GetCompetitionById) {
 
     private var subject: BehaviorSubject<List<StandingItem>> = BehaviorSubject.create()
@@ -24,8 +26,8 @@ class StandingViewModel @Inject constructor(getAllStandings: GetAllStandings, pr
 
     fun observeStandings(): Observable<List<StandingItem>> = subject
 
-    init {
-        getAllStandings.execute()
+    fun init(clubInfo: ClubInfo) {
+        getAllStandings.execute(clubInfo)
                 .subscribeOn(Schedulers.computation())
                 .flatMapSingle {
                     Observable.fromIterable(it)

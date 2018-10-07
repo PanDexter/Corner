@@ -11,6 +11,7 @@ import org.joda.time.DateTime
 import szeptunm.corner.domain.competitions.GetCompetitionById
 import szeptunm.corner.domain.schedule.GetAllMatches
 import szeptunm.corner.domain.teams.GetTeamById
+import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.entity.Competition
 import szeptunm.corner.entity.Match
 import szeptunm.corner.entity.MatchSchedule
@@ -20,15 +21,16 @@ import szeptunm.corner.ui.schedule.MatchItem.Companion.MATCH_PAST
 import timber.log.Timber
 import javax.inject.Inject
 
-class MatchViewModel @Inject constructor(getAllMatches: GetAllMatches, private val getTeamById: GetTeamById,
+class MatchViewModel @Inject constructor(private val getAllMatches: GetAllMatches,
+        private val getTeamById: GetTeamById,
         private val getCompetitionById: GetCompetitionById) {
 
     private var subject: BehaviorSubject<List<MatchItem>> = BehaviorSubject.create()
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
     fun observeMatches(): Observable<List<MatchItem>> = subject
 
-    init {
-        getAllMatches.execute()
+    fun init(clubInfo: ClubInfo) {
+        getAllMatches.execute(clubInfo)
                 .subscribeOn(Schedulers.computation())
                 .flatMapSingle {
                     Observable.fromIterable(it)

@@ -7,6 +7,7 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import szeptunm.corner.domain.players.GetAllPlayers
+import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.entity.Player
 import javax.inject.Inject
 
@@ -18,8 +19,8 @@ class TeamViewModel @Inject constructor(private var getAllPlayers: GetAllPlayers
 
     fun observePlayers(): Observable<List<PlayerItem>> = subject
 
-    init {
-        getAllPlayers.execute(133739)
+    fun init(clubInfo: ClubInfo) {
+        getAllPlayers.execute(clubInfo.teamApiId)
                 .subscribeOn(Schedulers.computation())
                 .map { player -> player.map { convertIntoItems(it) } }
                 .doOnNext {

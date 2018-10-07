@@ -15,6 +15,7 @@ import szeptunm.corner.dataaccess.database.dao.TeamDao
 import szeptunm.corner.dataaccess.database.entity.CompetitionEntity
 import szeptunm.corner.dataaccess.database.entity.MatchEntity
 import szeptunm.corner.dataaccess.database.entity.TeamEntity
+import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.entity.Competition
 import szeptunm.corner.entity.Match
 import szeptunm.corner.entity.Team
@@ -33,14 +34,14 @@ class MatchRepository @Inject constructor(
                         .toList()
             }
 
-    fun getAllMatches(): Observable<List<Match>> {
+    fun getAllMatches(clubInfo: ClubInfo): Observable<List<Match>> {
         return concatArray(
-                getMatchesFromDb(), getMatchesFromApi()
+                getMatchesFromDb(clubInfo), getMatchesFromApi(clubInfo)
         )
     }
 
-    private fun getMatchesFromDb(): Observable<List<Match>> {
-        return matchDao.getAllMatches()
+    private fun getMatchesFromDb(clubInfo: ClubInfo): Observable<List<Match>> {
+        return matchDao.getMatchByTeamId(clubInfo.matchTeamId)
                 .compose(matchTransformer)
                 .filter { it.isNotEmpty() }
                 .toObservable()
@@ -49,8 +50,8 @@ class MatchRepository @Inject constructor(
                 }
     }
 
-    private fun getMatchesFromApi(): Observable<List<Match>> {
-        return matchService.getAllMatches(BuildConfig.MATCH_KEY, 81)
+    private fun getMatchesFromApi(clubInfo: ClubInfo): Observable<List<Match>> {
+        return matchService.getAllMatches(BuildConfig.MATCH_KEY, clubInfo.matchTeamId)
                 .flatMapCompletable { matchResponse ->
                     mapMatchToEntities(matchResponse)
                 }

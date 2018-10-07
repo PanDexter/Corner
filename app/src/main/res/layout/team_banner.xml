@@ -24,7 +24,6 @@
             android:textSize="@dimen/team_banner_text"
             android:fontFamily="@font/raleway"
             android:textColor="@color/white"
-            android:text="FC BARCELONA"
             tools:text="FC BARCELONA"/>
 
 
@@ -36,7 +35,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/team_name"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/barcelonabadge"
             tools:src="@drawable/barcelonabadge" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

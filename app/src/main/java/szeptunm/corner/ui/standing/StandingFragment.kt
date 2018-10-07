@@ -2,18 +2,24 @@ package szeptunm.corner.ui.standing
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import szeptunm.corner.R
 import szeptunm.corner.databinding.FragmentStandingBinding
+import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.ui.BaseFragment
+import szeptunm.corner.ui.splashScreen.SplashScreenActivity.Companion.KEY_CLUB_INFO
 import javax.inject.Inject
 
 class StandingFragment : BaseFragment() {
 
     companion object {
-        fun newInstance(): StandingFragment = StandingFragment()
+        fun newInstance(clubInfo: ClubInfo): StandingFragment =
+                StandingFragment().apply {
+                    arguments = bundleOf(KEY_CLUB_INFO to clubInfo)
+                }
     }
 
     @Inject
@@ -30,7 +36,9 @@ class StandingFragment : BaseFragment() {
         get() = R.layout.fragment_standing
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val clubInfo = arguments?.getParcelable(KEY_CLUB_INFO) as ClubInfo
         binding = viewDataBinding as FragmentStandingBinding
+        viewModel.init(clubInfo)
         setupRecycle()
         subscribeToViewModel()
     }
@@ -47,7 +55,4 @@ class StandingFragment : BaseFragment() {
             standingAdapter.setData(it)
         }.addTo(compositeDisposable)
     }
-
-
-
 }

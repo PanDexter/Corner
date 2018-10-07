@@ -10,6 +10,7 @@ import szeptunm.corner.dataaccess.api.pojo.Item
 import szeptunm.corner.dataaccess.api.service.NewsService
 import szeptunm.corner.dataaccess.database.dao.NewsDao
 import szeptunm.corner.dataaccess.database.entity.NewsEntity
+import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.entity.News
 import timber.log.Timber
 import javax.inject.Inject
@@ -23,14 +24,14 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
                     .toList()
         }
 
-    fun getAllNews(): Observable<List<News>> {
+    fun getAllNews(clubInfo: ClubInfo): Observable<List<News>> {
         return Observable.concatArray(
-                getNewsFromDb(), getNewsFromApi()
+                getNewsFromDb(clubInfo), getNewsFromApi(clubInfo)
         )
     }
 
-    private fun getNewsFromDb(): Observable<List<News>> {
-        return newsDao.getAllNews()
+    private fun getNewsFromDb(clubInfo: ClubInfo): Observable<List<News>> {
+        return newsDao.getNewsByTeamId(clubInfo.matchTeamId)
                 .compose(newsTransformer)
                 .filter { it.isNotEmpty() }
                 .toObservable()
@@ -39,11 +40,11 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
                 }
     }
 
-    private fun getNewsFromApi(): Observable<List<News>> {
-        return newsService.getAllNews("http://www.espnfc.com/club/barcelona/83/rss",
+    private fun getNewsFromApi(clubInfo: ClubInfo): Observable<List<News>> {
+        return newsService.getAllNews(clubInfo.newsUrl,
                 BuildConfig.NEWS_KEY)
                 .map {
-                    mapResponseToEntity(it)
+                    mapResponseToEntity(it, clubInfo)
                 }
                 .doOnSuccess {
                     saveToDatabase(it)
@@ -52,14 +53,13 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
                 .toObservable()
     }
 
-
-    private fun mapResponseToEntity(newsResponse: NewsResponse): List<NewsEntity> {
+    private fun mapResponseToEntity(newsResponse: NewsResponse, clubInfo: ClubInfo): List<NewsEntity> {
         val newsList: MutableList<NewsEntity> = ArrayList()
         for (i in 0 until newsResponse.items.size) {
             newsResponse.items[i].let {
                 newsList.add(
                         NewsEntity(0, it.title, changeDescription(it), it.pubDate, it.enclosure.imageURL, it.link,
-                                null))
+                                clubInfo.matchTeamId))
             }
         }
         return newsList
