@@ -16,5 +16,9 @@ data class ClubInfoEntity(
         @ColumnInfo(name = "matchTeamId")
         var matchTeamId: Int,
         @ColumnInfo(name = "competitionId")
-        var competitionId: Int
+        var competitionId: Int,
+        @ColumnInfo(name = "badge")
+        var badge: Int,
+        @ColumnInfo(name = "gradient")
+        var gradient: Int
 )

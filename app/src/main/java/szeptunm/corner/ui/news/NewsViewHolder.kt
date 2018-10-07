@@ -38,14 +38,25 @@ class NewsViewHolder(binding: NewsItemBinding, val itemObserver: PublishSubject<
                 context.startActivity(intentWeb)
             }
         }
-        val requestOptions = RequestOptions()
+        val webRequest = RequestOptions()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .dontTransform()
                 .priority(LOW)
-                .placeholder(R.drawable.barcelonabadge)
+                .placeholder(R.drawable.web_placeholder)
 
-        Glide.with(itemView).load(item.news.photoUrl).apply(requestOptions).into(binding.newsPhoto)
+        val detailRequest = RequestOptions()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .dontTransform()
+                .priority(LOW)
+                .placeholder(R.drawable.placeholder)
+
+        if (item.news.photoUrl != "") {
+            Glide.with(itemView).load(item.news.photoUrl).apply(detailRequest).into(binding.newsPhoto)
+        } else {
+            Glide.with(itemView).load(item.news.photoUrl).apply(webRequest).into(binding.newsPhoto)
+        }
         binding.newsDescription.text = item.news.title
     }
 }

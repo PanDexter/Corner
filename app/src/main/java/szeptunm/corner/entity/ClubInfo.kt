@@ -10,7 +10,9 @@ data class ClubInfo constructor(
         var newsUrl: String = "",
         var teamApiId: Int = 0,
         var matchTeamId: Int = 0,
-        var competitionId: Int = 0) : Parcelable {
+        var competitionId: Int = 0,
+        var gradient: Int = 0,
+        var badge: Int = 0) : Parcelable {
 
 
     constructor(clubInfoEntity: ClubInfoEntity) : this() {
@@ -19,5 +21,7 @@ data class ClubInfo constructor(
         this.teamApiId = clubInfoEntity.teamApiId
         this.matchTeamId = clubInfoEntity.matchTeamId
         this.competitionId = clubInfoEntity.competitionId
+        this.badge = clubInfoEntity.badge
+        this.gradient = clubInfoEntity.gradient
     }
 }

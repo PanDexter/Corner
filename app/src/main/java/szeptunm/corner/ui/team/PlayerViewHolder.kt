@@ -35,7 +35,7 @@ class PlayerViewHolder(binding: PlayerItemBinding, val itemObserver: PublishSubj
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .dontTransform()
                 .priority(LOW)
-                .placeholder(R.drawable.barcelonabadge)
+                .placeholder(R.drawable.fc_barcelona_badge)
         val photo: String? = getImage()
         Glide.with(itemView).load(photo).apply(requestOptions).into(binding.playerPhoto)
         binding.playerName.text = item.player.name
