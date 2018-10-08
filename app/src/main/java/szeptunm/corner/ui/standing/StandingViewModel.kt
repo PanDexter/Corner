@@ -18,6 +18,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class StandingViewModel @Inject constructor(private val getAllStandings: GetAllStandings,
+        clubInfo: ClubInfo,
         private val getTeamById: GetTeamById,
         private val getCompetitionById: GetCompetitionById) {
 
@@ -26,7 +27,7 @@ class StandingViewModel @Inject constructor(private val getAllStandings: GetAllS
 
     fun observeStandings(): Observable<List<StandingItem>> = subject
 
-    fun init(clubInfo: ClubInfo) {
+    init {
         getAllStandings.execute(clubInfo)
                 .subscribeOn(Schedulers.computation())
                 .flatMapSingle {

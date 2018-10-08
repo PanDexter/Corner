@@ -47,7 +47,7 @@ class PlayerDetailActivity : BaseActivity() {
     private fun setToolbar() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = null;
+        supportActionBar?.title = null
         toolbar.setNavigationIcon(R.drawable.ic_close_white)
     }
 

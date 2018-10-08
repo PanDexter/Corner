@@ -11,7 +11,7 @@ import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.entity.Player
 import javax.inject.Inject
 
-class TeamViewModel @Inject constructor(private var getAllPlayers: GetAllPlayers) {
+class TeamViewModel @Inject constructor(private var getAllPlayers: GetAllPlayers, clubInfo: ClubInfo) {
 
     private var subject: BehaviorSubject<List<PlayerItem>> = BehaviorSubject.create()
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
@@ -19,7 +19,7 @@ class TeamViewModel @Inject constructor(private var getAllPlayers: GetAllPlayers
 
     fun observePlayers(): Observable<List<PlayerItem>> = subject
 
-    fun init(clubInfo: ClubInfo) {
+    init {
         getAllPlayers.execute(clubInfo.teamApiId)
                 .subscribeOn(Schedulers.computation())
                 .map { player -> player.map { convertIntoItems(it) } }

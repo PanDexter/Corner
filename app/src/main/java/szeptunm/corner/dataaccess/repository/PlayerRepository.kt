@@ -1,11 +1,10 @@
 package szeptunm.corner.dataaccess.repository
 
-import android.annotation.SuppressLint
 import io.reactivex.Observable
 import io.reactivex.SingleTransformer
-import io.reactivex.schedulers.Schedulers
 import szeptunm.corner.dataaccess.api.model.PlayerResponse
 import szeptunm.corner.dataaccess.api.service.PlayerService
+import szeptunm.corner.dataaccess.database.DatabaseTransaction
 import szeptunm.corner.dataaccess.database.dao.PlayerDao
 import szeptunm.corner.dataaccess.database.entity.PlayerEntity
 import szeptunm.corner.entity.Player
@@ -13,7 +12,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class PlayerRepository @Inject constructor(private var playerDao: PlayerDao,
-        private var playerService: PlayerService) {
+        private var playerService: PlayerService, private val databaseTransaction: DatabaseTransaction) {
 
     private val teamTransformer: SingleTransformer<List<PlayerEntity>, List<Player>> =
             SingleTransformer { upstream ->
@@ -62,13 +61,7 @@ class PlayerRepository @Inject constructor(private var playerDao: PlayerDao,
         return playerList
     }
 
-    @SuppressLint("CheckResult")
     private fun saveToDatabase(playerList: List<PlayerEntity>) {
-        Observable.fromCallable { playerDao.insertAllPlayers(playerList) }
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe {
-                    Timber.d("Insert ${playerList.size} news to DB...")
-                }
+        databaseTransaction.runTransaction { playerDao.insertAllPlayers(playerList) }
     }
 }

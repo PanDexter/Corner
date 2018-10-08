@@ -10,7 +10,5 @@ class GetAllPlayers @Inject constructor() {
     @Inject
     lateinit var repository: PlayerRepository
 
-    fun execute(club: Int): Observable<List<Player>> {
-        return repository.getAllPlayers(club)
-    }
+    fun execute(club: Int): Observable<List<Player>> = repository.getAllPlayers(club)
 }

@@ -1,12 +1,11 @@
 package szeptunm.corner.dataaccess.repository
 
-import android.annotation.SuppressLint
 import io.reactivex.Observable
 import io.reactivex.SingleTransformer
-import io.reactivex.schedulers.Schedulers
 import szeptunm.corner.BuildConfig
 import szeptunm.corner.dataaccess.api.model.StandingResponse
 import szeptunm.corner.dataaccess.api.service.StandingService
+import szeptunm.corner.dataaccess.database.DatabaseTransaction
 import szeptunm.corner.dataaccess.database.dao.StandingDao
 import szeptunm.corner.dataaccess.database.entity.StandingEntity
 import szeptunm.corner.entity.ClubInfo
@@ -15,7 +14,8 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class StandingRepository @Inject constructor(
-        private var standingDao: StandingDao, private var standingService: StandingService) {
+        private var standingDao: StandingDao, private var standingService: StandingService,
+        val databaseTransaction: DatabaseTransaction) {
 
     private val standingTransformer: SingleTransformer<List<StandingEntity>, List<Standing>> =
             SingleTransformer { upstream ->
@@ -79,13 +79,9 @@ class StandingRepository @Inject constructor(
         return standingList
     }
 
-    @SuppressLint("CheckResult")
     private fun saveToDatabase(standingList: List<StandingEntity>) {
-        Observable.fromCallable { standingDao.insertAllStandings(standingList) }
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe {
-                    Timber.d("Insert ${standingList.size} standings to DB...")
-                }
+        databaseTransaction.runTransaction {
+            standingDao.insertAllStandings(standingList)
+        }
     }
 }

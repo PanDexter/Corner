@@ -8,6 +8,6 @@ import szeptunm.corner.dataaccess.api.model.MatchResponse
 
 interface MatchService {
 
-    @GET("/v2/teams/{id}/matches")
+    @GET("/v2/teams/{id}/matches?limit=50")
     fun getAllMatches(@Header("X-Auth-Token") token: String, @Path("id") id: Int): Single<MatchResponse>
 }

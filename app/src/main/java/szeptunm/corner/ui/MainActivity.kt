@@ -21,14 +21,14 @@ class MainActivity : BaseActivity() {
 
     @Inject
     lateinit var fragmentChanger: FragmentChanger
-    lateinit var clubInfo: ClubInfo
+    val clubInfo: ClubInfo
+        get() = intent.getParcelableExtra(KEY_CLUB_INFO)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        clubInfo = intent.getParcelableExtra(KEY_CLUB_INFO) as ClubInfo
         setContentView(layout.activity_main)
         supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_placeholder, NewsFragment.newInstance(clubInfo), "news")
+                .add(R.id.fragment_placeholder, NewsFragment.newInstance(), "news")
                 .commit()
         val navigation: BottomNavigationView = findViewById(R.id.navigation)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
@@ -38,12 +38,12 @@ class MainActivity : BaseActivity() {
         when (item.itemId) {
             id.navigation_news -> {
                 fragmentChanger.changeFragments(this, R.id.fragment_placeholder,
-                        "news") { NewsFragment.newInstance(clubInfo) }
+                        "news") { NewsFragment.newInstance() }
                 return@OnNavigationItemSelectedListener true
             }
             id.navigation_scoreboard -> {
                 fragmentChanger.changeFragments(this, R.id.fragment_placeholder,
-                        "schedule") { MatchFragment.newInstance(clubInfo) }
+                        "schedule") { MatchFragment.newInstance() }
                 return@OnNavigationItemSelectedListener true
             }
             id.navigation_settings -> {
@@ -51,12 +51,12 @@ class MainActivity : BaseActivity() {
             }
             id.navigation_standing -> {
                 fragmentChanger.changeFragments(this, R.id.fragment_placeholder,
-                        "standing") { StandingFragment.newInstance(clubInfo) }
+                        "standing") { StandingFragment.newInstance() }
                 return@OnNavigationItemSelectedListener true
             }
             id.navigation_team -> {
                 fragmentChanger.changeFragments(this, R.id.fragment_placeholder,
-                        "team") { TeamFragment.newInstance(clubInfo) }
+                        "team") { TeamFragment.newInstance() }
                 return@OnNavigationItemSelectedListener true
             }
         }

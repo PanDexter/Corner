@@ -1,12 +1,12 @@
 package szeptunm.corner.domain.splashScreen
 
 import io.reactivex.Completable
+import io.reactivex.schedulers.Schedulers
 import szeptunm.corner.domain.news.GetAllNews
 import szeptunm.corner.domain.players.GetAllPlayers
 import szeptunm.corner.domain.schedule.GetAllMatches
 import szeptunm.corner.domain.standings.GetAllStandings
 import szeptunm.corner.entity.ClubInfo
-import szeptunm.corner.entity.Match
 import javax.inject.Inject
 
 class InitializeData @Inject constructor() {
@@ -21,8 +21,20 @@ class InitializeData @Inject constructor() {
     lateinit var getAllStandings: GetAllStandings
 
     fun execute(clubInfo: ClubInfo): Completable =
-            Completable.fromObservable<List<Match>> { getAllMatches.execute() }
-                    .andThen { getAllStandings.execute(clubInfo) }
-                    .andThen { getAllNews.execute(clubInfo) }
-                    .andThen { getAllPlayers.execute(clubInfo.teamApiId) }
+            Completable.fromAction {
+                getAllMatches.execute(clubInfo)
+                        .observeOn(Schedulers.io())
+                        .subscribeOn(Schedulers.io())
+                        .subscribe {
+                            getAllStandings.execute(clubInfo)
+                                    .observeOn(Schedulers.computation())
+                                    .subscribeOn(Schedulers.computation())
+                            getAllNews.execute(clubInfo)
+                                    .observeOn(Schedulers.computation())
+                                    .subscribeOn(Schedulers.computation())
+                            getAllPlayers.execute(clubInfo.teamApiId)
+                                    .observeOn(Schedulers.computation())
+                                    .subscribeOn(Schedulers.computation())
+                        }
+            }
 }

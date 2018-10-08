@@ -19,7 +19,7 @@ class SplashScreenActivity @Inject constructor() : BaseActivity() {
         const val KEY_CLUB_INFO = "KEY_CLUB_INFO"
     }
 
-    var composite: CompositeDisposable = CompositeDisposable()
+    private var composite: CompositeDisposable = CompositeDisposable()
 
     @Inject
     lateinit var viewModel: SplashScreenViewModel
@@ -28,11 +28,10 @@ class SplashScreenActivity @Inject constructor() : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_splash_screen)
         subscribeToViewModel()
-        viewModel.init()
     }
 
     private fun subscribeToViewModel() {
-        val intent = Intent(applicationContext, MainActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         viewModel.observeClubInfo().subscribe {
             val bundle = Bundle().apply {
                 putParcelable(KEY_CLUB_INFO, it)

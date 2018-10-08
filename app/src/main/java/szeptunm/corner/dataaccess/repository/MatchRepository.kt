@@ -40,7 +40,7 @@ class MatchRepository @Inject constructor(
         )
     }
 
-    private fun getMatchesFromDb(clubInfo: ClubInfo): Observable<List<Match>> {
+    fun getMatchesFromDb(clubInfo: ClubInfo): Observable<List<Match>> {
         return matchDao.getMatchByTeamId(clubInfo.matchTeamId)
                 .compose(matchTransformer)
                 .filter { it.isNotEmpty() }

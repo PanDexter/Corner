@@ -52,7 +52,7 @@ class NewsViewHolder(binding: NewsItemBinding, val itemObserver: PublishSubject<
                 .priority(LOW)
                 .placeholder(R.drawable.placeholder)
 
-        if (item.news.photoUrl != "") {
+        if (item.news.description != "") {
             Glide.with(itemView).load(item.news.photoUrl).apply(detailRequest).into(binding.newsPhoto)
         } else {
             Glide.with(itemView).load(item.news.photoUrl).apply(webRequest).into(binding.newsPhoto)

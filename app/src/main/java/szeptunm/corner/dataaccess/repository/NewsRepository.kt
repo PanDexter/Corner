@@ -1,13 +1,12 @@
 package szeptunm.corner.dataaccess.repository
 
-import android.annotation.SuppressLint
 import io.reactivex.Observable
 import io.reactivex.SingleTransformer
-import io.reactivex.schedulers.Schedulers
 import szeptunm.corner.BuildConfig
 import szeptunm.corner.dataaccess.api.model.NewsResponse
 import szeptunm.corner.dataaccess.api.pojo.Item
 import szeptunm.corner.dataaccess.api.service.NewsService
+import szeptunm.corner.dataaccess.database.DatabaseTransaction
 import szeptunm.corner.dataaccess.database.dao.NewsDao
 import szeptunm.corner.dataaccess.database.entity.NewsEntity
 import szeptunm.corner.entity.ClubInfo
@@ -15,14 +14,15 @@ import szeptunm.corner.entity.News
 import timber.log.Timber
 import javax.inject.Inject
 
-class NewsRepository @Inject constructor(private var newsDao: NewsDao, private var newsService: NewsService) {
+class NewsRepository @Inject constructor(private var newsDao: NewsDao, private var newsService: NewsService,
+        private val databaseTransaction: DatabaseTransaction) {
 
     private val newsTransformer: SingleTransformer<List<NewsEntity>, List<News>> =
             SingleTransformer { upstream ->
-            upstream.flattenAsObservable { list -> list }
-                    .map { News(it) }
-                    .toList()
-        }
+                upstream.flattenAsObservable { list -> list }
+                        .map { News(it) }
+                        .toList()
+            }
 
     fun getAllNews(clubInfo: ClubInfo): Observable<List<News>> {
         return Observable.concatArray(
@@ -30,7 +30,7 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
         )
     }
 
-    private fun getNewsFromDb(clubInfo: ClubInfo): Observable<List<News>> {
+    fun getNewsFromDb(clubInfo: ClubInfo): Observable<List<News>> {
         return newsDao.getNewsByTeamId(clubInfo.matchTeamId)
                 .compose(newsTransformer)
                 .filter { it.isNotEmpty() }
@@ -40,7 +40,7 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
                 }
     }
 
-    private fun getNewsFromApi(clubInfo: ClubInfo): Observable<List<News>> {
+    fun getNewsFromApi(clubInfo: ClubInfo): Observable<List<News>> {
         return newsService.getAllNews(clubInfo.newsUrl,
                 BuildConfig.NEWS_KEY)
                 .map {
@@ -65,14 +65,8 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
         return newsList
     }
 
-    @SuppressLint("CheckResult")
     private fun saveToDatabase(newsList: List<NewsEntity>) {
-        Observable.fromCallable { newsDao.insertAllNews(newsList) }
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe {
-                    Timber.d("Insert ${newsList.size} news to DB...")
-                }
+        databaseTransaction.runTransaction { newsDao.insertAllNews(newsList) }
     }
 
     private fun changeDescription(item: Item): String {

@@ -11,7 +11,7 @@ import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.entity.News
 import javax.inject.Inject
 
-class NewsViewModel @Inject constructor(private var getAllNews: GetAllNews) {
+class NewsViewModel @Inject constructor(private var getAllNews: GetAllNews, clubInfo: ClubInfo) {
 
     private var subject:BehaviorSubject<List<NewsItem>> = BehaviorSubject.create()
     private var compositeDisposable:CompositeDisposable = CompositeDisposable()
@@ -19,7 +19,7 @@ class NewsViewModel @Inject constructor(private var getAllNews: GetAllNews) {
 
     fun observeNews(): Observable<List<NewsItem>> = subject
 
-    fun init(clubInfo: ClubInfo) {
+    init {
         getAllNews.execute(clubInfo)
                 .subscribeOn(Schedulers.computation())
                 .map { news -> news.map { convertIntoItems(it) } }
