@@ -9,5 +9,6 @@ object Constants {
         const val API_URL = "http://api.football-data.org/v2"
         const val NEWS_KEY = "ce3kivoilvuyhvgkbguh6f2kvmp54f0tctumwwrz"
         const val NEWS_URL = "https://api.rss2json.com/v1"
+    const val KEY_CLUB_NAME = "KEY_CLUB_NAME"
     val DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
 }

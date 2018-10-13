@@ -58,7 +58,7 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
         for (i in 0 until newsResponse.items.size) {
             newsResponse.items[i].let {
                 newsList.add(
-                        NewsEntity(0, it.title, changeDescription(it), it.pubDate, it.enclosure.imageURL, it.link,
+                        NewsEntity(it.title, changeDescription(it), it.pubDate, it.enclosure.imageURL, it.link,
                                 clubInfo.matchTeamId))
             }
         }

@@ -28,4 +28,16 @@
     <string name="gd">+/-</string>
     <string name="pts">Pts</string>
     <string name="w">W</string>
+    <string name="choose_team_you_would_like_to_see">Choose team you would like to see</string>
+    <string name="fc_barcelona">FC Barcelona</string>
+    <string name="real_madrid">Real Madrid</string>
+    <string name="arsenal_london">Arsenal London</string>
+    <string name="chelsea_london">Chelsea London</string>
+    <string name="bayern_munich">Bayern Munich</string>
+    <string name="liverpool">Liverpool</string>
+    <string name="manchester_united">Manchester United</string>
+    <string name="manchester_city">Manchester City</string>
+    <string name="atletico_madrid">Atletico Madrid</string>
+    <string name="juventus_turin">Juventus Turin</string>
+    <string name="psg">Paris Saint Germain</string>
 </resources>

@@ -8,6 +8,7 @@ import szeptunm.corner.R.layout
 import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.ui.news.NewsFragment
 import szeptunm.corner.ui.schedule.MatchFragment
+import szeptunm.corner.ui.settings.SettingsFragment
 import szeptunm.corner.ui.splashScreen.SplashScreenActivity.Companion.KEY_CLUB_INFO
 import szeptunm.corner.ui.standing.StandingFragment
 import szeptunm.corner.ui.team.TeamFragment
@@ -47,6 +48,8 @@ class MainActivity : BaseActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             id.navigation_settings -> {
+                fragmentChanger.changeFragments(this, R.id.fragment_placeholder,
+                        "settings") { SettingsFragment.newInstance() }
                 return@OnNavigationItemSelectedListener true
             }
             id.navigation_standing -> {

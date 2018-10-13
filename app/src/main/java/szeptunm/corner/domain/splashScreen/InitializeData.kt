@@ -29,12 +29,16 @@ class InitializeData @Inject constructor() {
                             getAllStandings.execute(clubInfo)
                                     .observeOn(Schedulers.computation())
                                     .subscribeOn(Schedulers.computation())
-                            getAllNews.execute(clubInfo)
-                                    .observeOn(Schedulers.computation())
-                                    .subscribeOn(Schedulers.computation())
-                            getAllPlayers.execute(clubInfo.teamApiId)
-                                    .observeOn(Schedulers.computation())
-                                    .subscribeOn(Schedulers.computation())
+                                    .subscribe {
+                                        getAllNews.execute(clubInfo)
+                                                .observeOn(Schedulers.io())
+                                                .subscribeOn(Schedulers.io())
+                                                .subscribe {
+                                                    getAllPlayers.execute(clubInfo)
+                                                            .observeOn(Schedulers.computation())
+                                                            .subscribeOn(Schedulers.computation())
+                                                }
+                                    }
                         }
             }
 }

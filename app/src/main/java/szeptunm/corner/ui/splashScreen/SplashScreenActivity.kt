@@ -12,12 +12,16 @@ import javax.inject.Inject
 
 class SplashScreenActivity @Inject constructor() : BaseActivity() {
 
+    companion object {
+        const val KEY_CLUB_INFO = "KEY_CLUB_INFO"
+        const val KEY_CLUB_NAME = "KEY_CLUB_NAME"
+    }
+
     override val layoutResource: Int
         get() = R.layout.activity_splash_screen
 
-    companion object {
-        const val KEY_CLUB_INFO = "KEY_CLUB_INFO"
-    }
+    val clubInfo: String?
+        get() = intent.getStringExtra(KEY_CLUB_NAME)
 
     private var composite: CompositeDisposable = CompositeDisposable()
 
@@ -31,6 +35,7 @@ class SplashScreenActivity @Inject constructor() : BaseActivity() {
     }
 
     private fun subscribeToViewModel() {
+        viewModel.init(clubInfo)
         val intent = Intent(this, MainActivity::class.java)
         viewModel.observeClubInfo().subscribe {
             val bundle = Bundle().apply {

@@ -9,6 +9,7 @@ import io.reactivex.subjects.BehaviorSubject
 import szeptunm.corner.domain.news.GetAllNews
 import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.entity.News
+import timber.log.Timber
 import javax.inject.Inject
 
 class NewsViewModel @Inject constructor(private var getAllNews: GetAllNews, clubInfo: ClubInfo) {
@@ -27,7 +28,7 @@ class NewsViewModel @Inject constructor(private var getAllNews: GetAllNews, club
                     this.items = it
                 }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { items -> subject.onNext(items) }
+                .subscribe(subject::onNext) { Timber.e(it, "Something went wrong during news initialization") }
                 .addTo(compositeDisposable)
     }
 

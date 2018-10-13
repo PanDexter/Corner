@@ -9,6 +9,7 @@ import io.reactivex.subjects.BehaviorSubject
 import szeptunm.corner.domain.players.GetAllPlayers
 import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.entity.Player
+import timber.log.Timber
 import javax.inject.Inject
 
 class TeamViewModel @Inject constructor(private var getAllPlayers: GetAllPlayers, clubInfo: ClubInfo) {
@@ -20,14 +21,14 @@ class TeamViewModel @Inject constructor(private var getAllPlayers: GetAllPlayers
     fun observePlayers(): Observable<List<PlayerItem>> = subject
 
     init {
-        getAllPlayers.execute(clubInfo.teamApiId)
+        getAllPlayers.execute(clubInfo)
                 .subscribeOn(Schedulers.computation())
                 .map { player -> player.map { convertIntoItems(it) } }
                 .doOnNext {
                     this.items = it
                 }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { items -> subject.onNext(items) }
+                .subscribe(subject::onNext) { Timber.e(it, "Something went wrong during team initialization") }
                 .addTo(compositeDisposable)
     }
 

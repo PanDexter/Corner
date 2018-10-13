@@ -1,9 +1,11 @@
 package szeptunm.corner.di
 
+import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import szeptunm.corner.App
+import szeptunm.corner.commons.Preferences
 import szeptunm.corner.dataaccess.database.CornerDatabase
 import szeptunm.corner.dataaccess.database.dao.ClubInfoDao
 import szeptunm.corner.dataaccess.database.dao.CompetitionDao
@@ -61,5 +63,19 @@ abstract class AppModule {
         @Singleton
         fun providesCornerDatabase(app: App): CornerDatabase = Room.databaseBuilder(app.applicationContext,
                 CornerDatabase::class.java, "cornerdb").build()
+
+        @Provides
+        @JvmStatic
+        @AppContext
+        fun providesAppContext(app: App): Context = app.applicationContext
+
+        @Provides
+        @JvmStatic
+        @Singleton
+        fun providePreferences(@AppContext context: Context): Preferences {
+            val sharedPreferences = context.getSharedPreferences(Preferences.PREFERENCES_FILE_NAME,
+                    Context.MODE_PRIVATE)
+            return Preferences(sharedPreferences)
+        }
     }
 }

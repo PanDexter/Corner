@@ -12,8 +12,9 @@ import szeptunm.corner.entity.ClubInfo
 import java.util.concurrent.TimeUnit.SECONDS
 import javax.inject.Inject
 
-class SplashScreenViewModel @Inject constructor(private var initializeClubInfo: InitializeClubInfo,
-        private var initializeData: InitializeData, private var getClubInfoByName: GetClubInfoByName) {
+class SplashScreenViewModel @Inject constructor(private val initializeClubInfo: InitializeClubInfo,
+        private val initializeData: InitializeData, private val getClubInfoByName: GetClubInfoByName,
+        private val getClubInfoFromPrefs: GetClubInfoFromPrefs) {
 
     private var subject: BehaviorSubject<ClubInfo> = BehaviorSubject.create()
     private var completeSubject: BehaviorSubject<Boolean> = BehaviorSubject.create()
@@ -22,12 +23,12 @@ class SplashScreenViewModel @Inject constructor(private var initializeClubInfo: 
     fun observeCompletable(): Observable<Boolean> = completeSubject
     fun observeClubInfo(): Observable<ClubInfo> = subject
 
-    init {
+    fun init(clubName: String?) {
         initializeClubInfo.execute()
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
                 .subscribe {
-                    getClubInfoByName.execute("Juventus Turin")
+                    getClubInfoByName.execute(getClubName(clubName))
                             .observeOn(Schedulers.io())
                             .subscribeOn(Schedulers.io())
                             .delay(1, SECONDS)
@@ -38,5 +39,9 @@ class SplashScreenViewModel @Inject constructor(private var initializeClubInfo: 
                                 }
                             }.addTo(compositeDisposable)
                 }.addTo(compositeDisposable)
+    }
+
+    private fun getClubName(clubName: String?): String {
+        return clubName ?: "FC Barcelona"
     }
 }

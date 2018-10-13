@@ -11,7 +11,7 @@ data class News(
         var link: String? = "",
         var date: String = "",
         var photoUrl: String? = "",
-        var teamId: Int? = null) : Parcelable {
+        var teamId: Int = 0) : Parcelable {
 
     constructor(newsEntity: NewsEntity) : this() {
         this.title = newsEntity.title

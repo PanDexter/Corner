@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/barcelona"
+        android:title="@string/fc_barcelona" />
+
+    <item
+        android:id="@+id/real"
+        android:title="@string/real_madrid" />
+
+    <item
+        android:id="@+id/arsenal"
+        android:title="@string/arsenal_london" />
+
+    <item
+        android:id="@+id/chelsea"
+        android:title="@string/chelsea_london" />
+
+    <item
+        android:id="@+id/bayern"
+        android:title="@string/bayern_munich" />
+
+    <item
+        android:id="@+id/liverpool"
+        android:title="@string/liverpool" />
+
+    <item
+        android:id="@+id/manchester_united"
+        android:title="@string/manchester_united" />
+
+    <item
+        android:id="@+id/manchester_city"
+        android:title="@string/manchester_city" />
+
+    <item
+        android:id="@+id/atletico_madrid"
+        android:title="@string/atletico_madrid" />
+
+    <item
+        android:id="@+id/juventus_turin"
+        android:title="@string/juventus_turin" />
+
+    <item
+        android:id="@+id/psg"
+        android:title="@string/psg" />
+
+</menu>
