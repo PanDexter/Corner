@@ -6,16 +6,14 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import szeptunm.corner.R
 import szeptunm.corner.R.layout
+import szeptunm.corner.commons.Constants.KEY_CLUB_INFO
+import szeptunm.corner.commons.Constants.KEY_CLUB_NAME
 import szeptunm.corner.ui.BaseActivity
 import szeptunm.corner.ui.MainActivity
 import javax.inject.Inject
 
 class SplashScreenActivity @Inject constructor() : BaseActivity() {
 
-    companion object {
-        const val KEY_CLUB_INFO = "KEY_CLUB_INFO"
-        const val KEY_CLUB_NAME = "KEY_CLUB_NAME"
-    }
 
     override val layoutResource: Int
         get() = R.layout.activity_splash_screen

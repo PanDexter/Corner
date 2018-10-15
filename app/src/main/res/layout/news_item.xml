@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container_news"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/rv_item_height"
-        >
+        android:minHeight="@dimen/rv_item_height">
+
         <ImageView
             android:id="@+id/news_photo"
-            android:tint="@color/photo_detail_tint"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/photo_news_height"
-            tools:src="@drawable/news"
+            android:foreground="@drawable/news_item_button"
+            android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:scaleType = "fitXY"
-            android:contentDescription="Photo" />
+            tools:src="@drawable/news" />
 
         <TextView
             android:id="@+id/news_description"
             android:layout_width="@dimen/match_constraints"
             android:layout_height="wrap_content"
-            tools:text="Barcelona coach Ernesto Valverde wants Jasper Cillessen stay"
+            android:padding="8dp"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="Barcelona coach Ernesto Valverde wants Jasper Cillessen stay" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

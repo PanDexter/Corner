@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
 import szeptunm.corner.R
+import szeptunm.corner.commons.Constants.KEY_CLUB_NAME
 import szeptunm.corner.databinding.FragmentSettingsBinding
 import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.ui.BaseFragment
@@ -21,6 +22,10 @@ class SettingsFragment : BaseFragment() {
 
     @Inject
     lateinit var clubInfo: ClubInfo
+
+//    @Inject
+//    lateinit var preferences: Preferences
+
 
     private lateinit var binding: FragmentSettingsBinding
 
@@ -48,8 +53,9 @@ class SettingsFragment : BaseFragment() {
     private fun restartApp(clubName: String) {
         val intent = Intent(activity, SplashScreenActivity::class.java)
         val bundle = Bundle().apply {
-            putString(SplashScreenActivity.KEY_CLUB_NAME, clubName)
+            putString(KEY_CLUB_NAME, clubName)
         }
+        //preferences.putPreferenceString(KEY_CLUB_NAME, clubName)
         intent.putExtras(bundle)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

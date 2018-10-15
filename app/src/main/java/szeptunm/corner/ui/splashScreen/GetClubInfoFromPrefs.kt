@@ -1,6 +1,6 @@
 package szeptunm.corner.ui.splashScreen
 
-import szeptunm.corner.commons.Constants
+import szeptunm.corner.commons.Constants.KEY_CLUB_NAME
 import szeptunm.corner.commons.Preferences
 import javax.inject.Inject
 
@@ -14,7 +14,7 @@ class GetClubInfoFromPrefs @Inject constructor() {
     }
 
     fun getClubName(): String {
-        val name = preferences.getPreferenceString(Constants.KEY_CLUB_NAME, "")
+        val name = preferences.getPreferenceString(KEY_CLUB_NAME, "")
         return when (name) {
             null -> DEFAULT_NAME
             else -> name

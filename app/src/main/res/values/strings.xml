@@ -40,4 +40,6 @@
     <string name="atletico_madrid">Atletico Madrid</string>
     <string name="juventus_turin">Juventus Turin</string>
     <string name="psg">Paris Saint Germain</string>
+    <string name="switch_team">Switch team</string>
+    <string name="favourite_team">Favourite team</string>
 </resources>

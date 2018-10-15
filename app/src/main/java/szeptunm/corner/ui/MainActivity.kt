@@ -5,11 +5,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import szeptunm.corner.R
 import szeptunm.corner.R.id
 import szeptunm.corner.R.layout
+import szeptunm.corner.commons.Constants.KEY_CLUB_INFO
 import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.ui.news.NewsFragment
 import szeptunm.corner.ui.schedule.MatchFragment
 import szeptunm.corner.ui.settings.SettingsFragment
-import szeptunm.corner.ui.splashScreen.SplashScreenActivity.Companion.KEY_CLUB_INFO
 import szeptunm.corner.ui.standing.StandingFragment
 import szeptunm.corner.ui.team.TeamFragment
 import javax.inject.Inject

@@ -15,6 +15,9 @@
     <dimen name="team_banner_text">25sp</dimen>
     <dimen name="team_banner_size">60dp</dimen>
     <dimen name="photo_news_height">200dp</dimen>
+    <dimen name="margin_settings">28dp</dimen>
+    <dimen name="elevation">4dp</dimen>
+
 
     <!-- Text sizes -->
     <dimen name="text_size_small">12sp</dimen>

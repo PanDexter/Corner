@@ -42,4 +42,17 @@
         <item name="android:paddingRight">8dp</item>
     </style>
 
+    <style name="Separator">
+        <item name="android:background">@color/textGreyColor</item>
+    </style>
+
+
+    <style name="Separator.Vertical">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/one</item>
+        <item name="android:layout_marginBottom">@dimen/margin_large</item>
+        <item name="android:layout_marginTop">@dimen/margin_huge</item>
+    </style>
+
+
 </resources>
