@@ -21,7 +21,7 @@ import szeptunm.corner.ui.schedule.MatchItem.Companion.MATCH_PAST
 import timber.log.Timber
 import javax.inject.Inject
 
-class MatchViewModel @Inject constructor(getAllMatches: GetAllMatches,
+class ScheduleViewModel @Inject constructor(getAllMatches: GetAllMatches,
         clubInfo: ClubInfo,
         private val getTeamById: GetTeamById,
         private val getCompetitionById: GetCompetitionById) {
@@ -70,6 +70,8 @@ class MatchViewModel @Inject constructor(getAllMatches: GetAllMatches,
                     awayPenalties = match.awayPenalties,
                     homeTeam = homeTeam.name,
                     awayTeam = awayTeam.name,
+                    homeTeamId = match.homeTeam,
+                    awayTeamId = match.awayTeam,
                     date = match.date,
                     competition = competitionName.name))
         } else {
@@ -82,6 +84,8 @@ class MatchViewModel @Inject constructor(getAllMatches: GetAllMatches,
                     awayPenalties = match.awayPenalties,
                     homeTeam = homeTeam.name,
                     awayTeam = awayTeam.name,
+                    homeTeamId = match.homeTeam,
+                    awayTeamId = match.awayTeam,
                     date = match.date,
                     competition = competitionName.name
             ))

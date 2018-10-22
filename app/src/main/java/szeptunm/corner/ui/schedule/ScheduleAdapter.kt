@@ -11,7 +11,7 @@ import szeptunm.corner.ui.schedule.MatchItem.Companion.MATCH_FUTURE
 import szeptunm.corner.ui.schedule.MatchItem.Companion.MATCH_PAST
 import javax.inject.Inject
 
-class MatchAdapter @Inject constructor() : RecyclerView.Adapter<ViewHolder<MatchItem>>() {
+class ScheduleAdapter @Inject constructor() : RecyclerView.Adapter<ViewHolder<MatchItem>>() {
 
     var items: List<MatchItem> = ArrayList()
     private var onItemSelected: PublishSubject<Int> = PublishSubject.create()

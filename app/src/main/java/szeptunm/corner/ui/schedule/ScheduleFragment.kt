@@ -11,15 +11,15 @@ import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.ui.BaseFragment
 import javax.inject.Inject
 
-class MatchFragment : BaseFragment() {
+class ScheduleFragment : BaseFragment() {
     override val layoutResource: Int
         get() = R.layout.fragment_schedule
 
     @Inject
-    lateinit var matchAdapter: MatchAdapter
+    lateinit var scheduleAdapter: ScheduleAdapter
 
     @Inject
-    lateinit var viewModel: MatchViewModel
+    lateinit var viewModel: ScheduleViewModel
 
     @Inject
     lateinit var clubInfo: ClubInfo
@@ -28,7 +28,7 @@ class MatchFragment : BaseFragment() {
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     companion object {
-        fun newInstance(): MatchFragment = MatchFragment()
+        fun newInstance(): ScheduleFragment = ScheduleFragment()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,13 +41,13 @@ class MatchFragment : BaseFragment() {
     private fun setupRecycle() {
         binding.rvMatches.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = matchAdapter
+            adapter = scheduleAdapter
         }
     }
 
     private fun subscribeToViewModel() {
         viewModel.observeMatches().subscribe {
-            matchAdapter.setDataWithDiff(it)
+            scheduleAdapter.setDataWithDiff(it)
         }.addTo(compositeDisposable)
     }
 }

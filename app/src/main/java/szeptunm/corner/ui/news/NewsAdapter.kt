@@ -8,7 +8,7 @@ import szeptunm.corner.databinding.NewsItemBinding
 import szeptunm.corner.ui.recycler.BindingViewHolder
 import javax.inject.Inject
 
-class NewsAdapter @Inject constructor() :
+class NewsAdapter @Inject constructor(val fragment: NewsFragment) :
         RecyclerView.Adapter<BindingViewHolder<NewsItem, NewsItemBinding>>() {
 
     var items: List<NewsItem> = ArrayList()
@@ -17,7 +17,7 @@ class NewsAdapter @Inject constructor() :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder<NewsItem, NewsItemBinding> {
         val inflater = LayoutInflater.from(parent.context)
         val binding = NewsItemBinding.inflate(inflater, parent, false)
-        return NewsViewHolder(binding, onItemSelected)
+        return NewsViewHolder(binding, onItemSelected, fragment)
     }
 
     override fun getItemCount(): Int {

@@ -13,7 +13,7 @@ interface MatchDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMatch(matchEntity: MatchEntity)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAllMatches(matchEntityList: List<MatchEntity>)
 
     @Query("SELECT * FROM `match`")

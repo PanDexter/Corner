@@ -1,12 +1,17 @@
 package szeptunm.corner.ui.team
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import io.reactivex.schedulers.Schedulers
 import szeptunm.corner.R
 import szeptunm.corner.databinding.PlayerDetailBinding
@@ -37,6 +42,7 @@ class PlayerDetailActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.player_detail)
         val player = intent.getParcelableExtra(KEY_PLAYER) as Player
         setImage(player)
+        supportPostponeEnterTransition()
         setupPlayerDetails(player)
         setToolbar()
     }
@@ -44,7 +50,22 @@ class PlayerDetailActivity : BaseActivity() {
     private fun setImage(player: Player) {
         val requestOptions = RequestOptions()
                 .fitCenter()
-        Glide.with(binding.root).load(player.thumbUrl).apply(requestOptions).into(binding.playerPhoto)
+        Glide.with(binding.root)
+                .load(player.thumbUrl)
+                .listener(object : RequestListener<Drawable> {
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?,
+                            dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        startPostponedEnterTransition()
+                        return false
+                    }
+
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?,
+                            isFirstResource: Boolean): Boolean {
+                        startPostponedEnterTransition()
+                        return false
+                    }
+                })
+                .apply(requestOptions).into(binding.playerPhoto)
     }
 
     private fun setupPlayerDetails(player: Player) {
@@ -79,5 +100,10 @@ class PlayerDetailActivity : BaseActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        supportFinishAfterTransition()
     }
 }

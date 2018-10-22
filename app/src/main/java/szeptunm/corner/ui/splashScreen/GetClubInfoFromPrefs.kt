@@ -10,14 +10,8 @@ class GetClubInfoFromPrefs @Inject constructor() {
     lateinit var preferences: Preferences
 
     companion object {
-        const val DEFAULT_NAME = "FC Barcelona"
+        const val DEFAULT_NAME = "Real Madrid"
     }
 
-    fun getClubName(): String {
-        val name = preferences.getPreferenceString(KEY_CLUB_NAME, "")
-        return when (name) {
-            null -> DEFAULT_NAME
-            else -> name
-        }
-    }
+    fun getClubName(): String = preferences.getPreferenceString(KEY_CLUB_NAME, DEFAULT_NAME)!!
 }

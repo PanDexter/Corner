@@ -5,17 +5,17 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gradient_settings">
+        android:background="@color/white">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/club_choose_cardview"
             android:layout_width="@dimen/match_constraints"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_medium"
+            android:elevation="@dimen/elevation"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:elevation="@dimen/elevation">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -26,6 +26,7 @@
                     style="@style/Text.ExtraLarge.Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_small"
                     android:text="@string/switch_team"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -34,16 +35,15 @@
                     android:id="@+id/club_choose_button"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_smallish"
-                    app:layout_constraintTop_toBottomOf="@id/club_choose"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:textAlignment="center"
+                    android:layout_margin="@dimen/margin_medium"
                     android:text="@string/fc_barcelona"
+                    android:textAlignment="center"
                     android:textAllCaps="false"
-                    android:textSize="@dimen/text_size_large" />
-
+                    android:textSize="@dimen/text_size_large"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/club_choose" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -56,17 +56,17 @@
             android:layout_marginLeft="@dimen/margin_settings"
             android:layout_marginRight="@dimen/margin_settings"
             android:layout_marginTop="@dimen/margin_general"
-            app:layout_constraintTop_toBottomOf="@id/club_choose_cardview"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/club_choose_cardview" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/club_favourite_cardview"
             android:layout_width="@dimen/match_constraints"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_general"
             android:layout_marginLeft="@dimen/margin_medium"
             android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_general"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/separator">
@@ -80,23 +80,24 @@
                     style="@style/Text.ExtraLarge.Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_small"
                     android:text="@string/favourite_team"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/club_button"
+                    android:id="@+id/club_favourite_button"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_smallish"
-                    app:layout_constraintTop_toBottomOf="@id/club_favourite"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:textAlignment="center"
+                    android:layout_margin="@dimen/margin_medium"
                     android:text="@string/fc_barcelona"
+                    android:textAlignment="center"
                     android:textAllCaps="false"
-                    android:textSize="@dimen/text_size_large" />
+                    android:textSize="@dimen/text_size_large"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/club_favourite" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

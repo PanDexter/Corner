@@ -13,5 +13,7 @@ data class MatchSchedule(
         var awayPenalties: Int? = null,
         var homeTeam: String = "",
         var awayTeam: String = "",
+        var homeTeamId: Int,
+        var awayTeamId: Int,
         var date: String? = "",
         var competition: String = "") : Parcelable

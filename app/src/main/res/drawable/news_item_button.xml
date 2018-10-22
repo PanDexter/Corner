@@ -5,5 +5,5 @@
             <solid android:color="@android:color/white" />
         </shape>
     </item>
-    <item android:drawable="@color/photo_detail_tint" />
+    <item android:drawable="@color/whiteAlpha00" />
 </ripple>

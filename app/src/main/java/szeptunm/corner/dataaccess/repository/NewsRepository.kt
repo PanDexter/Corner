@@ -1,6 +1,7 @@
 package szeptunm.corner.dataaccess.repository
 
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.SingleTransformer
 import szeptunm.corner.BuildConfig
 import szeptunm.corner.dataaccess.api.model.NewsResponse
@@ -43,11 +44,15 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
     fun getNewsFromApi(clubInfo: ClubInfo): Observable<List<News>> {
         return newsService.getAllNews(clubInfo.newsUrl,
                 BuildConfig.NEWS_KEY)
+                .retry(3)
                 .map {
                     mapResponseToEntity(it, clubInfo)
                 }
-                .doOnSuccess {
+                .doOnSuccess { it ->
                     saveToDatabase(it)
+                }
+                .onErrorResumeNext {
+                    Single.just(null)
                 }
                 .compose(newsTransformer)
                 .toObservable()

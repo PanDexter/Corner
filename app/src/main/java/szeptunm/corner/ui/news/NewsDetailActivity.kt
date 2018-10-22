@@ -1,12 +1,19 @@
 package szeptunm.corner.ui.news
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority.LOW
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import io.reactivex.schedulers.Schedulers
 import szeptunm.corner.R
 import szeptunm.corner.R.layout
@@ -38,6 +45,7 @@ class NewsDetailActivity : BaseActivity() {
         setContentView(layout.news_details)
         binding = DataBindingUtil.setContentView(this, R.layout.news_details)
         val news = intent.getParcelableExtra(KEY_NEWS) as News
+        supportPostponeEnterTransition()
         binding.newsDetailsDescription.text = news.description
         setToolbar()
         setImage(news)
@@ -46,7 +54,26 @@ class NewsDetailActivity : BaseActivity() {
     private fun setImage(news: News) {
         val requestOptions = RequestOptions()
                 .fitCenter()
-        Glide.with(binding.root).load(news.photoUrl).apply(requestOptions).into(binding.newsDetailsPhoto)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .dontTransform()
+                .priority(LOW)
+
+        Glide.with(binding.root)
+                .load(news.photoUrl)
+                .listener(object : RequestListener<Drawable> {
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?,
+                            dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        startPostponedEnterTransition()
+                        return false
+                    }
+
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?,
+                            isFirstResource: Boolean): Boolean {
+                        startPostponedEnterTransition()
+                        return false
+                    }
+                })
+                .apply(requestOptions).into(binding.newsDetailsPhoto)
     }
 
     private fun setToolbar() {
@@ -72,4 +99,10 @@ class NewsDetailActivity : BaseActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        supportFinishAfterTransition()
+    }
+
 }

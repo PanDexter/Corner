@@ -1,29 +1,41 @@
 package szeptunm.corner.ui
 
 import android.os.Bundle
+import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import io.reactivex.Completable
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import szeptunm.corner.R
 import szeptunm.corner.R.id
 import szeptunm.corner.R.layout
-import szeptunm.corner.commons.Constants.KEY_CLUB_INFO
+import szeptunm.corner.commons.Constants.KEY_CLUB_NAME
 import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.ui.news.NewsFragment
-import szeptunm.corner.ui.schedule.MatchFragment
+import szeptunm.corner.ui.schedule.ScheduleFragment
 import szeptunm.corner.ui.settings.SettingsFragment
 import szeptunm.corner.ui.standing.StandingFragment
 import szeptunm.corner.ui.team.TeamFragment
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
 
-
+    companion object {
+        const val DOUBLE_BACK_PRESSED_SECONDS = 2L
+    }
     override val layoutResource: Int
         get() = R.layout.activity_main
 
     @Inject
     lateinit var fragmentChanger: FragmentChanger
+
+    private val compositeDisposable = CompositeDisposable()
+
+    private var isFirstBackPressed = false
+
     val clubInfo: ClubInfo
-        get() = intent.getParcelableExtra(KEY_CLUB_INFO)
+        get() = intent.getParcelableExtra(KEY_CLUB_NAME)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +56,7 @@ class MainActivity : BaseActivity() {
             }
             id.navigation_scoreboard -> {
                 fragmentChanger.changeFragments(this, R.id.fragment_placeholder,
-                        "schedule") { MatchFragment.newInstance() }
+                        "schedule") { ScheduleFragment.newInstance() }
                 return@OnNavigationItemSelectedListener true
             }
             id.navigation_settings -> {
@@ -64,6 +76,21 @@ class MainActivity : BaseActivity() {
             }
         }
         false
+    }
+
+    override fun onBackPressed() {
+        when {
+            isFirstBackPressed -> finish()
+            else -> scheduleDoubleBackPress()
+        }
+    }
+
+    private fun scheduleDoubleBackPress() {
+        isFirstBackPressed = true
+        Toast.makeText(this, R.string.double_back_pressed, Toast.LENGTH_SHORT).show()
+        Completable.timer(DOUBLE_BACK_PRESSED_SECONDS, TimeUnit.SECONDS)
+                .subscribe { isFirstBackPressed = false }
+                .addTo(compositeDisposable)
     }
 }
 

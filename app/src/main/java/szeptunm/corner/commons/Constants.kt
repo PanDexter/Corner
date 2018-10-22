@@ -4,12 +4,9 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 object Constants {
-
-        const val API_KEY = "daa382bf695f4470b196fa4dff10fdfa"
-        const val API_URL = "http://api.football-data.org/v2"
-        const val NEWS_KEY = "ce3kivoilvuyhvgkbguh6f2kvmp54f0tctumwwrz"
-        const val NEWS_URL = "https://api.rss2json.com/v1"
-    const val KEY_CLUB_NAME = "KEY_CLUB_NAME"
-    const val KEY_CLUB_INFO = "KEY_CLUB_INFO"
+    const val KEY_CLUB_NAME = "KEY_CLUB_NAME" // ClubInfo name choosed currently by user in app flow
+    const val KEY_CLUB_FAVOURITE = "KEY_CLUB_INFO"
+    const val KEY_CLUB_ID = "KEY_CLUB_ID" // ClubInfo Id used in Schedule viewholder
+    const val IS_DURING_FLOW = "IS DURING FLOW" // Check if we are during flow or not
     val DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
 }

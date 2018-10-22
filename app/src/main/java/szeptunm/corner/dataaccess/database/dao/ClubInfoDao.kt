@@ -10,7 +10,7 @@ import szeptunm.corner.dataaccess.database.entity.ClubInfoEntity
 @Dao
 interface ClubInfoDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAllClubInfo(clubInfoList: List<ClubInfoEntity>)
 
     @Query("SELECT * FROM clubInfo")

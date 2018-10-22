@@ -6,8 +6,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:elevation="5dp"
+        android:layout_marginLeft="@dimen/margin_smallish"
+        android:layout_marginRight="@dimen/margin_smallish"
+        android:layout_marginTop="@dimen/margin_smallish"
+        android:elevation="@dimen/elevation"
         android:minHeight="@dimen/rv_item_height">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,6 +55,7 @@
                 android:layout_width="@dimen/rv_player_photo"
                 android:layout_height="@dimen/rv_player_photo"
                 app:civ_border_color="#FF000000"
+                android:transitionName="playerPhoto"
                 app:civ_border_width="1dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"

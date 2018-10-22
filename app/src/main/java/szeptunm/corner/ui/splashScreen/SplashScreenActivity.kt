@@ -6,7 +6,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import szeptunm.corner.R
 import szeptunm.corner.R.layout
-import szeptunm.corner.commons.Constants.KEY_CLUB_INFO
+import szeptunm.corner.commons.Constants.IS_DURING_FLOW
 import szeptunm.corner.commons.Constants.KEY_CLUB_NAME
 import szeptunm.corner.ui.BaseActivity
 import szeptunm.corner.ui.MainActivity
@@ -18,8 +18,8 @@ class SplashScreenActivity @Inject constructor() : BaseActivity() {
     override val layoutResource: Int
         get() = R.layout.activity_splash_screen
 
-    val clubInfo: String?
-        get() = intent.getStringExtra(KEY_CLUB_NAME)
+    private val isDuringFlow: Boolean
+        get() = intent.getBooleanExtra(IS_DURING_FLOW, false)
 
     private var composite: CompositeDisposable = CompositeDisposable()
 
@@ -33,11 +33,11 @@ class SplashScreenActivity @Inject constructor() : BaseActivity() {
     }
 
     private fun subscribeToViewModel() {
-        viewModel.init(clubInfo)
+        viewModel.init(isDuringFlow)
         val intent = Intent(this, MainActivity::class.java)
         viewModel.observeClubInfo().subscribe {
             val bundle = Bundle().apply {
-                putParcelable(KEY_CLUB_INFO, it)
+                putParcelable(KEY_CLUB_NAME, it)
             }
             intent.putExtras(bundle)
         }.addTo(composite)

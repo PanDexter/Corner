@@ -39,7 +39,7 @@
     <color name="textGreyColor">@color/blackAlpha45</color>
     <color name="textLightColor">@color/whiteAlpha90</color>
 
-    <color name="photo_detail_tint">#4F000000</color>
+    <color name="photo_detail_tint">#9F000000</color>
     <color name="standing_description">#19334d</color>
     <color name="standing_item">#DDDDDD</color>
     <color name="ripple_color">#1f000000</color>

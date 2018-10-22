@@ -4,8 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
+import android.widget.Toast
 import szeptunm.corner.R
+import szeptunm.corner.commons.Constants.IS_DURING_FLOW
 import szeptunm.corner.commons.Constants.KEY_CLUB_NAME
+import szeptunm.corner.commons.Preferences
 import szeptunm.corner.databinding.FragmentSettingsBinding
 import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.ui.BaseFragment
@@ -23,8 +26,8 @@ class SettingsFragment : BaseFragment() {
     @Inject
     lateinit var clubInfo: ClubInfo
 
-//    @Inject
-//    lateinit var preferences: Preferences
+    @Inject
+    lateinit var preferences: Preferences
 
 
     private lateinit var binding: FragmentSettingsBinding
@@ -35,15 +38,24 @@ class SettingsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = viewDataBinding as FragmentSettingsBinding
-//        binding.clubButton = clubInfo.name
-        binding.clubButton.setOnClickListener {
-
+        binding.clubChooseButton.text = clubInfo.name
+        binding.clubChooseButton.setOnClickListener {
+            val popUp = PopupMenu(context, it, 0)
+            popUp.menuInflater.inflate(R.menu.popup_menu, popUp.menu)
+            popUp.setOnMenuItemClickListener { menuItem ->
+                viewModel.setNewClubName(menuItem.title.toString())
+                restartApp(menuItem.title.toString())
+                true
+            }
+            popUp.show()
+        }
+        binding.clubFavouriteButton.setOnClickListener {
             val popUp = PopupMenu(context, it, 0)
             popUp.menuInflater.inflate(R.menu.popup_menu, popUp.menu)
 
             popUp.setOnMenuItemClickListener { menuItem ->
-                // viewModel.setNewClubInfo(menuItem.title.toString())
-                restartApp(menuItem.title.toString())
+                viewModel.setFavouriteClubName(menuItem.title.toString())
+                Toast.makeText(context, "${menuItem.title} set as new favourite team", Toast.LENGTH_SHORT).show()
                 true
             }
             popUp.show()
@@ -54,8 +66,8 @@ class SettingsFragment : BaseFragment() {
         val intent = Intent(activity, SplashScreenActivity::class.java)
         val bundle = Bundle().apply {
             putString(KEY_CLUB_NAME, clubName)
+            putBoolean(IS_DURING_FLOW, true)
         }
-        //preferences.putPreferenceString(KEY_CLUB_NAME, clubName)
         intent.putExtras(bundle)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
