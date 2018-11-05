@@ -33,8 +33,6 @@ data class StandingEntity(
         var points: Int = 0,
         @ColumnInfo(name = "goalsDifference")
         var goalsDifference: Int = 0,
-        @ColumnInfo(name = "crestUrl")
-        var crestUrl: String = "",
         @ColumnInfo(name = "teamId")
         var teamId: Int = 0,
         @ColumnInfo(name = "competitionId")

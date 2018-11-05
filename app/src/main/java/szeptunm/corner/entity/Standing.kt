@@ -14,7 +14,6 @@ data class Standing(
         var lost: Int = 0,
         var points: Int = 0,
         var goalsDifference: Int = 0,
-        var crestUrl: String = "",
         var teamId: Int = 0,
         var competitionId: Int = 0) : Parcelable {
 
@@ -27,7 +26,6 @@ data class Standing(
         this.lost = standingEntity.lost
         this.points = standingEntity.points
         this.goalsDifference = standingEntity.goalsDifference
-        this.crestUrl = standingEntity.crestUrl
         this.teamId = standingEntity.teamId
         this.competitionId = standingEntity.competitionId
     }

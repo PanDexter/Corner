@@ -69,7 +69,6 @@ class StandingRepository @Inject constructor(
                                         lost = lost,
                                         points = points,
                                         goalsDifference = goalDifference,
-                                        crestUrl = team.crestUrl,
                                         teamId = team.id,
                                         competitionId = standingResponse.competition.id))
                     }

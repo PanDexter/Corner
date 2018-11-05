@@ -15,7 +15,8 @@ import szeptunm.corner.entity.News
 import timber.log.Timber
 import javax.inject.Inject
 
-class NewsViewModel @Inject constructor(getAllNews: GetAllNews, clubInfo: ClubInfo, val preferences: Preferences,
+class NewsViewModel @Inject constructor(private val getAllNews: GetAllNews, val clubInfo: ClubInfo,
+        val preferences: Preferences,
         private val getNewsFromApi: GetNewsFromApi) {
 
     private var subject: BehaviorSubject<List<NewsItem>> = BehaviorSubject.create()
@@ -25,6 +26,10 @@ class NewsViewModel @Inject constructor(getAllNews: GetAllNews, clubInfo: ClubIn
     fun observeNews(): Observable<List<NewsItem>> = subject
 
     init {
+        init()
+    }
+
+    fun init() {
         getAllNews.execute(clubInfo)
                 .subscribeOn(Schedulers.computation())
                 .map { news -> news.map { convertIntoItems(it) } }
@@ -34,9 +39,6 @@ class NewsViewModel @Inject constructor(getAllNews: GetAllNews, clubInfo: ClubIn
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subject::onNext) { Timber.e(it, "Something went wrong during news initialization") }
                 .addTo(compositeDisposable)
-    }
-
-    fun updateNews() {
     }
 
     private fun convertIntoItems(news: News): NewsItem {

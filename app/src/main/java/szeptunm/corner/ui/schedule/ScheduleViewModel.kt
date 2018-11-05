@@ -21,8 +21,8 @@ import szeptunm.corner.ui.schedule.MatchItem.Companion.MATCH_PAST
 import timber.log.Timber
 import javax.inject.Inject
 
-class ScheduleViewModel @Inject constructor(getAllMatches: GetAllMatches,
-        clubInfo: ClubInfo,
+class ScheduleViewModel @Inject constructor(private val getAllMatches: GetAllMatches,
+        private val clubInfo: ClubInfo,
         private val getTeamById: GetTeamById,
         private val getCompetitionById: GetCompetitionById) {
 
@@ -31,6 +31,10 @@ class ScheduleViewModel @Inject constructor(getAllMatches: GetAllMatches,
     fun observeMatches(): Observable<List<MatchItem>> = subject
 
     init {
+        init()
+    }
+
+    fun init() {
         getAllMatches.execute(clubInfo)
                 .subscribeOn(Schedulers.computation())
                 .flatMapSingle {
@@ -41,7 +45,8 @@ class ScheduleViewModel @Inject constructor(getAllMatches: GetAllMatches,
                                         getTeamById.execute(match.awayTeam)
                                                 .subscribeOn(Schedulers.computation()),
                                         getCompetitionById.execute(match.competition)
-                                                .subscribeOn(Schedulers.computation())) { home, away, competition ->
+                                                .subscribeOn(
+                                                        Schedulers.computation())) { home, away, competition ->
                                     convertIntoItem(match, home, away, competition)
                                 }
                             }

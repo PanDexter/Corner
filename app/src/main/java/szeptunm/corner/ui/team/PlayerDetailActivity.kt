@@ -7,7 +7,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority.LOW
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
@@ -41,17 +43,21 @@ class PlayerDetailActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.player_detail)
         val player = intent.getParcelableExtra(KEY_PLAYER) as Player
-        setImage(player)
         supportPostponeEnterTransition()
         setupPlayerDetails(player)
         setToolbar()
+        setImage(player)
     }
 
     private fun setImage(player: Player) {
         val requestOptions = RequestOptions()
                 .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .dontTransform()
+                .priority(LOW)
+
         Glide.with(binding.root)
-                .load(player.thumbUrl)
+                .load(getImage(player))
                 .listener(object : RequestListener<Drawable> {
                     override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?,
                             dataSource: DataSource?, isFirstResource: Boolean): Boolean {
@@ -66,6 +72,10 @@ class PlayerDetailActivity : BaseActivity() {
                     }
                 })
                 .apply(requestOptions).into(binding.playerPhoto)
+    }
+
+    private fun getImage(player: Player): String? {
+        return if (player.cutOutUrl == null) player.thumbUrl else player.cutOutUrl
     }
 
     private fun setupPlayerDetails(player: Player) {

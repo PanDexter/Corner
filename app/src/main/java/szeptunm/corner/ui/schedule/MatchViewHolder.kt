@@ -1,8 +1,6 @@
 package szeptunm.corner.ui.schedule
 
 import android.content.Context
-import android.content.Intent
-import android.os.Bundle
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority.LOW
@@ -22,10 +20,6 @@ import java.util.Locale
 class MatchPastViewHolder(binding: MatchItemBinding, val itemObserver: PublishSubject<Int>) :
         BindingViewHolder<MatchItem, MatchItemBinding>(binding) {
 
-    companion object {
-        const val KEY_MATCH = "KEY_MATCH"
-    }
-
     lateinit var item: MatchItem
 
     private val sharedPreferences = context.getSharedPreferences(Preferences.PREFERENCES_FILE_NAME,
@@ -37,13 +31,6 @@ class MatchPastViewHolder(binding: MatchItemBinding, val itemObserver: PublishSu
     override fun bind(item: MatchItem) {
         this.item = item
         with(binding) {
-            scoreboardItem.setOnClickListener {
-                val intent = Intent(context, MatchDetailActivity::class.java)
-                val bundle = Bundle()
-                bundle.putParcelable(KEY_MATCH, item.match)
-                intent.putExtras(bundle)
-                context.startActivity(intent)
-            }
             homeTeam.text = item.match.homeTeam
             awayTeam.text = item.match.awayTeam
             score.text = score()

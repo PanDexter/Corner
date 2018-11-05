@@ -36,6 +36,11 @@ class ScheduleFragment : BaseFragment() {
         binding = viewDataBinding as FragmentScheduleBinding
         setupRecycle()
         subscribeToViewModel()
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.init().apply {
+                binding.swipeRefresh.isRefreshing = false
+            }
+        }
     }
 
     private fun setupRecycle() {

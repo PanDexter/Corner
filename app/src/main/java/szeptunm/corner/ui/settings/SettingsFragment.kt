@@ -7,6 +7,7 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import szeptunm.corner.R
 import szeptunm.corner.commons.Constants.IS_DURING_FLOW
+import szeptunm.corner.commons.Constants.KEY_CLUB_FAVOURITE
 import szeptunm.corner.commons.Constants.KEY_CLUB_NAME
 import szeptunm.corner.commons.Preferences
 import szeptunm.corner.databinding.FragmentSettingsBinding
@@ -39,6 +40,7 @@ class SettingsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = viewDataBinding as FragmentSettingsBinding
         binding.clubChooseButton.text = clubInfo.name
+        binding.clubFavouriteButton.text = preferences.getPreferenceString(KEY_CLUB_FAVOURITE, "")
         binding.clubChooseButton.setOnClickListener {
             val popUp = PopupMenu(context, it, 0)
             popUp.menuInflater.inflate(R.menu.popup_menu, popUp.menu)
@@ -55,6 +57,7 @@ class SettingsFragment : BaseFragment() {
 
             popUp.setOnMenuItemClickListener { menuItem ->
                 viewModel.setFavouriteClubName(menuItem.title.toString())
+                binding.clubFavouriteButton.text = menuItem.title.toString()
                 Toast.makeText(context, "${menuItem.title} set as new favourite team", Toast.LENGTH_SHORT).show()
                 true
             }

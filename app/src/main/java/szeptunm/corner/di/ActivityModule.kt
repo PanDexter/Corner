@@ -5,7 +5,6 @@ import dagger.android.ContributesAndroidInjector
 import szeptunm.corner.ui.MainActivity
 import szeptunm.corner.ui.news.NewsDetailActivity
 import szeptunm.corner.ui.news.NewsWebActivity
-import szeptunm.corner.ui.schedule.MatchDetailActivity
 import szeptunm.corner.ui.splashScreen.SplashScreenActivity
 import szeptunm.corner.ui.team.PlayerDetailActivity
 
@@ -27,7 +26,4 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     abstract fun bindPlayerDetailsActivity(): PlayerDetailActivity
-
-    @ContributesAndroidInjector
-    abstract fun bindMatchDetailsActivity(): MatchDetailActivity
 }

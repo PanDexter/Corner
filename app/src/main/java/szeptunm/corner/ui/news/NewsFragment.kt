@@ -62,9 +62,11 @@ class NewsFragment : BaseFragment() {
             popUp.show()
         }
 
-//        binding.swipeRefresh.setOnRefreshListener {
-//            viewModel
-//        }
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.init().apply {
+                binding.swipeRefresh.isRefreshing = false
+            }
+        }
         subscribeToViewModel()
         setupRecycle()
     }

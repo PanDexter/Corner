@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.subjects.PublishSubject
 import szeptunm.corner.databinding.PlayerItemBinding
+import szeptunm.corner.domain.splashScreen.GetClubInfoByName
 import szeptunm.corner.ui.recycler.BindingViewHolder
 import javax.inject.Inject
 
-class PlayerAdapter @Inject constructor(val fragment: TeamFragment) :
+class PlayerAdapter @Inject constructor(val fragment: TeamFragment, val getClubInfoByName: GetClubInfoByName) :
         RecyclerView.Adapter<BindingViewHolder<PlayerItem, PlayerItemBinding>>() {
 
     var items: List<PlayerItem> = ArrayList()
@@ -18,7 +19,7 @@ class PlayerAdapter @Inject constructor(val fragment: TeamFragment) :
             viewType: Int): BindingViewHolder<PlayerItem, PlayerItemBinding> {
         val inflater = LayoutInflater.from(parent.context)
         val binding = PlayerItemBinding.inflate(inflater, parent, false)
-        return PlayerViewHolder(binding, onItemSelected, fragment)
+        return PlayerViewHolder(binding, onItemSelected, fragment, getClubInfoByName)
     }
 
     override fun getItemCount(): Int = items.size
