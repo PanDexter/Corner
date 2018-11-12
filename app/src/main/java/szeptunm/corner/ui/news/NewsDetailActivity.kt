@@ -2,6 +2,7 @@ package szeptunm.corner.ui.news
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.text.Html
 import android.text.util.Linkify
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
@@ -47,7 +48,7 @@ class NewsDetailActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.news_details)
         val news = intent.getParcelableExtra(KEY_NEWS) as News
         supportPostponeEnterTransition()
-        binding.newsDetailsDescription.text = "${news.description}\n Read more: \n ${news.link}"
+        binding.newsDetailsDescription.text = "${Html.fromHtml(news.description)}\n Read more: \n ${news.link}"
         Linkify.addLinks(binding.newsDetailsDescription, Linkify.ALL)
         binding.newsDetailsDescription.linksClickable = true
         setToolbar()
