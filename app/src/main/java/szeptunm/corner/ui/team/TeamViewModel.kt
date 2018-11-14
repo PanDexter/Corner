@@ -6,13 +6,13 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
-import szeptunm.corner.domain.players.GetAllPlayers
+import szeptunm.corner.domain.players.GetTeamPlayers
 import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.entity.Player
 import timber.log.Timber
 import javax.inject.Inject
 
-class TeamViewModel @Inject constructor(private var getAllPlayers: GetAllPlayers, clubInfo: ClubInfo) {
+class TeamViewModel @Inject constructor(private var getTeamPlayers: GetTeamPlayers, clubInfo: ClubInfo) {
 
     private var subject: BehaviorSubject<List<PlayerItem>> = BehaviorSubject.create()
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
@@ -21,7 +21,7 @@ class TeamViewModel @Inject constructor(private var getAllPlayers: GetAllPlayers
     fun observePlayers(): Observable<List<PlayerItem>> = subject
 
     init {
-        getAllPlayers.execute(clubInfo)
+        getTeamPlayers.execute(clubInfo)
                 .subscribeOn(Schedulers.computation())
                 .map { player -> player.map { convertIntoItems(it) } }
                 .doOnNext {

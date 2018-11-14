@@ -5,6 +5,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
+import szeptunm.corner.commons.Constants.KEY_CLUB_FAVOURITE
 import szeptunm.corner.commons.Constants.KEY_CLUB_ID
 import szeptunm.corner.commons.Constants.KEY_CLUB_NAME
 import szeptunm.corner.commons.Preferences
@@ -16,11 +17,13 @@ import szeptunm.corner.domain.splashScreen.IsFirstInitialized
 import szeptunm.corner.entity.ClubInfo
 import java.util.concurrent.TimeUnit.SECONDS
 import javax.inject.Inject
+import javax.inject.Named
 
 class SplashScreenViewModel @Inject constructor(private val initializeClubInfo: InitializeClubInfo,
         private val initializeData: InitializeData, private val getClubInfoByName: GetClubInfoByName,
         private val preferences: Preferences, private val isFirstInitialized: IsFirstInitialized,
-        private val getFavouriteTeam: GetFavouriteTeam, private val getClubInfoFromPrefs: GetClubInfoFromPrefs) {
+        private val getFavouriteTeam: GetFavouriteTeam, private val getClubInfoFromPrefs: GetClubInfoFromPrefs,
+        @Named("favourite") val favouriteTeam: String) {
 
     private var subject: BehaviorSubject<ClubInfo> = BehaviorSubject.create()
     private var completeSubject: BehaviorSubject<Boolean> = BehaviorSubject.create()
@@ -32,6 +35,7 @@ class SplashScreenViewModel @Inject constructor(private val initializeClubInfo: 
     fun init(isDuringFlow: Boolean) {
         if (isFirstInitialized.execute()) {
             initFirstTime()
+            preferences.putPreferenceString(KEY_CLUB_FAVOURITE, favouriteTeam)
         } else {
             reinitApplication(isDuringFlow)
         }
@@ -42,7 +46,7 @@ class SplashScreenViewModel @Inject constructor(private val initializeClubInfo: 
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
                 .subscribe {
-                    getClubInfoByName.execute(getFavouriteTeam.getClubName())
+                    getClubInfoByName.execute(favouriteTeam)
                             .observeOn(Schedulers.io())
                             .subscribeOn(Schedulers.io())
                             .delay(1, SECONDS)

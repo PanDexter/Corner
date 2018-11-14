@@ -2,9 +2,9 @@ package szeptunm.corner.domain.splashScreen
 
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
-import szeptunm.corner.domain.news.GetAllNews
-import szeptunm.corner.domain.players.GetAllPlayers
-import szeptunm.corner.domain.schedule.GetAllMatches
+import szeptunm.corner.domain.news.GetTeamNews
+import szeptunm.corner.domain.players.GetTeamPlayers
+import szeptunm.corner.domain.schedule.GetTeamMatches
 import szeptunm.corner.domain.standings.GetAllStandings
 import szeptunm.corner.entity.ClubInfo
 import javax.inject.Inject
@@ -12,17 +12,17 @@ import javax.inject.Inject
 class InitializeData @Inject constructor() {
 
     @Inject
-    lateinit var getAllPlayers: GetAllPlayers
+    lateinit var getTeamPlayers: GetTeamPlayers
     @Inject
-    lateinit var getAllNews: GetAllNews
+    lateinit var getTeamNews: GetTeamNews
     @Inject
-    lateinit var getAllMatches: GetAllMatches
+    lateinit var getTeamMatches: GetTeamMatches
     @Inject
     lateinit var getAllStandings: GetAllStandings
 
     fun execute(clubInfo: ClubInfo): Completable =
             Completable.fromAction {
-                getAllMatches.execute(clubInfo)
+                getTeamMatches.execute(clubInfo)
                         .observeOn(Schedulers.io())
                         .subscribeOn(Schedulers.io())
                         .subscribe {
@@ -30,11 +30,11 @@ class InitializeData @Inject constructor() {
                                     .observeOn(Schedulers.computation())
                                     .subscribeOn(Schedulers.computation())
                                     .subscribe {
-                                        getAllNews.execute(clubInfo)
+                                        getTeamNews.execute(clubInfo)
                                                 .observeOn(Schedulers.io())
                                                 .subscribeOn(Schedulers.io())
                                                 .subscribe {
-                                                    getAllPlayers.execute(clubInfo)
+                                                    getTeamPlayers.execute(clubInfo)
                                                             .observeOn(Schedulers.computation())
                                                             .subscribeOn(Schedulers.computation())
                                                 }

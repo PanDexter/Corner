@@ -9,7 +9,7 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import org.joda.time.DateTime
 import szeptunm.corner.domain.competitions.GetCompetitionById
-import szeptunm.corner.domain.schedule.GetAllMatches
+import szeptunm.corner.domain.schedule.GetTeamMatches
 import szeptunm.corner.domain.teams.GetTeamById
 import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.entity.Competition
@@ -21,7 +21,7 @@ import szeptunm.corner.ui.schedule.MatchItem.Companion.MATCH_PAST
 import timber.log.Timber
 import javax.inject.Inject
 
-class ScheduleViewModel @Inject constructor(private val getAllMatches: GetAllMatches,
+class ScheduleViewModel @Inject constructor(private val getTeamMatches: GetTeamMatches,
         private val clubInfo: ClubInfo,
         private val getTeamById: GetTeamById,
         private val getCompetitionById: GetCompetitionById) {
@@ -35,7 +35,7 @@ class ScheduleViewModel @Inject constructor(private val getAllMatches: GetAllMat
     }
 
     fun init() {
-        getAllMatches.execute(clubInfo)
+        getTeamMatches.execute(clubInfo)
                 .subscribeOn(Schedulers.computation())
                 .flatMapSingle {
                     Observable.fromIterable(it)

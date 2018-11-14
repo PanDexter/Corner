@@ -6,10 +6,7 @@ import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.entity.Player
 import javax.inject.Inject
 
-class GetAllPlayers @Inject constructor() {
-
-    @Inject
-    lateinit var repository: PlayerRepository
+class GetTeamPlayers @Inject constructor(val repository: PlayerRepository) {
 
     fun execute(club: ClubInfo): Observable<List<Player>> = repository.getAllPlayers(club)
 }

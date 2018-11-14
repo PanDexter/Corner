@@ -8,14 +8,14 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import szeptunm.corner.commons.Constants
 import szeptunm.corner.commons.Preferences
-import szeptunm.corner.domain.news.GetAllNews
 import szeptunm.corner.domain.news.GetNewsFromApi
+import szeptunm.corner.domain.news.GetTeamNews
 import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.entity.News
 import timber.log.Timber
 import javax.inject.Inject
 
-class NewsViewModel @Inject constructor(private val getAllNews: GetAllNews, val clubInfo: ClubInfo,
+class NewsViewModel @Inject constructor(private val getTeamNews: GetTeamNews, val clubInfo: ClubInfo,
         val preferences: Preferences,
         private val getNewsFromApi: GetNewsFromApi) {
 
@@ -30,7 +30,7 @@ class NewsViewModel @Inject constructor(private val getAllNews: GetAllNews, val 
     }
 
     fun init() {
-        getAllNews.execute(clubInfo)
+        getTeamNews.execute(clubInfo)
                 .subscribeOn(Schedulers.computation())
                 .map { news -> news.map { convertIntoItems(it) } }
                 .doOnNext {

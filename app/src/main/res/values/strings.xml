@@ -43,4 +43,6 @@
     <string name="switch_team">Switch team</string>
     <string name="favourite_team">Favourite team</string>
     <string name="double_back_pressed">Press back again to leave</string>
+    <string name="choose_club">Choose your favourite club. It will be default team everytime app starts.</string>
+    <string name="click_to_choose_club">Click to choose club</string>
 </resources>

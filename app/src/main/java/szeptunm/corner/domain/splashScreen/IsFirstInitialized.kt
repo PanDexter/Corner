@@ -9,7 +9,7 @@ class IsFirstInitialized @Inject constructor(private val preferences: Preference
         private const val IS_FIRST_TIME = "IS_FIRST_TIME"
     }
 
-    private val isInitialized
+    val isInitialized
         get() = preferences.getPreferenceBoolean(IS_FIRST_TIME, false)
 
     fun execute(): Boolean = (!isInitialized)

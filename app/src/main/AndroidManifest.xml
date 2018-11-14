@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.splashScreen.SplashScreenActivity"
+            android:name=".ui.onboarding.OnboardingActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoTitleBar.FullScreen">
@@ -37,7 +37,7 @@
             android:name=".ui.team.PlayerDetailActivity"
             android:theme="@style/Theme.AppCompat.Light.NoTitleBar.FullScreen" />
         <activity
-            android:name=".ui.schedule.MatchDetailActivity"
+            android:name=".ui.splashScreen.SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.Light.NoTitleBar.FullScreen" />
     </application>
 

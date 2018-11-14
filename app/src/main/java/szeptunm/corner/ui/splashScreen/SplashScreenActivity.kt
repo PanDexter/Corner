@@ -7,7 +7,9 @@ import io.reactivex.rxkotlin.addTo
 import szeptunm.corner.R
 import szeptunm.corner.R.layout
 import szeptunm.corner.commons.Constants.IS_DURING_FLOW
+import szeptunm.corner.commons.Constants.KEY_CLUB_FAVOURITE
 import szeptunm.corner.commons.Constants.KEY_CLUB_NAME
+import szeptunm.corner.commons.Preferences
 import szeptunm.corner.ui.BaseActivity
 import szeptunm.corner.ui.MainActivity
 import javax.inject.Inject
@@ -22,6 +24,13 @@ class SplashScreenActivity @Inject constructor() : BaseActivity() {
         get() = intent.getBooleanExtra(IS_DURING_FLOW, false)
 
     private var composite: CompositeDisposable = CompositeDisposable()
+
+    @Inject
+    lateinit var preferences: Preferences
+
+    val favouriteClub: String
+        get() = intent.getStringExtra(KEY_CLUB_FAVOURITE) ?: preferences.getPreferenceString(KEY_CLUB_FAVOURITE,
+                "").toString()
 
     @Inject
     lateinit var viewModel: SplashScreenViewModel

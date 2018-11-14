@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class StandingRepository @Inject constructor(
         private var standingDao: StandingDao, private var standingService: StandingService,
-        val databaseTransaction: DatabaseTransaction) {
+        private val databaseTransaction: DatabaseTransaction) {
 
     private val standingTransformer: SingleTransformer<List<StandingEntity>, List<Standing>> =
             SingleTransformer { upstream ->

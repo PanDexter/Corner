@@ -6,10 +6,7 @@ import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.entity.Standing
 import javax.inject.Inject
 
-class GetAllStandings @Inject constructor() {
-
-    @Inject
-    lateinit var repository: StandingRepository
+class GetAllStandings @Inject constructor(val repository: StandingRepository) {
 
     fun execute(clubInfo: ClubInfo): Observable<List<Standing>> = repository.getAllStandings(clubInfo)
 }
