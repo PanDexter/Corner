@@ -1,7 +1,9 @@
 package szeptunm.corner.dataaccess.repository
 
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.SingleTransformer
+import io.reactivex.schedulers.Schedulers
 import szeptunm.corner.dataaccess.api.model.PlayerResponse
 import szeptunm.corner.dataaccess.api.service.PlayerService
 import szeptunm.corner.dataaccess.database.DatabaseTransaction
@@ -22,11 +24,7 @@ class PlayerRepository @Inject constructor(private var playerDao: PlayerDao,
                         .toList()
             }
 
-    fun getAllPlayers(club: ClubInfo): Observable<List<Player>> {
-        return Observable.concatArray(
-                getPlayersFromDb(club.teamApiId), getPlayersFromApi(club.teamApiId)
-        )
-    }
+    fun getAllPlayers(club: ClubInfo): Observable<List<Player>> = getPlayersFromDb(club.teamApiId)
 
     private fun getPlayersFromDb(club: Int): Observable<List<Player>> {
         return playerDao.getPlayerByClub(club)
@@ -38,19 +36,15 @@ class PlayerRepository @Inject constructor(private var playerDao: PlayerDao,
                 }
     }
 
-    private fun getPlayersFromApi(club: Int): Observable<List<Player>> {
+    fun getPlayersFromApi(club: Int): Completable {
         return playerService.getAllPlayers(club)
-                .map {
+                .subscribeOn(Schedulers.io())
+                .flatMapCompletable {
                     mapResponseToEntity(it, club)
                 }
-                .doOnSuccess {
-                    saveToDatabase(it)
-                }
-                .compose(teamTransformer)
-                .toObservable()
     }
 
-    private fun mapResponseToEntity(playerResponse: PlayerResponse, club: Int): List<PlayerEntity> {
+    private fun mapResponseToEntity(playerResponse: PlayerResponse, club: Int): Completable {
         val playerList: MutableList<PlayerEntity> = ArrayList()
         for (i in 0 until playerResponse.squad.size) {
             playerResponse.squad[i].let {
@@ -59,10 +53,11 @@ class PlayerRepository @Inject constructor(private var playerDao: PlayerDao,
                                 it.description, it.thumbUrl, it.cutOutUrl, it.weight, it.height))
             }
         }
-        return playerList
+        return saveToDatabase(playerList)
     }
 
-    private fun saveToDatabase(playerList: List<PlayerEntity>) {
-        databaseTransaction.runTransaction { playerDao.insertAllPlayers(playerList) }
-    }
+    private fun saveToDatabase(playerList: List<PlayerEntity>) =
+            Completable
+                    .fromAction { playerDao.insertAllPlayers(playerList) }
+                    .subscribeOn(Schedulers.computation())
 }

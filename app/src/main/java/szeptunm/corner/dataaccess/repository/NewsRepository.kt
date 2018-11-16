@@ -1,8 +1,9 @@
 package szeptunm.corner.dataaccess.repository
 
+import io.reactivex.Completable
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.SingleTransformer
+import io.reactivex.schedulers.Schedulers
 import szeptunm.corner.BuildConfig
 import szeptunm.corner.dataaccess.api.model.NewsResponse
 import szeptunm.corner.dataaccess.api.pojo.Item
@@ -25,11 +26,7 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
                         .toList()
             }
 
-    fun getAllNews(clubInfo: ClubInfo): Observable<List<News>> {
-        return Observable.concatArray(
-                getNewsFromDb(clubInfo), getNewsFromApi(clubInfo)
-        )
-    }
+    fun getAllNews(clubInfo: ClubInfo): Observable<List<News>> = getNewsFromDb(clubInfo)
 
     fun getNewsFromDb(clubInfo: ClubInfo): Observable<List<News>> {
         return newsDao.getNewsByTeamId(clubInfo.matchTeamId)
@@ -41,24 +38,17 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
                 }
     }
 
-    fun getNewsFromApi(clubInfo: ClubInfo): Observable<List<News>> {
+    fun getNewsFromApi(clubInfo: ClubInfo): Completable {
         return newsService.getAllNews(clubInfo.newsUrl,
                 BuildConfig.NEWS_KEY)
+                .observeOn(Schedulers.computation())
                 .retry(3)
-                .map {
+                .flatMapCompletable {
                     mapResponseToEntity(it, clubInfo)
                 }
-                .doOnSuccess { it ->
-                    saveToDatabase(it)
-                }
-                .onErrorResumeNext {
-                    Single.just(null)
-                }
-                .compose(newsTransformer)
-                .toObservable()
     }
 
-    private fun mapResponseToEntity(newsResponse: NewsResponse, clubInfo: ClubInfo): List<NewsEntity> {
+    private fun mapResponseToEntity(newsResponse: NewsResponse, clubInfo: ClubInfo): Completable {
         val newsList: MutableList<NewsEntity> = ArrayList()
         for (i in 0 until newsResponse.items.size) {
             newsResponse.items[i].let {
@@ -67,12 +57,11 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
                                 clubInfo.matchTeamId))
             }
         }
-        return newsList
+        return saveToDatabase(newsList)
     }
 
-    private fun saveToDatabase(newsList: List<NewsEntity>) {
-        databaseTransaction.runTransaction { newsDao.insertAllNews(newsList) }
-    }
+    private fun saveToDatabase(newsList: List<NewsEntity>): Completable =
+            databaseTransaction.runTransaction { newsDao.insertAllNews(newsList) }.subscribeOn(Schedulers.io())
 
     private fun changeDescription(item: Item): String {
         if (item.enclosure.imageURL != null) {

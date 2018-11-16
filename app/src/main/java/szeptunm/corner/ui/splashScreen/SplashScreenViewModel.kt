@@ -53,7 +53,7 @@ class SplashScreenViewModel @Inject constructor(private val initializeClubInfo: 
                             .subscribe { it ->
                                 putInfoToPrefs(it)
                                 subject.onNext(it)
-                                initializeData.execute(it).subscribe {
+                                initializeData.execute(it).doOnComplete {
                                     completeSubject.onNext(true)
                                 }
                             }.addTo(compositeDisposable)
