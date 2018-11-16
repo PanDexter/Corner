@@ -20,13 +20,12 @@ class InitializeData @Inject constructor() {
     lateinit var getStandingFromApi: GetStandingFromApi
 
     fun execute(clubInfo: ClubInfo): Completable =
-            getNewsFromApi.execute(clubInfo)
-                    .andThen {
-                        getNewsFromApi.execute(clubInfo)
-                    }.andThen {
-                        getTeamFromApi.execute(clubInfo)
-                    }
-//            }.andThen {
-//                getTeamFromApi.execute(clubInfo)
-//            }
+            getMatchesFromApi.execute(clubInfo)
+                    .andThen(
+                            getStandingFromApi.execute(clubInfo)
+                    ).andThen(
+                            getNewsFromApi.execute(clubInfo)
+                    ).andThen(
+                            getTeamFromApi.execute(clubInfo)
+                    )
 }

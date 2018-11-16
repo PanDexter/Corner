@@ -50,7 +50,6 @@ class MatchRepository @Inject constructor(
 
     fun getMatchesFromApi(clubInfo: ClubInfo): Completable {
         return matchService.getAllMatches(BuildConfig.MATCH_KEY, clubInfo.matchTeamId)
-                .subscribeOn(Schedulers.io())
                 .flatMapCompletable { matchResponse ->
                     mapMatchToEntities(matchResponse)
                 }
@@ -88,7 +87,7 @@ class MatchRepository @Inject constructor(
             teamDao.insertAllTeams(teamList)
             competitionDao.insertAllCompetitions(competitionList)
             matchDao.insertAllMatches(matchList)
-        }.subscribeOn(Schedulers.io())
+        }
     }
 
     fun getTeamById(id: Int): Single<Team> =

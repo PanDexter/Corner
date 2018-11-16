@@ -38,7 +38,6 @@ class PlayerRepository @Inject constructor(private var playerDao: PlayerDao,
 
     fun getPlayersFromApi(club: Int): Completable {
         return playerService.getAllPlayers(club)
-                .subscribeOn(Schedulers.io())
                 .flatMapCompletable {
                     mapResponseToEntity(it, club)
                 }
@@ -57,7 +56,5 @@ class PlayerRepository @Inject constructor(private var playerDao: PlayerDao,
     }
 
     private fun saveToDatabase(playerList: List<PlayerEntity>) =
-            Completable
-                    .fromAction { playerDao.insertAllPlayers(playerList) }
-                    .subscribeOn(Schedulers.computation())
+            Completable.fromAction { playerDao.insertAllPlayers(playerList) }
 }

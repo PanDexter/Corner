@@ -13,6 +13,7 @@ import szeptunm.corner.dataaccess.database.entity.StandingEntity
 import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.entity.Standing
 import timber.log.Timber
+import java.util.concurrent.TimeUnit.SECONDS
 import javax.inject.Inject
 
 class StandingRepository @Inject constructor(
@@ -42,7 +43,7 @@ class StandingRepository @Inject constructor(
 
     fun getStandingFromApi(clubInfo: ClubInfo): Completable {
         return standingService.getStandingById(BuildConfig.MATCH_KEY, clubInfo.competitionId)
-                .subscribeOn(Schedulers.io())
+                .timeout(10,SECONDS)
                 .flatMapCompletable {
                     mapStandingToEntity(it)
                 }
@@ -74,7 +75,7 @@ class StandingRepository @Inject constructor(
     }
 
     private fun saveToDatabase(standingList: List<StandingEntity>): Completable =
-        databaseTransaction.runTransaction {
+        Completable.fromAction {
             standingDao.insertAllStandings(standingList)
-        }.subscribeOn(Schedulers.computation())
+        }
 }

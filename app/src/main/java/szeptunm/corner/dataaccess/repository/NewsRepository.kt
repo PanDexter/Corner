@@ -14,6 +14,7 @@ import szeptunm.corner.dataaccess.database.entity.NewsEntity
 import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.entity.News
 import timber.log.Timber
+import java.util.ArrayList
 import javax.inject.Inject
 
 class NewsRepository @Inject constructor(private var newsDao: NewsDao, private var newsService: NewsService,
@@ -41,7 +42,6 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
     fun getNewsFromApi(clubInfo: ClubInfo): Completable {
         return newsService.getAllNews(clubInfo.newsUrl,
                 BuildConfig.NEWS_KEY)
-                .observeOn(Schedulers.computation())
                 .retry(3)
                 .flatMapCompletable {
                     mapResponseToEntity(it, clubInfo)
@@ -61,7 +61,7 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
     }
 
     private fun saveToDatabase(newsList: List<NewsEntity>): Completable =
-            databaseTransaction.runTransaction { newsDao.insertAllNews(newsList) }.subscribeOn(Schedulers.io())
+            Completable.fromAction { newsDao.insertAllNews(newsList) }
 
     private fun changeDescription(item: Item): String {
         if (item.enclosure.imageURL != null) {
