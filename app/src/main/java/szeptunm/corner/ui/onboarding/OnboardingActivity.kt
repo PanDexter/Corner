@@ -40,12 +40,15 @@ class OnboardingActivity : BaseActivity() {
                     }
                     intent.putExtras(bundle)
                     startActivity(intent)
+                    finish()
                     true
                 }
                 popUp.show()
+
             }
         } else {
             startActivity(Intent(this, SplashScreenActivity::class.java))
+            finish()
         }
     }
 }
