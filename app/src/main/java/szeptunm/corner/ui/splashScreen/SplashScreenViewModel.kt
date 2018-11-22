@@ -1,6 +1,7 @@
 package szeptunm.corner.ui.splashScreen
 
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
@@ -15,6 +16,7 @@ import szeptunm.corner.domain.splashScreen.InitializeClubInfo
 import szeptunm.corner.domain.splashScreen.InitializeData
 import szeptunm.corner.domain.splashScreen.IsFirstInitialized
 import szeptunm.corner.entity.ClubInfo
+import timber.log.Timber
 import java.util.concurrent.TimeUnit.SECONDS
 import javax.inject.Inject
 import javax.inject.Named
@@ -53,9 +55,12 @@ class SplashScreenViewModel @Inject constructor(private val initializeClubInfo: 
                             .subscribe { it ->
                                 putInfoToPrefs(it)
                                 subject.onNext(it)
-                                initializeData.execute(it).subscribe {
+                                initializeData.execute(it)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe ({
                                     completeSubject.onNext(true)
-                                }
+                                }, { Timber.e(it, "LOG EERRORS BIATCH")})
                             }.addTo(compositeDisposable)
                 }.addTo(compositeDisposable)
     }
@@ -73,9 +78,12 @@ class SplashScreenViewModel @Inject constructor(private val initializeClubInfo: 
                 .subscribe { it ->
                     putInfoToPrefs(it)
                     subject.onNext(it)
-                    initializeData.execute(it).subscribe {
-                        completeSubject.onNext(true)
-                    }
+                    initializeData.execute(it)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe ({
+                                completeSubject.onNext(true)
+                            }, { Timber.e(it, "LOG EERRORS BIATCH")})
                 }.addTo(compositeDisposable)
     }
 

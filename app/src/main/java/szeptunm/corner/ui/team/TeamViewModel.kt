@@ -12,7 +12,7 @@ import szeptunm.corner.entity.Player
 import timber.log.Timber
 import javax.inject.Inject
 
-class TeamViewModel @Inject constructor(private var getTeamPlayers: GetTeamPlayers, clubInfo: ClubInfo) {
+class TeamViewModel @Inject constructor(getTeamPlayers: GetTeamPlayers, clubInfo: ClubInfo) {
 
     private var subject: BehaviorSubject<List<PlayerItem>> = BehaviorSubject.create()
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()

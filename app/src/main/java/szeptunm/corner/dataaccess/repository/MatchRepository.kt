@@ -1,14 +1,14 @@
 package szeptunm.corner.dataaccess.repository
 
-import android.annotation.SuppressLint
 import io.reactivex.Completable
 import io.reactivex.Observable
-import io.reactivex.Observable.concatArray
 import io.reactivex.Single
 import io.reactivex.SingleTransformer
+import io.reactivex.schedulers.Schedulers
 import szeptunm.corner.BuildConfig
 import szeptunm.corner.dataaccess.api.model.MatchResponse
 import szeptunm.corner.dataaccess.api.service.MatchService
+import szeptunm.corner.dataaccess.database.DatabaseTransaction
 import szeptunm.corner.dataaccess.database.dao.CompetitionDao
 import szeptunm.corner.dataaccess.database.dao.MatchDao
 import szeptunm.corner.dataaccess.database.dao.TeamDao
@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 class MatchRepository @Inject constructor(
         private var matchDao: MatchDao, private var teamDao: TeamDao, private var competitionDao: CompetitionDao,
-        private var matchService: MatchService) {
+        private var databaseTransaction: DatabaseTransaction, private var matchService: MatchService) {
 
 
     private val matchTransformer: SingleTransformer<List<MatchEntity>, List<Match>> =
@@ -35,12 +35,10 @@ class MatchRepository @Inject constructor(
             }
 
     fun getAllMatches(clubInfo: ClubInfo): Observable<List<Match>> {
-        return concatArray(
-                getMatchesFromDb(clubInfo), getMatchesFromApi(clubInfo)
-        )
+        return getMatchesFromDb(clubInfo)
     }
 
-    fun getMatchesFromDb(clubInfo: ClubInfo): Observable<List<Match>> {
+    private fun getMatchesFromDb(clubInfo: ClubInfo): Observable<List<Match>> {
         return matchDao.getMatchByTeamId(clubInfo.matchTeamId)
                 .compose(matchTransformer)
                 .filter { it.isNotEmpty() }
@@ -50,12 +48,11 @@ class MatchRepository @Inject constructor(
                 }
     }
 
-    private fun getMatchesFromApi(clubInfo: ClubInfo): Observable<List<Match>> {
+    fun getMatchesFromApi(clubInfo: ClubInfo): Completable {
         return matchService.getAllMatches(BuildConfig.MATCH_KEY, clubInfo.matchTeamId)
                 .flatMapCompletable { matchResponse ->
                     mapMatchToEntities(matchResponse)
                 }
-                .toObservable()
     }
 
     private fun mapMatchToEntities(matchResponse: MatchResponse): Completable {
@@ -84,13 +81,11 @@ class MatchRepository @Inject constructor(
         return saveToDatabase(teamList, competitionList, matchList)
     }
 
-    @SuppressLint("CheckResult")
     private fun saveToDatabase(teamList: List<TeamEntity>,
             competitionList: List<CompetitionEntity>, matchList: List<MatchEntity>): Completable {
-        return Completable.fromCallable {
+        return Completable.fromAction {
             teamDao.insertAllTeams(teamList)
             competitionDao.insertAllCompetitions(competitionList)
-        }.andThen {
             matchDao.insertAllMatches(matchList)
         }
     }

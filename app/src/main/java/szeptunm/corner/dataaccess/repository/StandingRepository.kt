@@ -1,7 +1,9 @@
 package szeptunm.corner.dataaccess.repository
 
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.SingleTransformer
+import io.reactivex.schedulers.Schedulers
 import szeptunm.corner.BuildConfig
 import szeptunm.corner.dataaccess.api.model.StandingResponse
 import szeptunm.corner.dataaccess.api.service.StandingService
@@ -11,6 +13,7 @@ import szeptunm.corner.dataaccess.database.entity.StandingEntity
 import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.entity.Standing
 import timber.log.Timber
+import java.util.concurrent.TimeUnit.SECONDS
 import javax.inject.Inject
 
 class StandingRepository @Inject constructor(
@@ -24,11 +27,8 @@ class StandingRepository @Inject constructor(
                         .toList()
             }
 
-    fun getAllStandings(clubInfo: ClubInfo): Observable<List<Standing>> {
-        return Observable.concatArray(
-                getStandingsFromDb(clubInfo), getStandingFromApi(clubInfo)
-        )
-    }
+    fun getAllStandings(clubInfo: ClubInfo): Observable<List<Standing>> =
+            getStandingsFromDb(clubInfo)
 
     private fun getStandingsFromDb(clubInfo: ClubInfo): Observable<List<Standing>> {
         return standingDao.getStandingByCompetition(clubInfo.competitionId)
@@ -41,19 +41,15 @@ class StandingRepository @Inject constructor(
                 }
     }
 
-    private fun getStandingFromApi(clubInfo: ClubInfo): Observable<List<Standing>> {
+    fun getStandingFromApi(clubInfo: ClubInfo): Completable {
         return standingService.getStandingById(BuildConfig.MATCH_KEY, clubInfo.competitionId)
-                .map {
+                .timeout(10,SECONDS)
+                .flatMapCompletable {
                     mapStandingToEntity(it)
                 }
-                .doOnSuccess {
-                    saveToDatabase(it)
-                }
-                .compose(standingTransformer)
-                .toObservable()
     }
 
-    private fun mapStandingToEntity(standingResponse: StandingResponse): List<StandingEntity> {
+    private fun mapStandingToEntity(standingResponse: StandingResponse): Completable {
         val standingList: MutableList<StandingEntity> = ArrayList()
         standingResponse.standings.map { standingInfo ->
             standingInfo.table.map {
@@ -75,12 +71,11 @@ class StandingRepository @Inject constructor(
                 }
             }
         }
-        return standingList
+        return saveToDatabase(standingList)
     }
 
-    private fun saveToDatabase(standingList: List<StandingEntity>) {
-        databaseTransaction.runTransaction {
+    private fun saveToDatabase(standingList: List<StandingEntity>): Completable =
+        Completable.fromAction {
             standingDao.insertAllStandings(standingList)
         }
-    }
 }

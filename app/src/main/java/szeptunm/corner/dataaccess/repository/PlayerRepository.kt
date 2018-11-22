@@ -1,7 +1,9 @@
 package szeptunm.corner.dataaccess.repository
 
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.SingleTransformer
+import szeptunm.corner.commons.Preferences
 import szeptunm.corner.dataaccess.api.model.PlayerResponse
 import szeptunm.corner.dataaccess.api.service.PlayerService
 import szeptunm.corner.dataaccess.database.DatabaseTransaction
@@ -13,7 +15,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class PlayerRepository @Inject constructor(private var playerDao: PlayerDao,
-        private var playerService: PlayerService, private val databaseTransaction: DatabaseTransaction) {
+        private var playerService: PlayerService, val preferences:Preferences) {
 
     private val teamTransformer: SingleTransformer<List<PlayerEntity>, List<Player>> =
             SingleTransformer { upstream ->
@@ -22,11 +24,7 @@ class PlayerRepository @Inject constructor(private var playerDao: PlayerDao,
                         .toList()
             }
 
-    fun getAllPlayers(club: ClubInfo): Observable<List<Player>> {
-        return Observable.concatArray(
-                getPlayersFromDb(club.teamApiId), getPlayersFromApi(club.teamApiId)
-        )
-    }
+    fun getAllPlayers(club: ClubInfo): Observable<List<Player>> = getPlayersFromDb(club.matchTeamId)
 
     private fun getPlayersFromDb(club: Int): Observable<List<Player>> {
         return playerDao.getPlayerByClub(club)
@@ -38,31 +36,25 @@ class PlayerRepository @Inject constructor(private var playerDao: PlayerDao,
                 }
     }
 
-    private fun getPlayersFromApi(club: Int): Observable<List<Player>> {
-        return playerService.getAllPlayers(club)
-                .map {
-                    mapResponseToEntity(it, club)
+    fun getPlayersFromApi(clubInfo: ClubInfo): Completable {
+        return playerService.getAllPlayers(clubInfo.teamApiId)
+                .flatMapCompletable {
+                    mapResponseToEntity(it, clubInfo.matchTeamId)
                 }
-                .doOnSuccess {
-                    saveToDatabase(it)
-                }
-                .compose(teamTransformer)
-                .toObservable()
     }
 
-    private fun mapResponseToEntity(playerResponse: PlayerResponse, club: Int): List<PlayerEntity> {
+    private fun mapResponseToEntity(playerResponse: PlayerResponse, club: Int): Completable {
         val playerList: MutableList<PlayerEntity> = ArrayList()
         for (i in 0 until playerResponse.squad.size) {
             playerResponse.squad[i].let {
                 playerList.add(
-                        PlayerEntity(0, it.name, it.position, it.dateOfBirth, it.nationality, club,
+                        PlayerEntity(it.name, it.position, it.dateOfBirth, it.nationality, club,
                                 it.description, it.thumbUrl, it.cutOutUrl, it.weight, it.height))
             }
         }
-        return playerList
+        return saveToDatabase(playerList)
     }
 
-    private fun saveToDatabase(playerList: List<PlayerEntity>) {
-        databaseTransaction.runTransaction { playerDao.insertAllPlayers(playerList) }
-    }
+    private fun saveToDatabase(playerList: List<PlayerEntity>) =
+            Completable.fromAction { playerDao.insertAllPlayers(playerList) }
 }
