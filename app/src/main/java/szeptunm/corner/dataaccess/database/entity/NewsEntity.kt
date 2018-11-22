@@ -13,6 +13,7 @@ import androidx.room.PrimaryKey
                     onDelete = ForeignKey.CASCADE))
         ])
 data class NewsEntity constructor(
+        @PrimaryKey
         @ColumnInfo(name = "title")
         var title: String = "",
         @ColumnInfo(name = "description")
@@ -24,5 +25,4 @@ data class NewsEntity constructor(
         @ColumnInfo(name = "link")
         var link: String? = "",
         @ColumnInfo(name = "teamId")
-        @PrimaryKey
         var teamId: Int = 0)

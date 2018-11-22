@@ -3,7 +3,6 @@ package szeptunm.corner.dataaccess.repository
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.SingleTransformer
-import io.reactivex.schedulers.Schedulers
 import szeptunm.corner.dataaccess.api.model.PlayerResponse
 import szeptunm.corner.dataaccess.api.service.PlayerService
 import szeptunm.corner.dataaccess.database.DatabaseTransaction
@@ -48,7 +47,7 @@ class PlayerRepository @Inject constructor(private var playerDao: PlayerDao,
         for (i in 0 until playerResponse.squad.size) {
             playerResponse.squad[i].let {
                 playerList.add(
-                        PlayerEntity(0, it.name, it.position, it.dateOfBirth, it.nationality, club,
+                        PlayerEntity(it.name, it.position, it.dateOfBirth, it.nationality, club,
                                 it.description, it.thumbUrl, it.cutOutUrl, it.weight, it.height))
             }
         }

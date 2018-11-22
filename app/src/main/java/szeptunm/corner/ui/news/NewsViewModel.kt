@@ -8,7 +8,6 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import szeptunm.corner.commons.Constants
 import szeptunm.corner.commons.Preferences
-import szeptunm.corner.domain.news.GetNewsFromApi
 import szeptunm.corner.domain.news.GetTeamNews
 import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.entity.News
@@ -16,8 +15,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class NewsViewModel @Inject constructor(private val getTeamNews: GetTeamNews, val clubInfo: ClubInfo,
-        val preferences: Preferences,
-        private val getNewsFromApi: GetNewsFromApi) {
+        val preferences: Preferences) {
 
     private var subject: BehaviorSubject<List<NewsItem>> = BehaviorSubject.create()
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()

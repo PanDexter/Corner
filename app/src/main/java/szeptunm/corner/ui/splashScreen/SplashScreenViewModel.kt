@@ -81,9 +81,9 @@ class SplashScreenViewModel @Inject constructor(private val initializeClubInfo: 
                     initializeData.execute(it)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe({
+                            .doOnComplete {
                                 completeSubject.onNext(true)
-                            }, {Timber.e(it, "LOG EERRORS BIATCH")})
+                            }
                 }.addTo(compositeDisposable)
     }
 

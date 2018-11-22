@@ -3,12 +3,10 @@ package szeptunm.corner.dataaccess.repository
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.SingleTransformer
-import io.reactivex.schedulers.Schedulers
 import szeptunm.corner.BuildConfig
 import szeptunm.corner.dataaccess.api.model.NewsResponse
 import szeptunm.corner.dataaccess.api.pojo.Item
 import szeptunm.corner.dataaccess.api.service.NewsService
-import szeptunm.corner.dataaccess.database.DatabaseTransaction
 import szeptunm.corner.dataaccess.database.dao.NewsDao
 import szeptunm.corner.dataaccess.database.entity.NewsEntity
 import szeptunm.corner.entity.ClubInfo
@@ -17,8 +15,7 @@ import timber.log.Timber
 import java.util.ArrayList
 import javax.inject.Inject
 
-class NewsRepository @Inject constructor(private var newsDao: NewsDao, private var newsService: NewsService,
-        private val databaseTransaction: DatabaseTransaction) {
+class NewsRepository @Inject constructor(private var newsDao: NewsDao, private var newsService: NewsService) {
 
     private val newsTransformer: SingleTransformer<List<NewsEntity>, List<News>> =
             SingleTransformer { upstream ->
