@@ -14,9 +14,6 @@ import androidx.room.PrimaryKey
                     onDelete = CASCADE))
         ])
 data class PlayerEntity constructor(
-        @ColumnInfo(name = "id")
-        @PrimaryKey
-        var id: Int = 0,
         @ColumnInfo(name = "name")
         var name: String = "",
         @ColumnInfo(name = "position")
@@ -37,4 +34,9 @@ data class PlayerEntity constructor(
         var weight: String = "",
         @ColumnInfo(name = "height")
         var height: String = ""
-)
+) {
+
+    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
+}

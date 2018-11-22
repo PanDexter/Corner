@@ -7,12 +7,12 @@ import szeptunm.corner.dataaccess.database.entity.PlayerEntity
 @Parcelize
 data class Player(
         var name: String = "",
-        var position: String = "",
-        var dateOfBirth: String = "",
-        var nationality: String = "",
+        var position: String? = "",
+        var dateOfBirth: String? = "",
+        var nationality: String? = "",
         var teamId: Int? = 0,
-        var description: String = "",
-        var thumbUrl: String = "",
+        var description: String? = "",
+        var thumbUrl: String? = "",
         var cutOutUrl: String? = "",
         var weight: String? = "",
         var height: String? = "") : Parcelable {

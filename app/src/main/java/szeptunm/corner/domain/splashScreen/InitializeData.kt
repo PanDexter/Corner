@@ -27,5 +27,7 @@ class InitializeData @Inject constructor() {
                             getNewsFromApi.execute(clubInfo)
                     ).andThen(
                             getTeamFromApi.execute(clubInfo)
+                    ).andThen(
+                            getNewsFromApi.execute(clubInfo)
                     )
 }

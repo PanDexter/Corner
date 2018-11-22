@@ -7,5 +7,5 @@ import javax.inject.Inject
 
 class GetTeamFromApi @Inject constructor(private val playerRepository: PlayerRepository) {
 
-    fun execute(clubInfo: ClubInfo): Completable = playerRepository.getPlayersFromApi(clubInfo.teamApiId)
+    fun execute(clubInfo: ClubInfo): Completable = playerRepository.getPlayersFromApi(clubInfo)
 }

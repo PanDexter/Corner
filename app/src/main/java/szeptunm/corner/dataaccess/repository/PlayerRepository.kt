@@ -3,6 +3,7 @@ package szeptunm.corner.dataaccess.repository
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.SingleTransformer
+import szeptunm.corner.commons.Preferences
 import szeptunm.corner.dataaccess.api.model.PlayerResponse
 import szeptunm.corner.dataaccess.api.service.PlayerService
 import szeptunm.corner.dataaccess.database.DatabaseTransaction
@@ -14,7 +15,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class PlayerRepository @Inject constructor(private var playerDao: PlayerDao,
-        private var playerService: PlayerService, private val databaseTransaction: DatabaseTransaction) {
+        private var playerService: PlayerService, val preferences:Preferences) {
 
     private val teamTransformer: SingleTransformer<List<PlayerEntity>, List<Player>> =
             SingleTransformer { upstream ->
@@ -23,7 +24,7 @@ class PlayerRepository @Inject constructor(private var playerDao: PlayerDao,
                         .toList()
             }
 
-    fun getAllPlayers(club: ClubInfo): Observable<List<Player>> = getPlayersFromDb(club.teamApiId)
+    fun getAllPlayers(club: ClubInfo): Observable<List<Player>> = getPlayersFromDb(club.matchTeamId)
 
     private fun getPlayersFromDb(club: Int): Observable<List<Player>> {
         return playerDao.getPlayerByClub(club)
@@ -35,10 +36,10 @@ class PlayerRepository @Inject constructor(private var playerDao: PlayerDao,
                 }
     }
 
-    fun getPlayersFromApi(club: Int): Completable {
-        return playerService.getAllPlayers(club)
+    fun getPlayersFromApi(clubInfo: ClubInfo): Completable {
+        return playerService.getAllPlayers(clubInfo.teamApiId)
                 .flatMapCompletable {
-                    mapResponseToEntity(it, club)
+                    mapResponseToEntity(it, clubInfo.matchTeamId)
                 }
     }
 
