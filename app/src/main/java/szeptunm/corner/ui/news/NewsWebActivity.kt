@@ -13,6 +13,7 @@ import szeptunm.corner.domain.splashScreen.GetClubInfoByName
 import szeptunm.corner.entity.News
 import szeptunm.corner.ui.BaseActivity
 import szeptunm.corner.ui.splashScreen.GetClubInfoFromPrefs
+import timber.log.Timber
 import javax.inject.Inject
 
 class NewsWebActivity : BaseActivity() {
@@ -43,13 +44,13 @@ class NewsWebActivity : BaseActivity() {
     private fun setToolbar() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        clubName?.let {
-            getClubInfoByName.execute(it)
+        clubName?.let { clubName ->
+            getClubInfoByName.execute(clubName)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(Schedulers.computation())
-                    .subscribe { club ->
+                    .subscribe({ club ->
                         toolbar.background = ContextCompat.getDrawable(applicationContext, club.gradient)
-                    }
+                    }, { Timber.e(it, "Something went wrong during web activity") })
         }
         supportActionBar?.title = null
         toolbar.setNavigationIcon(R.drawable.ic_close_white)

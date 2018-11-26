@@ -1,7 +1,5 @@
 package szeptunm.corner.ui
 
-import android.content.IntentFilter
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -12,8 +10,6 @@ import szeptunm.corner.R
 import szeptunm.corner.R.id
 import szeptunm.corner.R.layout
 import szeptunm.corner.commons.Constants.KEY_CLUB_NAME
-import szeptunm.corner.commons.Utils
-import szeptunm.corner.commons.broadcast.ConnectivityReceiver
 import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.ui.news.NewsFragment
 import szeptunm.corner.ui.schedule.ScheduleFragment
@@ -23,11 +19,7 @@ import szeptunm.corner.ui.team.TeamFragment
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), ConnectivityReceiver.ConnectivityReceiverListener {
-
-    override fun onNetworkConnectionChanged(isConnected: Boolean) {
-        TODO("SHOW ERROR AND BLOCK UI")
-    }
+class MainActivity : BaseActivity() {
 
     companion object {
         const val DOUBLE_BACK_PRESSED_SECONDS = 2L
@@ -48,8 +40,6 @@ class MainActivity : BaseActivity(), ConnectivityReceiver.ConnectivityReceiverLi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_main)
-        registerReceiver(ConnectivityReceiver(),
-                IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
         supportFragmentManager.beginTransaction()
                 .add(R.id.fragment_placeholder, NewsFragment.newInstance(), "news")
                 .commit()

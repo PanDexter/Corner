@@ -9,6 +9,7 @@ import szeptunm.corner.R
 import szeptunm.corner.databinding.FragmentScheduleBinding
 import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.ui.BaseFragment
+import timber.log.Timber
 import javax.inject.Inject
 
 class ScheduleFragment : BaseFragment() {
@@ -51,8 +52,10 @@ class ScheduleFragment : BaseFragment() {
     }
 
     private fun subscribeToViewModel() {
-        viewModel.observeMatches().subscribe {
-            scheduleAdapter.setDataWithDiff(it)
-        }.addTo(compositeDisposable)
+        viewModel.observeMatches()
+                .subscribe({
+                    scheduleAdapter.setDataWithDiff(it)
+                }, { Timber.e(it, "Something went wrong during subscribing to schedule ViewModel") })
+                .addTo(compositeDisposable)
     }
 }

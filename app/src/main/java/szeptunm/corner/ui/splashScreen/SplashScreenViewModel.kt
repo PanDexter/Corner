@@ -20,7 +20,6 @@ import szeptunm.corner.domain.splashScreen.InitializeData
 import szeptunm.corner.domain.splashScreen.IsFirstInitialized
 import szeptunm.corner.entity.ClubInfo
 import timber.log.Timber
-import java.util.concurrent.TimeUnit.SECONDS
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -55,16 +54,15 @@ class SplashScreenViewModel @Inject constructor(private val initializeClubInfo: 
                     getClubInfoByName.execute(favouriteTeam)
                             .observeOn(Schedulers.io())
                             .subscribeOn(Schedulers.io())
-                            .delay(1, SECONDS)
                             .subscribe { it ->
                                 putInfoToPrefs(it)
                                 subject.onNext(it)
                                 initializeData.execute(it)
                                         .subscribeOn(Schedulers.io())
                                         .observeOn(AndroidSchedulers.mainThread())
-                                        .subscribe ({
-                                    completeSubject.onNext(true)
-                                }, { Timber.e(it, "LOG EERRORS BIATCH")})
+                                        .subscribe({
+                                            completeSubject.onNext(true)
+                                        }, { Timber.e(it, "Something went wrong during data initialization") })
                             }.addTo(compositeDisposable)
                 }.addTo(compositeDisposable)
     }
@@ -78,16 +76,15 @@ class SplashScreenViewModel @Inject constructor(private val initializeClubInfo: 
         getClubInfoByName.execute(name)
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
-                .delay(1, SECONDS)
                 .subscribe { it ->
                     putInfoToPrefs(it)
                     subject.onNext(it)
                     initializeData.execute(it)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe ({
+                            .subscribe({
                                 completeSubject.onNext(true)
-                            }, { Timber.e(it, "LOG EERRORS BIATCH")})
+                            }, { Timber.e(it, "Something went wrong during data initialization") })
                 }.addTo(compositeDisposable)
     }
 

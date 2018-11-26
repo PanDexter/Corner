@@ -3,6 +3,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/splash_view"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black">
 
@@ -27,12 +28,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         />
-
-    <include
-        android:id="@+id/error_message"
-        layout="@layout/error"
-        android:visibility="gone"
-        />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

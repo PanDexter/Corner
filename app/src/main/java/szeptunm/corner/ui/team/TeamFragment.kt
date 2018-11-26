@@ -8,6 +8,7 @@ import io.reactivex.rxkotlin.addTo
 import szeptunm.corner.R
 import szeptunm.corner.databinding.FragmentTeamBinding
 import szeptunm.corner.ui.BaseFragment
+import timber.log.Timber
 import javax.inject.Inject
 
 class TeamFragment : BaseFragment() {
@@ -38,13 +39,14 @@ class TeamFragment : BaseFragment() {
         binding.rvTeam.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = playerAdapter
-            //addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
     }
 
     private fun subscribeToViewModel() {
-        viewModel.observePlayers().subscribe {
-            playerAdapter.setDataWithDiff(it)
-        }.addTo(compositeDisposable)
+        viewModel.observePlayers()
+                .subscribe({
+                    playerAdapter.setDataWithDiff(it)
+                }, { Timber.e(it, "Something went wrong during subscribing to team ViewModel") })
+                .addTo(compositeDisposable)
     }
 }
