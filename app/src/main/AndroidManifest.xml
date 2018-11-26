@@ -26,18 +26,23 @@
         </activity>
         <activity
             android:name=".ui.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoTitleBar.FullScreen" />
         <activity
             android:name=".ui.news.NewsDetailActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoTitleBar.FullScreen" />
         <activity
             android:name=".ui.news.NewsWebActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoTitleBar.FullScreen" />
         <activity
             android:name=".ui.team.PlayerDetailActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoTitleBar.FullScreen" />
         <activity
             android:name=".ui.splashScreen.SplashScreenActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoTitleBar.FullScreen" />
     </application>
 

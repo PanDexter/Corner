@@ -10,6 +10,7 @@ import szeptunm.corner.R
 import szeptunm.corner.databinding.FragmentStandingBinding
 import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.ui.BaseFragment
+import timber.log.Timber
 import javax.inject.Inject
 
 class StandingFragment : BaseFragment() {
@@ -49,9 +50,11 @@ class StandingFragment : BaseFragment() {
     }
 
     private fun subscribeToViewModel() {
-        viewModel.observeStandings().subscribe {
-            standingAdapter.setData(it)
-        }.addTo(compositeDisposable)
+        viewModel.observeStandings()
+                .subscribe({
+                    standingAdapter.setData(it)
+                }, { Timber.e(it, "Something went wrong during subscribing to standing ViewModel") })
+                .addTo(compositeDisposable)
     }
 
     private fun setLogo() {

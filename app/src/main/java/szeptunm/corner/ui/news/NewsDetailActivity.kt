@@ -25,6 +25,7 @@ import szeptunm.corner.entity.News
 import szeptunm.corner.ui.BaseActivity
 import szeptunm.corner.ui.news.NewsViewHolder.Companion.KEY_NEWS
 import szeptunm.corner.ui.splashScreen.GetClubInfoFromPrefs
+import timber.log.Timber
 import javax.inject.Inject
 
 class NewsDetailActivity : BaseActivity() {
@@ -84,13 +85,13 @@ class NewsDetailActivity : BaseActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = null
-        clubName?.let {
-            getClubInfoByName.execute(it)
+        clubName?.let { clubName ->
+            getClubInfoByName.execute(clubName)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(Schedulers.computation())
-                    .subscribe { club ->
+                    .subscribe({ club ->
                         toolbar.background = ContextCompat.getDrawable(applicationContext, club.gradient)
-                    }
+                    }, { Timber.e(it, "Something went wrong during news details") })
         }
         toolbar.setNavigationIcon(R.drawable.ic_close_white)
         toolbar.title = ""
@@ -108,5 +109,4 @@ class NewsDetailActivity : BaseActivity() {
         super.onBackPressed()
         supportFinishAfterTransition()
     }
-
 }

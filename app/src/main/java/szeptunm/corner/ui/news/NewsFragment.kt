@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
 import androidx.core.content.ContextCompat
-import androidx.core.view.forEach
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -17,6 +16,7 @@ import szeptunm.corner.databinding.FragmentNewsBinding
 import szeptunm.corner.entity.ClubInfo
 import szeptunm.corner.ui.BaseFragment
 import szeptunm.corner.ui.splashScreen.SplashScreenActivity
+import timber.log.Timber
 import javax.inject.Inject
 
 class NewsFragment : BaseFragment() {
@@ -32,7 +32,6 @@ class NewsFragment : BaseFragment() {
     lateinit var clubInfo: ClubInfo
 
     private lateinit var binding: FragmentNewsBinding
-
 
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -51,9 +50,6 @@ class NewsFragment : BaseFragment() {
         binding.banner.setOnClickListener {
             val popUp = PopupMenu(context, it, 0)
             popUp.menuInflater.inflate(R.menu.popup_menu, popUp.menu)
-            popUp.menu.forEach {
-            }
-
             popUp.setOnMenuItemClickListener { menuItem ->
                 viewModel.setNewClubName(menuItem.title.toString())
                 restartApp(menuItem.title.toString())
@@ -79,9 +75,11 @@ class NewsFragment : BaseFragment() {
     }
 
     private fun subscribeToViewModel() {
-        viewModel.observeNews().subscribe {
-            newsAdapter.setDataWithDiff(it)
-        }.addTo(compositeDisposable)
+        viewModel.observeNews()
+                .subscribe({
+                    newsAdapter.setDataWithDiff(it)
+                }, { Timber.e(it, "Something went wrong during subscribing to news ViewModel") })
+                .addTo(compositeDisposable)
     }
 
     private fun restartApp(clubName: String) {
