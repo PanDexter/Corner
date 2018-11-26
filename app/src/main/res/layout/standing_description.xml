@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,11 +13,11 @@
             style="@style/Standing_description"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
-            android:text="@string/Team"
             android:gravity="center"
+            android:text="@string/Team"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@id/guideline_crest"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
@@ -25,11 +25,11 @@
             style="@style/Standing_description"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
-            android:text="@string/p"
             android:gravity="center"
+            android:text="@string/p"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@id/guideline_played"
             app:layout_constraintRight_toLeftOf="@id/guideline_won"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -37,11 +37,11 @@
             style="@style/Standing_description"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
-            android:text="@string/w"
             android:gravity="center"
+            android:text="@string/w"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@id/guideline_won"
             app:layout_constraintRight_toLeftOf="@id/guideline_drown"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -49,24 +49,24 @@
             style="@style/Standing_description"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
-            android:text="@string/d"
             android:gravity="center"
+            android:text="@string/d"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@id/guideline_drown"
             app:layout_constraintRight_toLeftOf="@id/guideline_lost"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/lost"
             style="@style/Standing_description"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
-            android:text="@string/l"
             android:gravity="center"
+            android:text="@string/l"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@id/guideline_lost"
             app:layout_constraintRight_toLeftOf="@id/guideline_lost_end"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -74,11 +74,11 @@
             style="@style/Standing_description"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
-            android:text="@string/gd"
             android:gravity="center"
+            android:text="@string/gd"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@id/guideline_lost_end"
             app:layout_constraintRight_toLeftOf="@id/guideline_difference"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -86,11 +86,11 @@
             style="@style/Standing_description"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraints"
-            android:text="@string/pts"
             android:gravity="center"
+            android:text="@string/pts"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@id/guideline_difference"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 

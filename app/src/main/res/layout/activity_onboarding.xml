@@ -13,13 +13,14 @@
             style="@style/Text.Large.Light.Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
             android:layout_marginLeft="@dimen/margin_medium"
             android:layout_marginRight="@dimen/margin_medium"
+            android:gravity="center"
             android:text="@string/choose_club"
             app:layout_constraintBottom_toTopOf="@id/btn_choose_club"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginBottom="40dp" />
+            app:layout_constraintRight_toRightOf="parent" />
 
         <Button
             android:id="@+id/btn_choose_club"

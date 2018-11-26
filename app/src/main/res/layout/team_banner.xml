@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/team_banner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/team_banner_size"
-        android:paddingBottom="@dimen/margin_tiny"
-        android:paddingLeft="@dimen/margin_general"
-        android:paddingRight="@dimen/margin_general"
-        android:paddingTop="@dimen/margin_tiny"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/team_banner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/fc_barcelona_gradient"
-        >
-        <TextView
-            android:id="@+id/team_name"
-            android:layout_width="@dimen/match_constraints"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/team_photo"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textSize="@dimen/team_banner_text"
-            android:fontFamily="@font/raleway"
-            android:textColor="@color/white"
-            tools:text="FC BARCELONA"/>
+    android:minHeight="@dimen/team_banner_size"
+    android:paddingBottom="@dimen/margin_tiny"
+    android:paddingLeft="@dimen/margin_general"
+    android:paddingRight="@dimen/margin_general"
+    android:paddingTop="@dimen/margin_tiny">
+
+    <TextView
+        android:id="@+id/team_name"
+        android:layout_width="@dimen/match_constraints"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:fontFamily="@font/raleway"
+        android:textColor="@color/white"
+        android:textSize="@dimen/team_banner_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/team_photo"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="FC BARCELONA" />
 
 
-        <ImageView
-            android:id="@+id/team_photo"
-            android:layout_width="@dimen/team_banner_photo"
-            android:layout_height="@dimen/team_banner_photo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/team_name"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/fc_barcelona_badge" />
+    <ImageView
+        android:id="@+id/team_photo"
+        android:layout_width="@dimen/team_banner_photo"
+        android:layout_height="@dimen/team_banner_photo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/team_name"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/fc_barcelona_badge" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 

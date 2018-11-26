@@ -2,6 +2,7 @@ package szeptunm.corner.ui.news
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.webkit.WebViewClient
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -36,8 +37,12 @@ class NewsWebActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.news_web)
         val news = intent.getParcelableExtra(NewsViewHolder.KEY_NEWS) as News
-        binding.webView.webViewClient = WebViewClient()
-        binding.webView.loadUrl(news.link)
+        binding.webView.apply {
+            webViewClient = WebViewClient()
+            settings.javaScriptEnabled = true
+            requestFocus(View.FOCUS_DOWN)
+            loadUrl(news.link)
+        }
         setToolbar()
     }
 
