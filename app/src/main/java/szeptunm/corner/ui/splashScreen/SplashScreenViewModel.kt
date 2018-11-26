@@ -1,5 +1,7 @@
 package szeptunm.corner.ui.splashScreen
 
+import android.content.Context
+import android.net.ConnectivityManager
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -10,6 +12,7 @@ import szeptunm.corner.commons.Constants.KEY_CLUB_FAVOURITE
 import szeptunm.corner.commons.Constants.KEY_CLUB_ID
 import szeptunm.corner.commons.Constants.KEY_CLUB_NAME
 import szeptunm.corner.commons.Preferences
+import szeptunm.corner.di.AppContext
 import szeptunm.corner.domain.splashScreen.GetClubInfoByName
 import szeptunm.corner.domain.splashScreen.GetFavouriteTeam
 import szeptunm.corner.domain.splashScreen.InitializeClubInfo
@@ -25,6 +28,7 @@ class SplashScreenViewModel @Inject constructor(private val initializeClubInfo: 
         private val initializeData: InitializeData, private val getClubInfoByName: GetClubInfoByName,
         private val preferences: Preferences, private val isFirstInitialized: IsFirstInitialized,
         private val getFavouriteTeam: GetFavouriteTeam, private val getClubInfoFromPrefs: GetClubInfoFromPrefs,
+        @AppContext private val context: Context,
         @Named("favourite") val favouriteTeam: String) {
 
     private var subject: BehaviorSubject<ClubInfo> = BehaviorSubject.create()
@@ -90,5 +94,11 @@ class SplashScreenViewModel @Inject constructor(private val initializeClubInfo: 
     private fun putInfoToPrefs(clubInfo: ClubInfo) {
         preferences.putPreferenceString(KEY_CLUB_NAME, clubInfo.name)
         preferences.putPreferenceInt(KEY_CLUB_ID, clubInfo.matchTeamId)
+    }
+
+    fun isOnline(): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = cm.activeNetworkInfo
+        return netInfo != null && netInfo.isConnectedOrConnecting
     }
 }

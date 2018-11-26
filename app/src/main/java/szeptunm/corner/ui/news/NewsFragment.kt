@@ -33,7 +33,6 @@ class NewsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentNewsBinding
 
-
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     companion object {
@@ -51,9 +50,6 @@ class NewsFragment : BaseFragment() {
         binding.banner.setOnClickListener {
             val popUp = PopupMenu(context, it, 0)
             popUp.menuInflater.inflate(R.menu.popup_menu, popUp.menu)
-            popUp.menu.forEach {
-            }
-
             popUp.setOnMenuItemClickListener { menuItem ->
                 viewModel.setNewClubName(menuItem.title.toString())
                 restartApp(menuItem.title.toString())
@@ -79,9 +75,12 @@ class NewsFragment : BaseFragment() {
     }
 
     private fun subscribeToViewModel() {
-        viewModel.observeNews().subscribe {
-            newsAdapter.setDataWithDiff(it)
-        }.addTo(compositeDisposable)
+        viewModel.observeNews()
+                .doOnError {
+                }
+                .subscribe {
+                    newsAdapter.setDataWithDiff(it)
+                }.addTo(compositeDisposable)
     }
 
     private fun restartApp(clubName: String) {
