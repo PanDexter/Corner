@@ -14,19 +14,18 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.schedulers.Schedulers
 import szeptunm.corner.R
 import szeptunm.corner.databinding.PlayerDetailBinding
 import szeptunm.corner.domain.splashScreen.GetClubInfoByName
 import szeptunm.corner.entity.Player
-import szeptunm.corner.ui.BaseActivity
 import szeptunm.corner.ui.splashScreen.GetClubInfoFromPrefs
 import szeptunm.corner.ui.team.PlayerViewHolder.Companion.KEY_PLAYER
 import javax.inject.Inject
 
-class PlayerDetailActivity : BaseActivity() {
-    override val layoutResource: Int
-        get() = R.layout.player_detail
+class PlayerDetailActivity : DaggerAppCompatActivity() {
+
 
     @Inject
     lateinit var getClubInfoFromPrefs: GetClubInfoFromPrefs
@@ -113,7 +112,6 @@ class PlayerDetailActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         supportFinishAfterTransition()
     }
 }
