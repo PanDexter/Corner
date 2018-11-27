@@ -11,10 +11,10 @@ import szeptunm.corner.dataaccess.database.entity.TeamEntity
 interface TeamDao {
 
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTeam(team: TeamEntity)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllTeams(teamList: List<TeamEntity>)
 
     @Query("SELECT * FROM team")
