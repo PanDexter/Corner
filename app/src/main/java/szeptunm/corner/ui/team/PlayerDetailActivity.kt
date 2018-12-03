@@ -84,7 +84,7 @@ class PlayerDetailActivity : DaggerAppCompatActivity() {
             dateOfBirth.text = player.dateOfBirth
             description.text = player.description
             position.text = player.position
-            sizesInfo.text = player.height + "/" + player.weight
+            sizesInfo.text = convertHeight(player.height) + " / " + convertWeight(player.weight)
         }
     }
 
@@ -102,6 +102,21 @@ class PlayerDetailActivity : DaggerAppCompatActivity() {
         supportActionBar?.title = null
         toolbar.setNavigationIcon(R.drawable.ic_close_white)
     }
+
+    private fun convertHeight(height: String?): String =
+            if (height == null || height == "0") {
+                "-"
+            } else when {
+                !height.contains("ft") -> height
+                else -> "1." + height.split("1.")[1].take(2)
+            }
+
+    private fun convertWeight(weight: String?): String =
+            if (weight == null || weight == "0") {
+                "-"
+            } else {
+                weight
+            }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {

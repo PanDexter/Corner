@@ -33,8 +33,8 @@ class ServiceModule {
     @Named("news")
     fun createHttpClientNews(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
-                .connectTimeout(20, SECONDS)
-                .readTimeout(20, SECONDS)
+                .connectTimeout(10, SECONDS)
+                .readTimeout(10, SECONDS)
                 .addInterceptor(loggingInterceptor)
                 .build()
     }
@@ -55,8 +55,8 @@ class ServiceModule {
     @Named("standing")
     fun createHttpClientStanding(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
-                .connectTimeout(20, SECONDS)
-                .readTimeout(20, SECONDS)
+                .connectTimeout(10, SECONDS)
+                .readTimeout(10, SECONDS)
                 .addInterceptor(loggingInterceptor)
                 .build()
     }
@@ -66,8 +66,8 @@ class ServiceModule {
     @Named("match")
     fun createHttpClientMatch(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
-                .connectTimeout(20, SECONDS)
-                .readTimeout(20, SECONDS)
+                .connectTimeout(10, SECONDS)
+                .readTimeout(10, SECONDS)
                 .addInterceptor(loggingInterceptor)
                 .build()
     }

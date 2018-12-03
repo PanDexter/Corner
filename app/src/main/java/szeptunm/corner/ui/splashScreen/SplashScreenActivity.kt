@@ -56,9 +56,6 @@ class SplashScreenActivity @Inject constructor() : BaseActivity() {
         viewModel.init(isDuringFlow)
         val intent = Intent(this, MainActivity::class.java)
         viewModel.observeClubInfo()
-                .doOnError {
-                    showSnackbar("There is problem with API, try again later")
-                }
                 .subscribe {
                     val bundle = Bundle().apply {
                         putParcelable(KEY_CLUB_NAME, it)
