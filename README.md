@@ -91,6 +91,6 @@ in **build.gradle**
 
 * **Marcin Szeptun** - [Linkedin](https://www.linkedin.com/in/marcin-szeptun-b3527212a/)
 
-## Licence
+## License
 
 This project is licensed under the GNU GPLv3 License - see the [LICENSE](LICENSE) file for details
