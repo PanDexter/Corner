@@ -91,4 +91,4 @@ in **build.gradle**
 
 ## Licence
 
-This project is licensed under the GNU GPLv3 License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the GNU GPLv3 License - see the [LICENSE](LICENSE) file for details
