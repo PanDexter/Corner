@@ -31,6 +31,8 @@ Use cases covered:
 * team switching
 * setting favourite team (it is shown on every app start)
 
+**App is written in MVVM pattern using Android Clean Architecture pattern.**
+
 ## Tech stack
 
 * Kotlin
