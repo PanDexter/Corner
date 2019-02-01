@@ -4,11 +4,9 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.SingleTransformer
-import io.reactivex.schedulers.Schedulers
 import szeptunm.corner.BuildConfig
 import szeptunm.corner.dataaccess.api.model.MatchResponse
 import szeptunm.corner.dataaccess.api.service.MatchService
-import szeptunm.corner.dataaccess.database.DatabaseTransaction
 import szeptunm.corner.dataaccess.database.dao.CompetitionDao
 import szeptunm.corner.dataaccess.database.dao.MatchDao
 import szeptunm.corner.dataaccess.database.dao.TeamDao
@@ -24,7 +22,7 @@ import javax.inject.Inject
 
 class MatchRepository @Inject constructor(
         private var matchDao: MatchDao, private var teamDao: TeamDao, private var competitionDao: CompetitionDao,
-        private var databaseTransaction: DatabaseTransaction, private var matchService: MatchService) {
+        private var matchService: MatchService) {
 
 
     private val matchTransformer: SingleTransformer<List<MatchEntity>, List<Match>> =
@@ -34,26 +32,22 @@ class MatchRepository @Inject constructor(
                         .toList()
             }
 
-    fun getAllMatches(clubInfo: ClubInfo): Observable<List<Match>> {
-        return getMatchesFromDb(clubInfo)
-    }
+    fun getAllMatches(clubInfo: ClubInfo): Observable<List<Match>> = getMatchesFromDb(clubInfo)
 
-    private fun getMatchesFromDb(clubInfo: ClubInfo): Observable<List<Match>> {
-        return matchDao.getMatchByTeamId(clubInfo.matchTeamId)
-                .compose(matchTransformer)
-                .filter { it.isNotEmpty() }
-                .toObservable()
-                .doOnNext {
-                    Timber.d("Dispatching ${it.size} news from DB...")
-                }
-    }
+    private fun getMatchesFromDb(clubInfo: ClubInfo): Observable<List<Match>> =
+            matchDao.getMatchByTeamId(clubInfo.matchTeamId)
+                    .compose(matchTransformer)
+                    .filter { it.isNotEmpty() }
+                    .toObservable()
+                    .doOnNext {
+                        Timber.d("Dispatching ${it.size} news from DB...")
+                    }
 
-    fun getMatchesFromApi(clubInfo: ClubInfo): Completable {
-        return matchService.getAllMatches(BuildConfig.MATCH_KEY, clubInfo.matchTeamId)
-                .flatMapCompletable { matchResponse ->
-                    mapMatchToEntities(matchResponse)
-                }
-    }
+    fun getMatchesFromApi(clubInfo: ClubInfo): Completable =
+            matchService.getAllMatches(BuildConfig.MATCH_KEY, clubInfo.matchTeamId)
+                    .flatMapCompletable { matchResponse ->
+                        mapMatchToEntities(matchResponse)
+                    }
 
     private fun mapMatchToEntities(matchResponse: MatchResponse): Completable {
         val teamList: MutableList<TeamEntity> = ArrayList()
@@ -82,13 +76,12 @@ class MatchRepository @Inject constructor(
     }
 
     private fun saveToDatabase(teamList: List<TeamEntity>,
-            competitionList: List<CompetitionEntity>, matchList: List<MatchEntity>): Completable {
-        return Completable.fromAction {
-            teamDao.insertAllTeams(teamList)
-            competitionDao.insertAllCompetitions(competitionList)
-            matchDao.insertAllMatches(matchList)
-        }
-    }
+            competitionList: List<CompetitionEntity>, matchList: List<MatchEntity>): Completable =
+            Completable.fromAction {
+                teamDao.insertAllTeams(teamList)
+                competitionDao.insertAllCompetitions(competitionList)
+                matchDao.insertAllMatches(matchList)
+            }
 
     fun getTeamById(id: Int): Single<Team> =
             teamDao.getTeamById(id)

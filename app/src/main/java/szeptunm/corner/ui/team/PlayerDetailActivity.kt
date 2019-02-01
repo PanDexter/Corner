@@ -104,7 +104,7 @@ class PlayerDetailActivity : DaggerAppCompatActivity() {
     }
 
     private fun convertHeight(height: String?): String =
-            if (height == null || height == "0") {
+            if (height == null || height == "0" || height == " ") {
                 "-"
             } else when {
                 !height.contains("ft") -> height
@@ -112,7 +112,7 @@ class PlayerDetailActivity : DaggerAppCompatActivity() {
             }
 
     private fun convertWeight(weight: String?): String =
-            if (weight == null || weight == "0") {
+            if (weight == null || weight == "0" || weight == "") {
                 "-"
             } else {
                 weight

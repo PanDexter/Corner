@@ -64,36 +64,36 @@ class ScheduleViewModel @Inject constructor(private val getTeamMatches: GetTeamM
     }
 
     private fun convertIntoItem(match: Match, homeTeam: Team, awayTeam: Team,
-            competitionName: Competition): MatchItem {
-        if (match.homeTeamGoalFull == null) {
-            return MatchItem(MATCH_FUTURE, MatchSchedule(
-                    homeTeamGoalFull = match.homeTeamGoalFull,
-                    awayTeamGoalFull = match.awayTeamGoalFull,
-                    homeTeamGoalExtra = match.homeTeamGoalExtra,
-                    awayTeamGoalExtra = match.awayTeamGoalExtra,
-                    homePenalties = match.homePenalties,
-                    awayPenalties = match.awayPenalties,
-                    homeTeam = homeTeam.name,
-                    awayTeam = awayTeam.name,
-                    homeTeamId = match.homeTeam,
-                    awayTeamId = match.awayTeam,
-                    date = match.date,
-                    competition = competitionName.name))
-        } else {
-            return MatchItem(MATCH_PAST, MatchSchedule(
-                    homeTeamGoalFull = match.homeTeamGoalFull,
-                    awayTeamGoalFull = match.awayTeamGoalFull,
-                    homeTeamGoalExtra = match.homeTeamGoalExtra,
-                    awayTeamGoalExtra = match.awayTeamGoalExtra,
-                    homePenalties = match.homePenalties,
-                    awayPenalties = match.awayPenalties,
-                    homeTeam = homeTeam.name,
-                    awayTeam = awayTeam.name,
-                    homeTeamId = match.homeTeam,
-                    awayTeamId = match.awayTeam,
-                    date = match.date,
-                    competition = competitionName.name
-            ))
-        }
-    }
+            competitionName: Competition): MatchItem =
+            when {
+                match.homeTeamGoalFull == null ->
+                    MatchItem(MATCH_FUTURE, MatchSchedule(
+                            homeTeamGoalFull = match.homeTeamGoalFull,
+                            awayTeamGoalFull = match.awayTeamGoalFull,
+                            homeTeamGoalExtra = match.homeTeamGoalExtra,
+                            awayTeamGoalExtra = match.awayTeamGoalExtra,
+                            homePenalties = match.homePenalties,
+                            awayPenalties = match.awayPenalties,
+                            homeTeam = homeTeam.name,
+                            awayTeam = awayTeam.name,
+                            homeTeamId = match.homeTeam,
+                            awayTeamId = match.awayTeam,
+                            date = match.date,
+                            competition = competitionName.name))
+                else ->
+                    MatchItem(MATCH_PAST, MatchSchedule(
+                            homeTeamGoalFull = match.homeTeamGoalFull,
+                            awayTeamGoalFull = match.awayTeamGoalFull,
+                            homeTeamGoalExtra = match.homeTeamGoalExtra,
+                            awayTeamGoalExtra = match.awayTeamGoalExtra,
+                            homePenalties = match.homePenalties,
+                            awayPenalties = match.awayPenalties,
+                            homeTeam = homeTeam.name,
+                            awayTeam = awayTeam.name,
+                            homeTeamId = match.homeTeam,
+                            awayTeamId = match.awayTeam,
+                            date = match.date,
+                            competition = competitionName.name
+                    ))
+            }
 }

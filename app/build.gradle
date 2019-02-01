@@ -13,31 +13,18 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField 'String', 'NEWS_API_HTTP_URL', '"https://api.rss2json.com/v1/"'
+        buildConfigField 'String', 'TEAM_API_HTTP_URL', '"https://www.thesportsdb.com/"'
+        buildConfigField 'String', 'MATCH_API_HTTP_URL', '"http://api.football-data.org/"'
+        buildConfigField 'String', 'NEWS_KEY', '"XXX"'
+        buildConfigField 'String', 'MATCH_KEY', '"XXX"'
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
-            buildConfigField 'String', 'NEWS_API_HTTP_URL', '"https://api.rss2json.com/v1/"'
-            buildConfigField 'String', 'TEAM_API_HTTP_URL', '"https://www.thesportsdb.com/"'
-            buildConfigField 'String', 'STATISTIC_API_HTTP_URL', '"https://api-football-v1.p.mashape.com"'
-            buildConfigField 'String', 'MATCH_API_HTTP_URL', '"http://api.football-data.org/"'
-            buildConfigField 'String', 'NEWS_KEY', '"ce3kivoilvuyhvgkbguh6f2kvmp54f0tctumwwrz"'
-            buildConfigField 'String', "TEAM_KEY", '""'
-            buildConfigField 'String', 'STATISTIC_KEY', '""'
-            buildConfigField 'String', 'MATCH_KEY', '"daa382bf695f4470b196fa4dff10fdfa"'
         }
         debug {
-
-            buildConfigField 'String', 'NEWS_API_HTTP_URL', '"https://api.rss2json.com/"'
-            buildConfigField 'String', 'TEAM_API_HTTP_URL', '"https://www.thesportsdb.com/api/v1/json/1/"'
-            buildConfigField 'String', 'STATISTIC_API_HTTP_URL', '"https://api-football-v1.p.mashape.com"'
-            buildConfigField 'String', 'MATCH_API_HTTP_URL', '"http://api.football-data.org/"'
-            buildConfigField 'String', 'NEWS_KEY', '"ce3kivoilvuyhvgkbguh6f2kvmp54f0tctumwwrz"'
-            buildConfigField 'String', 'TEAM_KEY', '""'
-            buildConfigField 'String', 'STATISTIC_KEY', '""'
-            buildConfigField 'String', 'MATCH_KEY', '"daa382bf695f4470b196fa4dff10fdfa"'
         }
 
     }

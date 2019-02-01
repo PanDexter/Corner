@@ -6,7 +6,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority.LOW
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-import io.reactivex.subjects.PublishSubject
 import szeptunm.corner.R
 import szeptunm.corner.commons.Constants.DATE_FORMAT
 import szeptunm.corner.commons.Constants.KEY_CLUB_ID
@@ -17,7 +16,7 @@ import szeptunm.corner.ui.recycler.BindingViewHolder
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class MatchPastViewHolder(binding: MatchItemBinding, val itemObserver: PublishSubject<Int>) :
+class MatchPastViewHolder(binding: MatchItemBinding) :
         BindingViewHolder<MatchItem, MatchItemBinding>(binding) {
 
     lateinit var item: MatchItem
@@ -54,24 +53,25 @@ class MatchPastViewHolder(binding: MatchItemBinding, val itemObserver: PublishSu
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .dontTransform()
                 .priority(LOW)
-        if (item.match.homeTeamId == clubId) {
-            when {
-                homeScore > awayScore -> Glide.with(itemView).load(
-                        ContextCompat.getDrawable(context, R.drawable.win)).apply(requestOptions).into(
-                        binding.teamScore)
-                homeScore < awayScore -> Glide.with(itemView).load(
-                        ContextCompat.getDrawable(context, R.drawable.lost)).apply(requestOptions).into(
-                        binding.teamScore)
-            }
-        } else {
-            when {
-                homeScore > awayScore -> Glide.with(itemView).load(
-                        ContextCompat.getDrawable(context, R.drawable.lost)).apply(requestOptions).into(
-                        binding.teamScore)
-                homeScore < awayScore -> Glide.with(itemView).load(
-                        ContextCompat.getDrawable(context, R.drawable.win)).apply(requestOptions).into(
-                        binding.teamScore)
-            }
+        when (clubId) {
+            item.match.homeTeamId ->
+                when {
+                    homeScore > awayScore -> Glide.with(itemView).load(
+                            ContextCompat.getDrawable(context, R.drawable.win)).apply(requestOptions).into(
+                            binding.teamScore)
+                    homeScore < awayScore -> Glide.with(itemView).load(
+                            ContextCompat.getDrawable(context, R.drawable.lost)).apply(requestOptions).into(
+                            binding.teamScore)
+                }
+            else ->
+                when {
+                    homeScore > awayScore -> Glide.with(itemView).load(
+                            ContextCompat.getDrawable(context, R.drawable.lost)).apply(requestOptions).into(
+                            binding.teamScore)
+                    homeScore < awayScore -> Glide.with(itemView).load(
+                            ContextCompat.getDrawable(context, R.drawable.win)).apply(requestOptions).into(
+                            binding.teamScore)
+                }
         }
         if (homeScore == awayScore) {
             Glide.with(itemView).load(ContextCompat.getDrawable(context, R.drawable.draw)).apply(
@@ -83,7 +83,7 @@ class MatchPastViewHolder(binding: MatchItemBinding, val itemObserver: PublishSu
             SimpleDateFormat("dd/MM", Locale.getDefault()).format(DATE_FORMAT.parse(date))
 }
 
-class MatchFutureViewHolder(binding: MatchNextBinding, val itemObserver: PublishSubject<Int>) :
+class MatchFutureViewHolder(binding: MatchNextBinding) :
         BindingViewHolder<MatchItem, MatchNextBinding>(binding) {
 
     lateinit var item: MatchItem

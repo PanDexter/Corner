@@ -28,27 +28,34 @@ class OnboardingActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_onboarding)
-        if (!isFirstInitialized.isInitialized) {
-            binding = DataBindingUtil.setContentView(this, R.layout.activity_onboarding)
-            binding.btnChooseClub.setOnClickListener {
-                val popUp = PopupMenu(this, it, 0)
-                popUp.menuInflater.inflate(R.menu.popup_menu, popUp.menu)
-                popUp.setOnMenuItemClickListener { menuItem ->
-                    val intent = Intent(this, SplashScreenActivity::class.java)
-                    val bundle = Bundle().apply {
-                        putString(Constants.KEY_CLUB_FAVOURITE, menuItem.title.toString())
-                    }
-                    intent.putExtras(bundle)
-                    startActivity(intent)
-                    finish()
-                    true
-                }
-                popUp.show()
-
-            }
-        } else {
-            startActivity(Intent(this, SplashScreenActivity::class.java))
-            finish()
+        when {
+            !isFirstInitialized.isInitialized -> showOnboarding()
+            else -> startApp()
         }
     }
+
+    private fun showOnboarding() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_onboarding)
+        binding.btnChooseClub.setOnClickListener {
+            val popUp = PopupMenu(this, it, 0)
+            popUp.menuInflater.inflate(R.menu.popup_menu, popUp.menu)
+            popUp.setOnMenuItemClickListener { menuItem ->
+                val intent = Intent(this, SplashScreenActivity::class.java)
+                val bundle = Bundle().apply {
+                    putString(Constants.KEY_CLUB_FAVOURITE, menuItem.title.toString())
+                }
+                intent.putExtras(bundle)
+                startActivity(intent)
+                finish()
+                true
+            }
+            popUp.show()
+        }
+    }
+
+    private fun startApp() {
+        startActivity(Intent(this, SplashScreenActivity::class.java))
+        finish()
+    }
+
 }

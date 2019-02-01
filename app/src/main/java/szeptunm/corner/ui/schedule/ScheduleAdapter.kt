@@ -3,7 +3,6 @@ package szeptunm.corner.ui.schedule
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import io.reactivex.subjects.PublishSubject
 import szeptunm.corner.databinding.MatchItemBinding
 import szeptunm.corner.databinding.MatchNextBinding
 import szeptunm.corner.ui.recycler.ViewHolder
@@ -14,7 +13,6 @@ import javax.inject.Inject
 class ScheduleAdapter @Inject constructor() : RecyclerView.Adapter<ViewHolder<MatchItem>>() {
 
     var items: List<MatchItem> = ArrayList()
-    private var onItemSelected: PublishSubject<Int> = PublishSubject.create()
 
     private fun getViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<*> {
         val inflater = LayoutInflater.from(parent.context)
@@ -31,12 +29,12 @@ class ScheduleAdapter @Inject constructor() : RecyclerView.Adapter<ViewHolder<Ma
 
     private fun getMatchPastViewHolder(inflater: LayoutInflater, parent: ViewGroup): MatchPastViewHolder {
         val binding = MatchItemBinding.inflate(inflater, parent, false)
-        return MatchPastViewHolder(binding, onItemSelected)
+        return MatchPastViewHolder(binding)
     }
 
     private fun getMatchFutureViewHolder(inflater: LayoutInflater, parent: ViewGroup): MatchFutureViewHolder {
         val binding = MatchNextBinding.inflate(inflater, parent, false)
-        return MatchFutureViewHolder(binding, onItemSelected)
+        return MatchFutureViewHolder(binding)
     }
 
     @MatchItem.Type

@@ -4,14 +4,12 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.SingleTransformer
 import szeptunm.corner.R
-import szeptunm.corner.dataaccess.database.DatabaseTransaction
 import szeptunm.corner.dataaccess.database.dao.ClubInfoDao
 import szeptunm.corner.dataaccess.database.entity.ClubInfoEntity
 import szeptunm.corner.entity.ClubInfo
 import javax.inject.Inject
 
-class ClubInfoRepository @Inject constructor(private var clubInfoDao: ClubInfoDao,
-        private val databaseTransaction: DatabaseTransaction) {
+class ClubInfoRepository @Inject constructor(private var clubInfoDao: ClubInfoDao) {
 
 
     private val clubInfoTransformer: SingleTransformer<List<ClubInfoEntity>, List<ClubInfo>> =
@@ -30,7 +28,7 @@ class ClubInfoRepository @Inject constructor(private var clubInfoDao: ClubInfoDa
                     .map { ClubInfo(it) }
 
     fun saveClubInfoToDatabase(): Completable =
-            databaseTransaction.runTransaction {
+            Completable.fromAction {
                 clubInfoDao.insertAllClubInfo(prepareClubList())
             }
 

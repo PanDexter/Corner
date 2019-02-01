@@ -6,15 +6,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority.LOW
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-import io.reactivex.subjects.PublishSubject
 import szeptunm.corner.R
 import szeptunm.corner.databinding.PlayerItemBinding
 import szeptunm.corner.domain.splashScreen.GetClubInfoByName
 import szeptunm.corner.ui.recycler.BindingViewHolder
 import javax.inject.Inject
 
-class PlayerViewHolder @Inject constructor(binding: PlayerItemBinding, val itemObserver: PublishSubject<Int>,
-        val fragment: TeamFragment, val getClubInfoByName: GetClubInfoByName) :
+class PlayerViewHolder @Inject constructor(binding: PlayerItemBinding, val fragment: TeamFragment,
+        val getClubInfoByName: GetClubInfoByName) :
         BindingViewHolder<PlayerItem, PlayerItemBinding>(binding) {
 
     companion object {

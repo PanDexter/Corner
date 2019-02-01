@@ -6,7 +6,6 @@ import io.reactivex.SingleTransformer
 import szeptunm.corner.commons.Preferences
 import szeptunm.corner.dataaccess.api.model.PlayerResponse
 import szeptunm.corner.dataaccess.api.service.PlayerService
-import szeptunm.corner.dataaccess.database.DatabaseTransaction
 import szeptunm.corner.dataaccess.database.dao.PlayerDao
 import szeptunm.corner.dataaccess.database.entity.PlayerEntity
 import szeptunm.corner.entity.ClubInfo
@@ -15,7 +14,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class PlayerRepository @Inject constructor(private var playerDao: PlayerDao,
-        private var playerService: PlayerService, val preferences:Preferences) {
+        private var playerService: PlayerService, val preferences: Preferences) {
 
     private val teamTransformer: SingleTransformer<List<PlayerEntity>, List<Player>> =
             SingleTransformer { upstream ->
@@ -26,22 +25,20 @@ class PlayerRepository @Inject constructor(private var playerDao: PlayerDao,
 
     fun getAllPlayers(club: ClubInfo): Observable<List<Player>> = getPlayersFromDb(club.matchTeamId)
 
-    private fun getPlayersFromDb(club: Int): Observable<List<Player>> {
-        return playerDao.getPlayerByClub(club)
-                .compose(teamTransformer)
-                .filter { it.isNotEmpty() }
-                .toObservable()
-                .doOnNext {
-                    Timber.d("Dispatching ${it.size} news from DB...")
-                }
-    }
+    private fun getPlayersFromDb(club: Int): Observable<List<Player>> =
+            playerDao.getPlayerByClub(club)
+                    .compose(teamTransformer)
+                    .filter { it.isNotEmpty() }
+                    .toObservable()
+                    .doOnNext {
+                        Timber.d("Dispatching ${it.size} news from DB...")
+                    }
 
-    fun getPlayersFromApi(clubInfo: ClubInfo): Completable {
-        return playerService.getAllPlayers(clubInfo.teamApiId)
-                .flatMapCompletable {
-                    mapResponseToEntity(it, clubInfo.matchTeamId)
-                }
-    }
+    fun getPlayersFromApi(clubInfo: ClubInfo): Completable =
+            playerService.getAllPlayers(clubInfo.teamApiId)
+                    .flatMapCompletable {
+                        mapResponseToEntity(it, clubInfo.matchTeamId)
+                    }
 
     private fun mapResponseToEntity(playerResponse: PlayerResponse, club: Int): Completable {
         val playerList: MutableList<PlayerEntity> = ArrayList()

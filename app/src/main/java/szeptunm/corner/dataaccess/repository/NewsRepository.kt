@@ -26,24 +26,21 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
 
     fun getAllNews(clubInfo: ClubInfo): Observable<List<News>> = getNewsFromDb(clubInfo)
 
-    fun getNewsFromDb(clubInfo: ClubInfo): Observable<List<News>> {
-        return newsDao.getNewsByTeamId(clubInfo.matchTeamId)
-                .compose(newsTransformer)
-                .filter { it.isNotEmpty() }
-                .toObservable()
-                .doOnNext {
-                    Timber.d("Dispatching ${it.size} news from DB...")
-                }
-    }
+    private fun getNewsFromDb(clubInfo: ClubInfo): Observable<List<News>> = newsDao.getNewsByTeamId(
+            clubInfo.matchTeamId)
+            .compose(newsTransformer)
+            .filter { it.isNotEmpty() }
+            .toObservable()
+            .doOnNext {
+                Timber.d("Dispatching ${it.size} news from DB...")
+            }
 
-    fun getNewsFromApi(clubInfo: ClubInfo): Completable {
-        return newsService.getAllNews(clubInfo.newsUrl,
-                BuildConfig.NEWS_KEY)
-                .retry(3)
-                .flatMapCompletable {
-                    mapResponseToEntity(it, clubInfo)
-                }
-    }
+    fun getNewsFromApi(clubInfo: ClubInfo): Completable = newsService.getAllNews(clubInfo.newsUrl,
+            BuildConfig.NEWS_KEY)
+            .retry(3)
+            .flatMapCompletable {
+                mapResponseToEntity(it, clubInfo)
+            }
 
     private fun mapResponseToEntity(newsResponse: NewsResponse, clubInfo: ClubInfo): Completable {
         val newsList: MutableList<NewsEntity> = ArrayList()
@@ -60,12 +57,10 @@ class NewsRepository @Inject constructor(private var newsDao: NewsDao, private v
     private fun saveToDatabase(newsList: List<NewsEntity>): Completable =
             Completable.fromAction { newsDao.insertAllNews(newsList) }
 
-    private fun changeDescription(item: Item): String {
-        if (item.enclosure.imageURL != null) {
-            val first = item.description.split('>')
-            return first[1]
-        }
-        return ""
-    }
+    private fun changeDescription(item: Item): String =
+            if (item.enclosure.imageURL != null) {
+                val first = item.description.split('>')
+                first[1]
+            } else ""
 }
 
