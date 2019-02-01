@@ -2,9 +2,21 @@
 
 ## General information
 Corner is Android app for football fans created for Engineer Thesis and learning purpose.
-App is working and could be used but it has limited API calls so it's not published on Play Store
+App is working and could be used but it has limited API calls so it's not published on Play Store.
 
-### Running app
+## Tech stack
+
+* Kotlin
+* RxJava
+* Dagger2
+* Glide
+* Room
+* DataBinding
+* CircleImageView
+* JUnit
+* Mockito
+
+## Running app
 
 To run the app you have to download repository and build APK in Android Studio. However there is no keys for both API used in app.
 If you want to get it just register on:
